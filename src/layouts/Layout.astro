@@ -1,23 +1,231 @@
+---
+import Header from "../components/Header.astro";
+import { describe } from "astro:schema";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Clear & Glowing is a student-founded community bringing together skincare education, wellness, confidence, and opportunity.",
+} = Astro.props;
+
+// Set a unique page title for SEO
+const pageTitle = title
+  ? "${title} | Clear & Glowing"
+  : "Clear & Glowing | Skincare Education, Confidence & Community";
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <!-- Basic Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Clear & Glowing" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+
+    <!-- Browser Theme -->
+    <meta name="theme-color" content="#BB0000" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Keyboard Accessibility -->
+    <a class="skip-link" href="#main-content"> Skip to main content </a>
+
+    <Header />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <!-- Footer will be added here -->
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+	/*
+	================================================
+	BRAND VARIABLES
+	================================================
+	*/
+  :root {
+    /* Colors */
+    --color-primary: #BB0000;
+    --color-white: #FFFFFF;
+    --color-background: #FFFFFF;
+    --color-surface: #F5F5F5;
+    --color-text: #333333;
+    --color-heading: #111111;
+    --color-accent: #C5AA81;
+
+    /* Typography */
+    --font-primary: "montserrat", Arial, sans-serif;
+
+    /* Layout */
+    --max-content-width: 1200px;
+  }
+
+  /*
+	================================================
+	GLOBAL RESET
+	================================================
+	*/
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin 0;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+
+    color: var(--color-text);
+    background-color: var(--color-background);
+  }
+
+  /*
+	================================================
+	TYPOGRAPHY
+	================================================
+	*/
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-heading);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+  }
+
+  p {
+    overflow-wrap: break-word;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
+
+  /*
+	================================================
+	MEDIA
+	================================================
+	*/
+
+  img, picture, video, svg {
+    max-width: 100%;
+  }
+
+  img, video {
+    display: block;
+  }
+
+  /*
+	================================================
+	LAYOUT
+	================================================
+	*/
+
+  main {
+    width: 100%;
+    flex: 1;
+  }
+
+  .container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  /*
+	================================================
+	FORM ELEMENTS
+	================================================
+	*/
+
+  button, input, textarea, select {
+    font: inherit;
+  }
+
+  /*
+	================================================
+	ACCESSIBILITY
+	================================================
+	*/
+
+  :focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 1000;
+
+    padding: 0.75rem 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .skip-link:focus-visible {
+    outline-color: var(--color-heading);
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 </style>

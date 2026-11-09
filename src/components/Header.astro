@@ -1,0 +1,273 @@
+---
+import { undefined } from "astro:schema";
+
+const chapterApplicationUrl = "https://forms.gle/fABC1gMGKuboyEV46";
+
+const navLinks = [
+  { label: "About", href: "/about" },
+  { label: "Chapters", href: "/chapters" },
+  { label: "Events", href: "/events" },
+  { label: "Opportunities", href: "/opportunities" },
+  { label: "Partners", href: "/partners" },
+  { label: "Merch", href: "/merch" },
+  { label: "Contact", href: "/contact" },
+  { label: "Donate", href: "/donate" }
+];
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+function isActive(href: string): boolean {
+  return currentPath === href || (href !== "/" && currentPath.startsWith('${href}/'));
+}
+---
+
+<header class="site-header">
+  <div class="header-container">
+
+    <!-- Temporary text until logo added -->
+    <a href="/" class="brand" aria-label="Clear & Glowing home">Clear & Glowing</a>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <ul>
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} aria-current={
+              isActive(link.href) ? "page" : null
+            }>
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Desktop Call to Action -->
+    <a href={chapterApplicationUrl} class="desktop-cta">Start a Chapter</a>
+
+    <!-- Mobile Navigation -->
+    <details class="mobile-menu">
+      <summary>
+        <span>Menu</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" >
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </summary>
+
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <ul>
+          <li>
+            <a href="/" aria-current={currentPath === "/" ? "page" : null}>Home</a>
+          </li>
+
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} aria-current={isActive(link.href) ? "page" : null}>{link.label}</a>
+            </li>
+          ))}
+
+          <li>
+            <a href={chapterApplicationUrl} class="mobile-cta">Start a Chapter</a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+
+  </div>
+</header>
+
+<script>
+  const mobileMenu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
+
+  mobileMenu?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mobileMenu.open) {
+      mobileMenu.open = false;
+      mobileMenu.querySelector("summary")?.focus();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (
+      mobileMenu?.open &&
+      event.target instanceof Node &&
+      !mobileMenu.contains(event.target)
+    ) {
+      mobileMenu.open = false;
+    }
+  })
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .header-container {
+    width: min(100% - 2rem, 1440px);
+    min-height: 76px;
+    margin-inline: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  /* Brand */
+  .brand {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  /* Desktop Navigation */
+  .desktop-nav {
+    display: none;
+  }
+
+  .desktop-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .desktop-nav a {
+    color: var(--color-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .desktop-nav a:hover,
+  .desktop-nav a[aria-current="page"] {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.4em;
+  }
+
+  /* Chapter Application Buttons */
+  .desktop-cta, .mobile-cta {
+    background: var(--color-primary);
+    color: var(--color-white);
+
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+  }
+
+  .desktop-cta {
+    display: none;
+    padding: 0.7rem 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .desktop-cta:hover, .mobile-cta:hover {
+    background: #900000;
+  }
+
+  .desktop-cta:focus-visible, .mobile-cta:focus-visible {
+    outline: 3px solid var(--color-heading);
+    outline-offset: 3px;
+  }
+
+  /* Mobile Navigation */
+  .mobile-menu {
+    position: relative;
+    margin-left: auto;
+  }
+
+  .mobile-menu summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    min-height: 44px;
+    padding: 0.5rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-nav {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: calc(100svh - 6rem);
+    overflow-y: auto;
+
+    background: var(--color-white);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  }
+
+  .mobile-nav ul {
+    margin: 0;
+    padding: 0.75rem;
+    list-style: none;
+  }
+
+  .mobile-nav a {
+    display: block;
+    padding: 0.75rem;
+
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .mobile-nav a:hover, .mobile-menu a[aria-current="page"] {
+    color: var(--color-primary);
+    background: var(--color-surface);
+  }
+
+  .mobile-nav .mobile-cta {
+    margin-top: 0.75rem;
+    color: var(--color-white);
+    text-align: center;
+  }
+
+  .mobile-nav .mobile-cta:hover {
+    color: var(--color-white);
+    background: #900000;
+  }
+
+  /* Desktop Breakpoint */
+  @media (min-width: 1250px) {
+    .desktop-nav {
+      display: block;
+    }
+
+    .desktop-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>
