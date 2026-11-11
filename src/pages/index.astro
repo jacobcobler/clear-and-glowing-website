@@ -1,19 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from "../components/Hero.astro"
 ---
 
 <Layout>
-	<section class="container">
-		<p class="eyebrow">FOUNDED AT OHIO STATE IN FALL 2024</p>
-
-		<h1>Confidence Looks Good on Everyone.</h1>
-
-		<p>
-			More than skincare. We are building a community
-			where education, confidence, wellness, and
-			opportunity come together—on campus and beyond.
-		</p>
-	</section>
+	<Hero />
 </Layout>
 
 <style>
@@ -21,18 +12,19 @@ import Layout from '../layouts/Layout.astro';
 		padding-block: 6rem
 	}
 
-	.eyebrow {
-		color: var(--color-primary);
-		font-weight: 700;
-		letter-spacing: 0.08em;
-	}
-
 	h1 {
 		max-width: 850px;
 		font-size: clamp(2.5rem, 6vw, 5rem);
 	}
 
-	section > p:last-child {
+	p {
 		max-width: 650px;
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 2rem;
 	}
 </style>

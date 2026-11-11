@@ -1,0 +1,235 @@
+---
+import type { Partner } from "../data/partners";
+
+interface Props {
+  partner: Partner;
+  headingLevel?: "h2" | "h3";
+}
+
+const {
+  partner,
+  headingLevel = "h2",
+} = Astro.props;
+
+const Heading = headingLevel;
+---
+
+{partner.approved && (
+  <article class="partner-card">
+
+    <!-- Partner Logo -->
+    {partner.logo && (
+      <div class="partner-logo">
+        <img src={partner.logo}
+          alt=""
+          width="400"
+          height="200"
+          loading="lazy"
+          decoding="async" />
+      </div>
+    )}
+
+    <!-- Partner Information -->
+    <div class="partner-content">
+
+      <!-- Relationship -->
+      <div class="partner-meta">
+        <span class="partner-relationship">
+          {partner.relationship}
+        </span>
+      </div>
+
+      <!-- Partner Name -->
+      <Heading class="partner-name">
+        {partner.name}
+      </Heading>
+
+      <!-- Description -->
+      <p class="partner-description">
+        {partner.description}
+      </p>
+
+      <!-- Optional Website -->
+      {partner.website && (
+        <a href={partner.website} class="partner-link">
+          Visit {partner.name} Website
+          <span aria-hidden="true">↗︎</span>
+        </a>
+      )}
+
+    </div>
+  </article>
+)}
+
+<style>
+  /*
+	================================================
+	PARTNER CARD
+	================================================
+	*/
+
+  .partner-card {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    overflow: hidden;
+
+    background-color: var(--color-white);
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .partner-card:hover {
+    border-color: #BBBBBB;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+  }
+
+  /*
+	================================================
+	PARTNER LOGO
+	================================================
+	*/
+
+  .partner-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 160px;
+    padding: 2rem;
+
+    background-color: var(--color-surface);
+  }
+
+  .partner-logo img {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    max-height: 110px;
+    height: auto;
+
+    object-fit: contain;
+  }
+
+  /*
+	================================================
+	PARTNER CONTENT
+	================================================
+	*/
+
+  .partner-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.85rem;
+
+    padding: 1.5rem;
+  }
+
+  /*
+	================================================
+	PARTNER RELATIONSHIP
+	================================================
+	*/
+
+  .partner-meta {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .partner-relationship {
+    display: inline-block;
+
+    padding: 0.35rem 0.85rem;
+
+    background-color: #F9E5E5;
+    color: #850000;
+    border-radius: 100px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /*
+	================================================
+	PARTNER NAME
+	================================================
+	*/
+
+  .partner-name {
+    margin: 0;
+
+    color: var(--color-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+
+    overflow-wrap: break-word;
+  }
+
+  /*
+	================================================
+	PARTNER DESCRIPTION
+	================================================
+	*/
+
+  .partner-description {
+    margin: 0;
+
+    color: var(--color-text);
+    font-size: 0.925rem;
+    line-height: 1.7;
+  }
+
+  /*
+	================================================
+	PARTNER WEBSITIE LINK
+	================================================
+	*/
+
+  .partner-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+
+    margin-top: auto;
+    padding-block: 0.75rem;
+
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .partner-link:hover {
+    color: #850000;
+  }
+
+  .partner-link:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /*
+	================================================
+	REDUCED MOTION
+	================================================
+	*/
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner-card {
+      transition: none;
+    }
+  }
+</style>

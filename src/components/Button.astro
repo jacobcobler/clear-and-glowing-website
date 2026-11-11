@@ -1,0 +1,165 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "outline" | "outline-light";
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  fullWidth?: boolean;
+  target?: "_self" | "_blank";
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = "primary",
+  type = "button",
+  disabled = false,
+  fullWidth = false,
+  target,
+  ariaLabel,
+} = Astro.props;
+
+const buttonClass = [
+  "button",
+  `button--${variant}`,
+  fullWidth ? "button--full" : "",
+].filter(Boolean).join(" ");
+---
+
+{
+  href ? (
+    <a href={href}
+    class={buttonClass}
+    target={target ?? null}
+    rel={target === "_blank" ? "noopender noreferrer" : null}
+    aria-label={ariaLabel ?? null}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type}
+    class={buttonClass}
+    disabled={disabled}
+    aria-label={ariaLabel ?? null}>
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  /*
+	================================================
+	BASE BUTTON
+	================================================
+	*/
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+
+    border: 2px solid transparent;
+    border-radius: 6px;
+
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  /*
+	================================================
+	PRIMARY BUTTON
+	================================================
+	*/
+
+  .button--primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .button--primary:hover {
+    background-color: #900000;
+  }
+
+  /*
+	================================================
+	OUTLINE BUTTON
+	================================================
+	*/
+
+  .button--outline {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .button--outline:hover {
+    background-color: var(--color-surface);
+  }
+
+  /*
+	================================================
+	LIGHT OUTLINE BUTTON
+  For dark backgrounds and hero images
+	================================================
+	*/
+
+  .button--outline-light {
+    background-color: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+  }
+
+  .button--outline-light:hover {
+    background-color: rgb(255 255 255 / 0.15);
+  }
+
+  /*
+	================================================
+	FULL WIDTH
+	================================================
+	*/
+
+  .button--full {
+    width: 100%;
+  }
+
+  /*
+	================================================
+	ACCESSIBILITY
+	================================================
+	*/
+
+  .button:focus-visible {
+    outline: 3px solid var(--color-heading);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--color-white);
+  }
+
+  .button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  /*
+	================================================
+	REDUCED MOTION
+	================================================
+	*/
+
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: none;
+    }
+  }
+</style>

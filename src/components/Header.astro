@@ -1,7 +1,8 @@
 ---
-import { undefined } from "astro:schema";
+import Button from "./Button.astro";
+import { links } from "../data/links";
 
-const chapterApplicationUrl = "https://forms.gle/fABC1gMGKuboyEV46";
+const chapterApplicationUrl = links.chapterApplication;
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -43,7 +44,9 @@ function isActive(href: string): boolean {
     </nav>
 
     <!-- Desktop Call to Action -->
-    <a href={chapterApplicationUrl} class="desktop-cta">Start a Chapter</a>
+    <div class="desktop-cta">
+      <Button href={chapterApplicationUrl}>Start a Chapter</Button>
+    </div>
 
     <!-- Mobile Navigation -->
     <details class="mobile-menu">
@@ -66,9 +69,9 @@ function isActive(href: string): boolean {
             </li>
           ))}
 
-          <li>
-            <a href={chapterApplicationUrl} class="mobile-cta">Start a Chapter</a>
-          </li>
+          <div class="mobile-action">
+            <Button href={chapterApplicationUrl} fullWidth>Start a Chapter</Button>
+          </div>
         </ul>
       </nav>
     </details>
@@ -119,7 +122,12 @@ function isActive(href: string): boolean {
     gap: 1.5rem;
   }
 
-  /* Brand */
+  /*
+	================================================
+	BRAND
+	================================================
+	*/
+
   .brand {
     flex-shrink: 0;
     color: var(--color-primary);
@@ -129,7 +137,12 @@ function isActive(href: string): boolean {
     text-decoration: none;
   }
 
-  /* Desktop Navigation */
+  /*
+	================================================
+	DESKTOP NAVIGATION
+	================================================
+	*/
+  
   .desktop-nav {
     display: none;
   }
@@ -159,33 +172,22 @@ function isActive(href: string): boolean {
     text-underline-offset: 0.4em;
   }
 
-  /* Chapter Application Buttons */
-  .desktop-cta, .mobile-cta {
-    background: var(--color-primary);
-    color: var(--color-white);
-
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 6px;
-  }
+  /*
+	================================================
+	CHAPTER APPLICATION BUTTONS
+	================================================
+	*/
 
   .desktop-cta {
     display: none;
-    padding: 0.7rem 1rem;
-    font-size: 0.875rem;
-    white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  .desktop-cta:hover, .mobile-cta:hover {
-    background: #900000;
-  }
-
-  .desktop-cta:focus-visible, .mobile-cta:focus-visible {
-    outline: 3px solid var(--color-heading);
-    outline-offset: 3px;
-  }
-
-  /* Mobile Navigation */
+  /*
+	================================================
+	MOBILE NAVIGATION
+	================================================
+	*/
   .mobile-menu {
     position: relative;
     margin-left: auto;
@@ -243,27 +245,22 @@ function isActive(href: string): boolean {
     background: var(--color-surface);
   }
 
-  .mobile-nav .mobile-cta {
+  .mobile-action {
     margin-top: 0.75rem;
-    color: var(--color-white);
-    text-align: center;
   }
 
-  .mobile-nav .mobile-cta:hover {
-    color: var(--color-white);
-    background: #900000;
-  }
-
-  /* Desktop Breakpoint */
+  /*
+	================================================
+	DESKTOP BREAKPOINT
+	================================================
+	*/
   @media (min-width: 1250px) {
     .desktop-nav {
       display: block;
     }
 
     .desktop-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
     }
 
     .mobile-menu {

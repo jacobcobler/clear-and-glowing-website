@@ -1,0 +1,301 @@
+---
+import type { Chapter } from "../data/chapters";
+
+interface Props {
+  chapter: Chapter;
+}
+
+const { chapter } = Astro.props;
+
+const statusLabels: Record<Chapter["status"], string> = {
+  established: "Established",
+  launching: "Launching",
+  interest: "Interest",
+};
+---
+
+<article class="chapter-card">
+
+  <!-- Chapter Image -->
+  <div class="chapter-image">
+    {
+      chapter.image ? (
+        <img src={chapter.image}
+          alt=""
+          width="640"
+          height="400"
+          loading="lazy"
+          decoding="async" />
+      ) : (
+        <div class="image-placeholder" aria-hidden="true">
+          <span>Chapter Photo Coming Soon</span>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Chapter Information -->
+  <div class="chapter-content">
+
+    <!-- Status and Founding Date -->
+    <div class="chapter-meta">
+      <span class="chapter-status" data-status={chapter.status}>
+        {statusLabels[chapter.status]}
+      </span>
+
+      {
+        chapter.founded && (
+          <span class="chapter-founded">
+            {chapter.founded}
+          </span>
+        )
+      }
+    </div>
+
+    <!-- University -->
+    <h2 class="chapter-title">
+      {chapter.university}
+    </h2>
+
+    <!-- Location -->
+    <p class="chapter-location">
+      <svg width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true">
+        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+          <circle cx="12" cy="10" r="2.5" />
+        </svg>
+
+        <span>
+          { chapter.city }, { chapter.state } 
+        </span>
+    </p>
+
+    <!-- Optional Instagram -->
+    {
+      chapter.instagramUrl && (
+        <a href={chapter.instagramUrl}
+          class="chapter-social"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit ${chapter.university} chapter Instagram`}>
+            Visit Chapter Instagram
+            <span aria-hidden="true">↗︎</span>
+          </a>
+      )
+    }
+
+  </div>
+</article>
+
+<style>
+  /*
+	================================================
+	CHAPTER CARD
+	================================================
+	*/
+
+  .chapter-card {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    overflow: hidden;
+
+    background-color: var(--color-white);
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .chapter-card:hover {
+    border-color: #BBBBBB;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+  }
+
+  /*
+	================================================
+	CHAPTER IMAGE
+	================================================
+	*/
+
+  .chapter-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+
+    background-color: var(--color-surface);
+  }
+
+  .chapter-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+
+    color: #666666;
+    background: linear-gradient(
+      135deg
+      #F5F5F5,
+      #EAEAEA
+    );
+
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /*
+	================================================
+	CARD CONTENT
+	================================================
+	*/
+
+  .chapter-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.75rem;
+
+    padding: 1.5rem;
+  }
+
+  /*
+	================================================
+	CHAPTER METADATA
+	================================================
+	*/
+
+  .chapter-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .chapter-status {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+
+    border-radius: 100px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+
+    background-color: #F5F5F5;
+    color: #333333;
+  }
+
+  .chapter-status[data-status="established"] {
+    background-color: #F9E5E5;
+    color: #850000;
+  }
+
+  .chapter-status[data-status="launching"] {
+    background-color: #FFF1D6;
+    color: #795000;
+  }
+
+  .chapter-status[data-status="interest"] {
+    background-color: #F0F0F0;
+    color: #333333;
+  }
+
+  .chapter-founded {
+    color: #666666;
+    font-size: 0.8rem;
+  }
+
+  /*
+	================================================
+	UNIVERSITY AND LOCATION
+	================================================
+	*/
+
+  .chapter-title {
+    margin: 0;
+
+    color: var(--color-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .chapter-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin: 0;
+
+    color: #595959;
+    font-size: 0.9rem;
+  }
+
+  .chapter-location svg {
+    flex-shrink: 0;
+  }
+
+  /*
+	================================================
+	CHAPTER SOCIAL LINK
+	================================================
+	*/
+
+  .chapter-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-items: flex-start;
+
+    margin-top: auto;
+    padding-block: 0.75rem;
+
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .chapter-social:hover {
+    color: #850000;
+  }
+
+  .chapter-social:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /*
+	================================================
+	ACCESSIBILITY
+	================================================
+	*/
+
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-card {
+      transition: none;
+    }
+  }
+</style>

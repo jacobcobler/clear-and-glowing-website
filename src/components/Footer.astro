@@ -1,0 +1,294 @@
+---
+import Button from "./Button.astro"
+import { links } from "../data/links";
+
+const newsletterUrl = links.newsletter;
+const chapterApplicationUrl = links.chapterApplication;
+
+const currentYear = new Date().getFullYear();
+
+const footerSelections = [
+  {
+    title: "Explore",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Our Story", href: "/our-story" },
+      { label: "The Foundation", href: "/foundation" },
+      { label: "Chapters", href: "/chapters" },
+      { label: "Events", href: "/events" }
+    ],
+  },
+  {
+    title: "Get Involved",
+    links: [
+      {
+        label: "Start a Chapter",
+        href: chapterApplicationUrl,
+      },
+      { label: "Opportunities", href: "/opportunities" },
+      { label: "Join Us", href: "/join" },
+      { label: "Partners", href: "/partners" },
+      { label: "Shop Merch", href: "/merch" },
+    ],
+  },
+  {
+    title: "Information",
+    links: [
+      { label: "Contact", href: "/contact" },
+      { label: "Donate — Coming Soon", href: "/donate" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Use", href: "/terms" },
+      { label: "Accessibility", href: "/accessibility" },
+    ],
+  },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-container">
+
+    <!-- Brand and Newsletter -->
+    <div class="footer-intro">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+        Clear & Glowing
+        </a>
+
+        <p>
+          Building confidence, community, and opportunity
+          through skincare education and meaningful impact.
+        </p>
+      </div>
+
+      <div class="footer-newsletter">
+        <h2>Your Glow Has a Place Here.</h2>
+        <p>
+          Stay connected with our community, upcoming
+          events, and opportunities to get involved.
+        </p>
+
+        <Button href={newsletterUrl} variant="primary">
+          Join Our Newsletter
+          <span aria-hidden="true">↗︎</span>
+        </Button>
+      </div>
+    </div>
+
+    <!-- Footer Navigation -->
+    <nav class="footer-navigation" aria-label="Footer navigation">
+      {footerSelections.map((section) => (
+        <div class="footer-column">
+          <h2>{section.title}</h2>
+
+          <ul>
+            {section.links.map((link) => (
+              <li>
+                <a href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p class="disclaimer">
+        Clear & Glowing provides educational and community
+        programming; content is not substitute for
+        professional medical advice.
+      </p>
+
+      <p class="copyright">
+        &copy; {currentYear} Clear & Glowing.
+        All rights reserved.
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  /*
+	================================================
+	FOOTER LAYOUT
+	================================================
+	*/
+
+  .site-footer {
+    width: 100%;
+    margin: 0;
+    background-color: var(--color-heading);
+    color: var(--color-white);
+    padding: 4rem 1.5rem;
+  }
+
+  .footer-container {
+    width: 100%;
+    max-width: var(--max-content-width);
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .footer-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 3.5rem;
+  }
+
+  /*
+	================================================
+	BRAND
+	================================================
+	*/
+
+  .footer-logo {
+    color: var(--color-white);
+    font-size: clamp(1.5, 3vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .footer-brand p {
+    max-width: 420px;
+    color: #D8D8D8;
+    margin-top: 1.25rem;
+  }
+
+  /*
+	================================================
+	NEWSLETTER
+	================================================
+	*/
+
+  .footer-newsletter h2 {
+    color: var(--color-white);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    margin: 0 0 0.75rem;
+  }
+
+  .footer-newsletter p {
+    color: #D8D8D8;
+    max-width: 380px;
+    margin-bottom: 1.5rem;
+  }
+
+  /*
+	================================================
+	FOOTER NAVIGATION
+	================================================
+	*/
+
+  .footer-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .footer-column h2 {
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem;
+  }
+
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-column li + li {
+    margin-top: 0.75rem;
+  }
+
+  .footer-column a {
+    display: inline-block;
+    color: #D8D8D8;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.3em;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .footer-column a:hover {
+    color: var(--color-white);
+    text-decoration-color: currentColor;
+  }
+
+  /*
+	================================================
+	FOOTER BOTTOM
+	================================================
+	*/
+
+  .footer-bottom {
+    border-top: 1px solid #444444;
+    padding-top: 1.5rem;
+  }
+
+  .footer-bottom p {
+    color: #D8D8D8;
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  .disclaimer {
+    max-width: 760px;
+    margin: 0 0 1rem;
+  }
+
+  .copyright {
+    margin: 0;
+  }
+
+  /*
+	================================================
+	ACCESSIBILITY
+	================================================
+	*/
+
+  .site-footer a:focus-visible {
+    outline: 3px solid var(--color-white);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /*
+	================================================
+	RESPONSIVE STYLING
+	================================================
+	*/
+
+  @media (min-width: 768px) {
+    .footer-intro {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .footer-navigation {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-footer {
+      padding-top: 5rem;
+    }
+
+    .footer-intro {
+      gap: 6rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-column a {
+      transition: none;
+    }
+  }
+</style>
