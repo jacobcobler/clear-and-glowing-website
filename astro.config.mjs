@@ -6,4 +6,3 @@ export default defineConfig({
   site: 'https://jacobcobler.github.io',
   base: '/clear-and-glowing-website'
 });
-f
