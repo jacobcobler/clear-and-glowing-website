@@ -1,0 +1,936 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+
+import { links } from "../data/links";
+
+// IMPORTANT:
+// Only enter an organizational email address
+// after it has been verified and approved.
+//
+// Example after verification:
+// const verifiedContactEmail = "hello@yourdomain.org";
+//
+// Leave empty until confirmed.
+const verifiedContactEmail = "";
+
+const inquiryTypes = [
+  {
+    number: "01",
+    title: "General Questions",
+    description:
+      "Have a question about Clear & Glowing, our mission, or our community? We'd love to help you find the information you need.",
+  },
+  {
+    number: "02",
+    title: "University Chapters",
+    description:
+      "Interested in bringing Clear & Glowing to your campus or learning more about our student-led chapter network?",
+  },
+  {
+    number: "03",
+    title: "Brand Partnerships",
+    description:
+      "Explore opportunities for educational collaborations, product support, sponsorships, and community-focused initiatives.",
+  },
+  {
+    number: "04",
+    title: "Guest Speaking",
+    description:
+      "Interested in sharing professional knowledge or participating in future skincare, wellness, or beauty-industry conversations?",
+  },
+  {
+    number: "05",
+    title: "Media & Press",
+    description:
+      "Looking for information about our organization, founding story, educational work, or student-led initiatives?",
+  },
+  {
+    number: "06",
+    title: "Volunteering",
+    description:
+      "Interested in getting involved with community outreach, personal-care accessibility, or other service initiatives?",
+  },
+  {
+    number: "07",
+    title: "Other",
+    description:
+      "Have something else in mind? We're always interested in thoughtful ideas that align with our mission.",
+  },
+];
+---
+
+<Layout
+  title="Contact Us"
+  description="Connect with Clear & Glowing about university chapters, brand partnerships, guest speaking, media inquiries, volunteering, and community opportunities."
+>
+
+  <!-- ========================================
+       CONTACT HERO
+       ======================================== -->
+
+  <section
+    class="contact-hero"
+    aria-labelledby="contact-title"
+  >
+    <div class="page-container hero-grid">
+
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          GET IN TOUCH
+        </p>
+
+        <h1 id="contact-title">
+          Let's
+          <span>Connect.</span>
+        </h1>
+
+        <p class="hero-description">
+          Have a question, want to collaborate,
+          or interested in bringing Clear & Glowing
+          to your campus?
+        </p>
+
+        <p class="hero-description">
+          We would love to hear from you.
+        </p>
+
+        <div class="hero-actions">
+
+          <Button
+            href="#contact-options"
+            variant="primary"
+          >
+            Explore Contact Options
+            <span aria-hidden="true">→</span>
+          </Button>
+
+        </div>
+
+      </div>
+
+      <!-- Branded Contact Visual -->
+
+      <div class="hero-visual">
+
+        <div class="hero-visual-content">
+
+          <p class="visual-eyebrow">
+            BUILDING CONNECTIONS
+          </p>
+
+          <p class="visual-headline">
+            Every Connection
+            <span>Starts Somewhere.</span>
+          </p>
+
+          <div class="visual-footer">
+
+            <p>
+              Education. Confidence. Community.
+            </p>
+
+            <p>
+              Connecting people through a
+              shared mission.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       INQUIRY CATEGORIES
+       ======================================== -->
+
+  <section
+    class="inquiries-section"
+    aria-labelledby="inquiries-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          HOW CAN WE HELP?
+        </p>
+
+        <h2 id="inquiries-title">
+          What Would You Like to Connect About?
+        </h2>
+
+        <p>
+          Whether you're a student, professional,
+          brand representative, or community
+          organization, there are many ways
+          to connect with our mission.
+        </p>
+
+      </div>
+
+      <div class="inquiries-grid">
+        {
+          inquiryTypes.map((inquiry) => (
+            <article class="inquiry-card">
+
+              <span
+                class="card-number"
+                aria-hidden="true"
+              >
+                {inquiry.number}
+              </span>
+
+              <h3>{inquiry.title}</h3>
+
+              <p>{inquiry.description}</p>
+
+            </article>
+          ))
+        }
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       CONTACT INFORMATION
+       ======================================== -->
+
+  <section
+    class="contact-section"
+    id="contact-options"
+    aria-labelledby="contact-options-title"
+  >
+    <div class="page-container">
+
+      <div class="contact-panel">
+
+        <p class="eyebrow">
+          CONNECT WITH OUR TEAM
+        </p>
+
+        <h2 id="contact-options-title">
+          We'd Love to Hear From You.
+        </h2>
+
+        {
+          verifiedContactEmail ? (
+            <div class="contact-available">
+
+              <p>
+                For general questions, collaboration
+                ideas, or other inquiries, you can
+                reach our team using the email
+                address below.
+              </p>
+
+              <a
+                class="contact-email"
+                href={`mailto:${verifiedContactEmail}`}
+              >
+                {verifiedContactEmail}
+              </a>
+
+              <div class="contact-action">
+
+                <Button
+                  href={`mailto:${verifiedContactEmail}?subject=${encodeURIComponent("Clear & Glowing Inquiry")}`}
+                  variant="primary"
+                >
+                  Email Our Team
+                  <span aria-hidden="true">→</span>
+                </Button>
+
+              </div>
+
+              <p class="contact-note">
+                Selecting the email button will open
+                your email application. Your message
+                is sent only after you send it there.
+              </p>
+
+            </div>
+          ) : (
+            <div class="contact-pending">
+
+              <p>
+                We're currently finalizing our
+                organizational contact method.
+                Direct inquiries are not yet
+                available through this website.
+              </p>
+
+              <p>
+                In the meantime, you can use
+                the official university chapter
+                application or join our newsletter
+                to stay connected.
+              </p>
+
+              <div class="contact-actions">
+
+                <Button
+                  href={links.chapterApplication}
+                  variant="primary"
+                >
+                  Apply to Start a Chapter
+                  <span aria-hidden="true">→</span>
+                </Button>
+
+                <Button
+                  href={links.newsletter}
+                  variant="outline"
+                >
+                  Join Our Newsletter
+                </Button>
+
+              </div>
+
+            </div>
+          )
+        }
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       EXPLORE OTHER WAYS TO CONNECT
+       ======================================== -->
+
+  <section
+    class="connections-section"
+    aria-labelledby="connections-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          EXPLORE MORE
+        </p>
+
+        <h2 id="connections-title">
+          Find Your Next Step.
+        </h2>
+
+        <p>
+          Not sure where to start?
+          Explore the areas of Clear & Glowing
+          that interest you most.
+        </p>
+
+      </div>
+
+      <div class="connections-grid">
+
+        <article class="connection-card">
+
+          <p class="connection-label">
+            FOR STUDENTS
+          </p>
+
+          <h3>
+            Find Your Community.
+          </h3>
+
+          <p>
+            Learn how to get involved with
+            Clear & Glowing and stay informed
+            about our community.
+          </p>
+
+          <div class="connection-action">
+            <Button
+              href="/join"
+              variant="outline"
+            >
+              Join Us
+              <span aria-hidden="true">→</span>
+            </Button>
+          </div>
+
+        </article>
+
+        <article class="connection-card">
+
+          <p class="connection-label">
+            FOR CAMPUS LEADERS
+          </p>
+
+          <h3>
+            Start Something Meaningful.
+          </h3>
+
+          <p>
+            Explore our university chapter
+            network and learn how to
+            bring Clear & Glowing to
+            your campus.
+          </p>
+
+          <div class="connection-action">
+            <Button
+              href="/chapters"
+              variant="outline"
+            >
+              Explore Chapters
+              <span aria-hidden="true">→</span>
+            </Button>
+          </div>
+
+        </article>
+
+        <article class="connection-card">
+
+          <p class="connection-label">
+            FOR ORGANIZATIONS
+          </p>
+
+          <h3>
+            Collaborate With Purpose.
+          </h3>
+
+          <p>
+            Discover ways that brands,
+            professionals, and community
+            organizations can contribute
+            to our mission.
+          </p>
+
+          <div class="connection-action">
+            <Button
+              href="/partners"
+              variant="outline"
+            >
+              Explore Partnerships
+              <span aria-hidden="true">→</span>
+            </Button>
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       STAY CONNECTED CTA
+       ======================================== -->
+
+  <section
+    class="updates-section"
+    aria-labelledby="updates-title"
+  >
+    <div class="page-container">
+
+      <div class="updates-content">
+
+        <p class="updates-eyebrow">
+          STAY IN THE KNOW
+        </p>
+
+        <h2 id="updates-title">
+          Stay Connected With Clear & Glowing.
+        </h2>
+
+        <p>
+          Keep up with community events,
+          chapter launches, opportunities,
+          and new ways to get involved.
+        </p>
+
+        <div class="updates-action">
+
+          <Button
+            href={links.newsletter}
+            variant="primary"
+          >
+            Sign Up for Our Newsletter
+            <span aria-hidden="true">→</span>
+          </Button>
+
+        </div>
+
+        <p class="updates-note">
+          Newsletter signup opens our
+          official Google Form.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* ========================================
+     SHARED PAGE STYLES
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    max-width: 800px;
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .section-heading > p:last-child {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     CONTACT HERO
+     ======================================== */
+
+  .contact-hero {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .hero-content {
+    max-width: 750px;
+  }
+
+  .hero-content h1 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2.75rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-content h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+
+  /* ========================================
+     BRANDED HERO VISUAL
+     ======================================== */
+
+  .hero-visual {
+    display: flex;
+    min-width: 0;
+    min-height: 440px;
+
+    background: linear-gradient(
+      135deg,
+      #BB0000,
+      #850000 55%,
+      #4B171C
+    );
+
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .hero-visual-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+
+    padding: clamp(2rem, 4vw, 3rem);
+    color: var(--color-white);
+  }
+
+  .visual-eyebrow {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .visual-headline {
+    margin: 0;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+
+  .visual-headline span {
+    display: block;
+  }
+
+  .visual-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 0.5);
+  }
+
+  .visual-footer p:first-child {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .visual-footer p:last-child {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     INQUIRY CATEGORIES
+     ======================================== */
+
+  .inquiries-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .inquiries-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .inquiry-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+
+    background-color: var(--color-surface);
+    border-top: 4px solid var(--color-primary);
+    border-radius: 12px;
+  }
+
+  .card-number {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .inquiry-card h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    line-height: 1.3;
+  }
+
+  .inquiry-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     CONTACT INFORMATION
+     ======================================== */
+
+  .contact-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .contact-panel {
+    max-width: 900px;
+    margin-inline: auto;
+    padding: clamp(2rem, 5vw, 4rem);
+
+    background-color: var(--color-white);
+    border: 1px solid #E5E5E5;
+    border-radius: 16px;
+
+    text-align: center;
+  }
+
+  .contact-panel h2 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .contact-panel .eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-available > p,
+  .contact-pending > p {
+    max-width: 650px;
+    margin: 0 auto 1.25rem;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .contact-email {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0.75rem 0;
+
+    color: var(--color-primary);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    text-underline-offset: 4px;
+  }
+
+  .contact-email:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .contact-email:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+
+  .contact-action {
+    margin-top: 2rem;
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-available .contact-note {
+    margin-top: 1.5rem;
+    color: #555555;
+    font-size: 0.875rem;
+  }
+
+
+  /* ========================================
+     OTHER WAYS TO CONNECT
+     ======================================== */
+
+  .connections-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .connections-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .connection-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+
+    background-color: var(--color-surface);
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+  }
+
+  .connection-label {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .connection-card h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    line-height: 1.3;
+  }
+
+  .connection-card > p:not(.connection-label) {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+  .connection-action {
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+
+  /* ========================================
+     STAY CONNECTED CTA
+     ======================================== */
+
+  .updates-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: #23191C;
+  }
+
+  .updates-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 850px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .updates-eyebrow {
+    margin: 0 0 1.25rem;
+    color: #FFCECE;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .updates-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .updates-content > p:not(.updates-eyebrow, .updates-note) {
+    max-width: 650px;
+    margin: 0 0 1.25rem;
+    color: #E8E8E8;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .updates-action {
+    margin-top: 2rem;
+  }
+
+  .updates-note {
+    margin: 1.5rem 0 0;
+    color: #D0D0D0;
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 640px) {
+    .inquiries-grid {
+      grid-template-columns: repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+    }
+
+    .inquiries-grid {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+    }
+
+    .connections-grid {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions,
+    .contact-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-visual {
+      min-height: 350px;
+    }
+
+    .contact-panel {
+      padding: 2.5rem 1.5rem;
+    }
+  }
+</style>

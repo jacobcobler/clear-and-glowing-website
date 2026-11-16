@@ -1,8 +1,6 @@
 ---
 import Button from "./Button.astro";
-import { links } from "../data/links";
-
-const chapterApplicationUrl = links.chapterApplication;
+import BrandLogo from "./BrandLogo.astro";
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -18,24 +16,29 @@ const navLinks = [
 const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
 function isActive(href: string): boolean {
-  return currentPath === href || (href !== "/" && currentPath.startsWith('${href}/'));
+  return (
+    currentPath === href ||
+    (href !== "/" && currentPath.startsWith(`${href}/`)) ||
+    (href === "/chapters" && currentPath === "/start-a-chapter")
+  );
 }
 ---
 
 <header class="site-header">
   <div class="header-container">
 
-    <!-- Temporary text until logo added -->
-    <a href="/" class="brand" aria-label="Clear & Glowing home">Clear & Glowing</a>
+    <!-- Official Clear & Glowing logo -->
+    <a href="/" class="brand" aria-label="Clear & Glowing home">
+      <BrandLogo variant="header" alt="" />
+    </a>
 
     <!-- Desktop Navigation -->
     <nav class="desktop-nav" aria-label="Main navigation">
       <ul>
         {navLinks.map((link) => (
           <li>
-            <a href={link.href} aria-current={
-              isActive(link.href) ? "page" : null
-            }>
+            <a href={link.href} class:list={{ "is-active": isActive(link.href) }}
+              aria-current={currentPath === link.href ? "page" : undefined}>
               {link.label}
             </a>
           </li>
@@ -45,7 +48,7 @@ function isActive(href: string): boolean {
 
     <!-- Desktop Call to Action -->
     <div class="desktop-cta">
-      <Button href={chapterApplicationUrl}>Start a Chapter</Button>
+      <Button href="/start-a-chapter">Start a Chapter</Button>
     </div>
 
     <!-- Mobile Navigation -->
@@ -65,13 +68,13 @@ function isActive(href: string): boolean {
 
           {navLinks.map((link) => (
             <li>
-              <a href={link.href} aria-current={isActive(link.href) ? "page" : null}>{link.label}</a>
+              <a href={link.href} class:list={{ "is-active": isActive(link.href) }} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
             </li>
           ))}
 
-          <div class="mobile-action">
-            <Button href={chapterApplicationUrl} fullWidth>Start a Chapter</Button>
-          </div>
+          <li class="mobile-action">
+            <Button href="/start-a-chapter" fullWidth>Start a Chapter</Button>
+          </li>
         </ul>
       </nav>
     </details>
@@ -89,7 +92,11 @@ function isActive(href: string): boolean {
     }
   });
 
-  document.addEventListener("click", (event) => {
+  mobileMenu?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+    link.addEventListener("click", () => { mobileMenu.open = false; });
+  });
+
+  document.addEventListener("pointerdown", (event) => {
     if (
       mobileMenu?.open &&
       event.target instanceof Node &&
@@ -129,12 +136,24 @@ function isActive(href: string): boolean {
 	*/
 
   .brand {
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
-    color: var(--color-primary);
-    font-size: 1.15rem;
-    font-weight: 800;
-    line-height: 1.2;
     text-decoration: none;
+  }
+
+  .brand :global(img) {
+    display: block;
+    width: auto;
+    height: 54px;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .brand:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
   }
 
   /*
@@ -166,7 +185,7 @@ function isActive(href: string): boolean {
   }
 
   .desktop-nav a:hover,
-  .desktop-nav a[aria-current="page"] {
+  .desktop-nav a.is-active {
     color: var(--color-primary);
     text-decoration: underline;
     text-underline-offset: 0.4em;
@@ -203,6 +222,12 @@ function isActive(href: string): boolean {
     cursor: pointer;
     list-style: none;
     font-weight: 600;
+    border-radius: 4px;
+  }
+
+  .mobile-menu summary:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
   }
 
   .mobile-menu summary::-webkit-details-marker {
@@ -230,7 +255,7 @@ function isActive(href: string): boolean {
     list-style: none;
   }
 
-  .mobile-nav a {
+  .mobile-nav li > a:not(.button) {
     display: block;
     padding: 0.75rem;
 
@@ -240,7 +265,8 @@ function isActive(href: string): boolean {
     border-radius: 4px;
   }
 
-  .mobile-nav a:hover, .mobile-menu a[aria-current="page"] {
+  .mobile-nav li > a:not(.button):hover,
+  .mobile-nav li > a.is-active:not(.button) {
     color: var(--color-primary);
     background: var(--color-surface);
   }
@@ -254,6 +280,10 @@ function isActive(href: string): boolean {
 	DESKTOP BREAKPOINT
 	================================================
 	*/
+  @media (max-width: 480px) {
+    .brand :global(img) { height: 48px; }
+  }
+
   @media (min-width: 1250px) {
     .desktop-nav {
       display: block;

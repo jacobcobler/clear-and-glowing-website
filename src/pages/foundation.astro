@@ -1,0 +1,792 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+
+import { links } from "../data/links";
+import PhotoShowcase from "../components/PhotoShowcase.astro";
+import { photos, photoCollections } from "../data/photos";
+
+const focusAreas = [
+  {
+    number: "01",
+    title: "Skincare Literacy",
+    description:
+      "Approachable, evidence-informed education about skin health and self-care.",
+  },
+  {
+    number: "02",
+    title: "Confidence & Wellness",
+    description:
+      "Supportive programming that addresses the emotional side of skin concerns and beauty pressures.",
+  },
+  {
+    number: "03",
+    title: "Personal-Care Accessibility",
+    description:
+      "Hygiene-kit drives and community outreach to help address everyday care needs.",
+  },
+  {
+    number: "04",
+    title: "Student Leadership",
+    description:
+      "Equipping chapter teams to organize educational events and meaningful service initiatives.",
+  },
+];
+
+// Show an authentic service activity photo. The image by itself
+// does not independently identify any distribution partner or date.
+const spotlightPhoto = photos.serviceAssembly;
+const foundationGallery = photoCollections.foundation.filter(
+  (photo) => photo.src !== spotlightPhoto.src
+);
+
+const futureGoals = [
+  {
+    number: "01",
+    title: "Educational Opportunities",
+    description:
+      "Expanding access to educational events and approachable information about skincare and self-care.",
+  },
+  {
+    number: "02",
+    title: "Community Outreach",
+    description:
+      "Developing more ways for students to support community needs through service and personal-care initiatives.",
+  },
+  {
+    number: "03",
+    title: "Meaningful Collaborations",
+    description:
+      "Building relationships with community organizations, healthcare professionals, and beauty brands that share our values.",
+  },
+];
+---
+
+<Layout
+  title="The Foundation"
+  description="Learn about the Clear & Glowing Foundation's developing mission to expand skincare education, confidence, personal-care accessibility, and student-led community impact."
+>
+
+  <!-- ========================================
+       FOUNDATION HERO
+       ======================================== -->
+
+  <section
+    class="foundation-hero"
+    aria-labelledby="foundation-title"
+  >
+    <div class="page-container">
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          THE CLEAR & GLOWING FOUNDATION
+        </p>
+
+        <h1 id="foundation-title">
+          Education. Confidence.
+          <span>Community Impact.</span>
+        </h1>
+
+        <p class="hero-description">
+          The Clear & Glowing Foundation is being developed
+          to extend the mission of Clear & Glowing beyond
+          campus events and into sustained educational,
+          charitable, and community-focused work.
+        </p>
+
+        <p class="hero-description">
+          Our goal is to make skincare education and
+          personal-care resources more accessible while
+          empowering students to lead service projects
+          that meet real community needs.
+        </p>
+
+        <div class="hero-actions">
+          <Button href="#focus" variant="primary">
+            Explore Our Mission
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button href="#community-impact" variant="outline">
+            See Our Impact
+          </Button>
+        </div>
+
+        <p class="development-note">
+          The Foundation is currently in development.
+          Donation processing is not yet available.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       OUR FOCUS AREAS
+       ======================================== -->
+
+  <section
+    class="focus-section"
+    id="focus"
+    aria-labelledby="focus-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+        <p class="eyebrow">OUR AREAS OF FOCUS</p>
+
+        <h2 id="focus-title">
+          What We Focus On
+        </h2>
+
+        <p>
+          We believe meaningful community impact begins
+          with education, empathy, access, and the
+          opportunity to make a difference.
+        </p>
+      </div>
+
+      <div class="focus-grid">
+        {
+          focusAreas.map((area) => (
+            <article class="focus-card">
+              <span
+                class="card-number"
+                aria-hidden="true"
+              >
+                {area.number}
+              </span>
+
+              <h3>{area.title}</h3>
+
+              <p>{area.description}</p>
+            </article>
+          ))
+        }
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       COMMUNITY SPOTLIGHT
+       ======================================== -->
+
+  <section
+    class="impact-section"
+    id="community-impact"
+    aria-labelledby="impact-title"
+  >
+    <div class="page-container impact-grid">
+
+      <!-- Community Impact Information -->
+
+      <div class="impact-content">
+        <p class="eyebrow">
+          COMMUNITY SPOTLIGHT
+        </p>
+
+        <h2 id="impact-title">
+          Care That Goes
+          <span>Beyond Skincare.</span>
+        </h2>
+
+        <h3>Hygiene Kits & Community Outreach</h3>
+
+        <p>
+          Clear & Glowing volunteers have assembled
+          personal-care and hygiene kits for distribution
+          through Star House in Columbus, supporting
+          individuals experiencing homelessness.
+        </p>
+
+        <p>
+          This initiative reflects our belief that
+          self-care resources, personal dignity, and
+          access to everyday essentials should not
+          be out of reach.
+        </p>
+
+        <p>
+          Through community-focused service, we hope
+          to connect our commitment to confidence
+          and wellness with tangible acts of care.
+        </p>
+      </div>
+
+      <!-- Community Impact Visual -->
+
+      <div class="impact-media">
+        {
+          spotlightPhoto.src ? (
+            <img
+              src={spotlightPhoto.src}
+              alt={spotlightPhoto.alt}
+              width={spotlightPhoto.width}
+              height={spotlightPhoto.height}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="impact-placeholder">
+              <div class="placeholder-content">
+                <p class="placeholder-eyebrow">
+                  COMMUNITY IN ACTION
+                </p>
+
+                <p class="placeholder-headline">
+                  Small Acts of Care.
+                  <span>Meaningful Impact.</span>
+                </p>
+
+                <p class="placeholder-caption">
+                  Making personal-care resources
+                  more accessible through
+                  student-led service.
+                </p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+    </div>
+  </section>
+
+
+  <PhotoShowcase
+    id="foundation-community-gallery"
+    eyebrow="SERVICE IN ACTION"
+    title="The Work Behind Community Care"
+    description="Snapshots of volunteers preparing supplies and working together on hands-on service activities."
+    photos={foundationGallery}
+    background="white"
+  />
+
+  <!-- ========================================
+       LOOKING AHEAD
+       ======================================== -->
+
+  <section
+    class="future-section"
+    aria-labelledby="future-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+        <p class="eyebrow">
+          LOOKING AHEAD
+        </p>
+
+        <h2 id="future-title">
+          Building What's Next.
+        </h2>
+
+        <p>
+          We hope to expand partnerships with community
+          organizations, healthcare professionals,
+          and beauty brands to support more educational
+          events, outreach, and accessible
+          personal-care initiatives.
+        </p>
+      </div>
+
+      <div class="future-grid">
+        {
+          futureGoals.map((goal) => (
+            <article class="future-card">
+              <span
+                class="future-number"
+                aria-hidden="true"
+              >
+                {goal.number}
+              </span>
+
+              <h3>{goal.title}</h3>
+
+              <p>{goal.description}</p>
+            </article>
+          ))
+        }
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       SUPPORT OUR MISSION
+       ======================================== -->
+
+  <section
+    class="support-section"
+    aria-labelledby="support-title"
+  >
+    <div class="page-container">
+      <div class="support-content">
+
+        <p class="support-eyebrow">
+          JOIN US IN MAKING A DIFFERENCE
+        </p>
+
+        <h2 id="support-title">
+          Help Shape What Comes Next.
+        </h2>
+
+        <p class="support-description">
+          We're developing new ways for our community
+          to support educational programming, outreach,
+          and student-led initiatives.
+        </p>
+
+        <p class="support-description">
+          While donations are not yet available,
+          you can stay connected and learn about
+          future opportunities to get involved.
+        </p>
+
+        <div class="support-actions">
+
+          <Button
+            href="/donate"
+            variant="primary"
+          >
+            Support Our Mission
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button
+            href={links.newsletter}
+            variant="outline-light"
+          >
+            Get Updates
+          </Button>
+
+        </div>
+
+        <p class="support-note">
+          Donations coming soon. The donation page
+          will provide updates as plans develop.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* ========================================
+     SHARED PAGE STYLES
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    max-width: 790px;
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .section-heading > p:last-child {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     FOUNDATION HERO
+     ======================================== */
+
+  .foundation-hero {
+    padding-block: clamp(5rem, 9vw, 8rem);
+    background-color: var(--color-surface);
+  }
+
+  .hero-content {
+    max-width: 950px;
+  }
+
+  .hero-content h1 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-content h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    max-width: 780px;
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.85;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .development-note {
+    max-width: 680px;
+    margin: 2rem 0 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--color-primary);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     FOCUS AREAS
+     ======================================== */
+
+  .focus-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .focus-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .focus-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+
+    background-color: var(--color-surface);
+    border-top: 4px solid var(--color-primary);
+    border-radius: 12px;
+  }
+
+  .card-number {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .focus-card h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    line-height: 1.3;
+  }
+
+  .focus-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     COMMUNITY IMPACT SPOTLIGHT
+     ======================================== */
+
+  .impact-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .impact-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .impact-content h2 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .impact-content h3 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+
+  .impact-content > p:not(.eyebrow) {
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+  .impact-media {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    min-width: 0;
+    overflow: hidden;
+
+    background-color: var(--color-primary);
+    border-radius: 12px;
+  }
+
+  .impact-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Visual fallback until a real photo is selected */
+
+  .impact-placeholder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: flex-end;
+
+    padding: clamp(2rem, 4vw, 3rem);
+
+    background: linear-gradient(
+      145deg,
+      #BB0000,
+      #850000 55%,
+      #4B171C
+    );
+
+    color: var(--color-white);
+  }
+
+  .placeholder-content {
+    max-width: 420px;
+  }
+
+  .placeholder-eyebrow {
+    margin: 0 0 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .placeholder-headline {
+    margin: 0;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .placeholder-headline span {
+    display: block;
+  }
+
+  .placeholder-caption {
+    margin: 1.75rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     LOOKING AHEAD
+     ======================================== */
+
+  .future-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .future-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .future-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+
+    background-color: var(--color-white);
+    border: 1px solid #DDDDDD;
+    border-radius: 12px;
+  }
+
+  .future-number {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .future-card h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .future-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     SUPPORT OUR MISSION CTA
+     ======================================== */
+
+  .support-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: #23191C;
+  }
+
+  .support-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 850px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .support-eyebrow {
+    margin: 0 0 1.25rem;
+    color: #FFCECE;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .support-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .support-description {
+    max-width: 650px;
+    margin: 0 0 1.25rem;
+    color: #E8E8E8;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .support-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .support-note {
+    margin: 2rem 0 0;
+    color: #D0D0D0;
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 768px) {
+    .focus-grid {
+      grid-template-columns: repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    }
+
+    .future-grid {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (min-width: 900px) {
+    .impact-grid {
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions,
+    .support-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .impact-media {
+      max-width: 550px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .impact-placeholder {
+      padding: 1.75rem;
+    }
+  }
+</style>

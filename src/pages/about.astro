@@ -1,11 +1,538 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import ContentPhoto from '../components/ContentPhoto.astro';
+import PhotoShowcase from '../components/PhotoShowcase.astro';
+import { photos, photoCollections } from '../data/photos';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const values = [
+	{
+		number: "01",
+		title: "Resilient",
+		description:
+			"We embrace challenges, grow through our experiences, and help others develop confidence beyond their skin.",
+	},
+	{
+		number: "02",
+		title: "Bold",
+		description:
+			"We challenge harmful beauty stigmas and advocate for accessible skincare education and greater opportunity.",
+	},
+	{
+		number: "03",
+		title: "Compassionate",
+		description:
+			"We lead with empathy and strive to make every individual feel welcomed, respected, and supported.",
+	},
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="About Us"
+	description="Discover Clear & Glowing's mission, vision, and values. Learn how our student-founded organization brings together skincare education, confidence, community, and opportunity.">
+	
+	<!-- About Hero -->
+	<section class="about-hero" aria-labelledby="about-title">
+		<div class="page-container hero-grid">
+			<div class="hero-content">
+				<p class="eyebrow">ABOUT CLEAR & GLOWING</p>
+
+				<h1 id="about-title">
+					Beauty Is More Than Skin Deep.
+				</h1>
+
+				<p class="hero-description">
+					Clear & Glowing is a student-founded movement
+					connecting skincare education, wellness,
+					confidence, community service, and pathways
+					into the beauty industry.
+				</p>
+
+				<p class="hero-description">
+					What started at Ohio State has grown into a
+					university-centered network driven by students
+					who believe that learning about skin and caring
+					for others can create meaningful change.
+				</p>
+
+				<div class="hero-action">
+					<Button href="/our-story">
+						Read Our Story
+						<span aria-hidden="true">↗︎</span>
+					</Button>
+				</div>
+			</div>
+
+			<!-- Founding Infomation -->
+			<div class="origin-panel">
+				<p class="origin-eyebrow">WHERE IT ALL BEGAN</p>
+
+				<p class="origin-year" aria-hidden="true">
+					2024
+				</p>
+
+				<div class="origin-details">
+					<p class="origin-school">
+						The Ohio State University
+					</p>
+
+					<p class="origin-date">
+						Founded Fall 2024
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Real community photograph; the founding-year panel above is preserved. -->
+	<section class="community-portrait-section" aria-labelledby="community-portrait-title">
+		<div class="page-container community-portrait-grid">
+			<div class="community-portrait-copy">
+				<p class="eyebrow">THE PEOPLE BEHIND THE MISSION</p>
+				<h2 id="community-portrait-title">A Community Built on Connection.</h2>
+				<p>
+					Clear & Glowing brings students together to learn, share
+					experiences, and support one another through education,
+					wellness, and community involvement.
+				</p>
+				<Button href="/chapters" variant="outline">Explore Our Chapters</Button>
+			</div>
+			<ContentPhoto photo={photos.about} shape="landscape" />
+		</div>
+	</section>
+
+	<!-- Mission and Vision -->
+	<section class="purpose-section" aria-labelledby="purpose-title">
+		<div class="page-container">
+			<div class="section-heading">
+				<p class="eyebrow">OUR PURPOSE</p>
+
+				<h2 id="purpose-title">
+					Our Mission & Vision
+				</h2>
+			</div>
+
+			<div class="purpose-grid">
+				<article class="purpose-card">
+					<span class="card-number" aria-hidden="true">
+						01
+					</span>
+
+					<h3>Our Mission</h3>
+
+					<p>
+						To build a national community of students
+						who advance skincare education, wellness,
+						confidence, and philanthropy while creating
+						pathways into the skincare and beauty industry.
+					</p>
+				</article>
+
+				<article class="purpose-card">
+					<span class="card-number" aria-hidden="true">
+						02
+					</span>
+
+					<h3>Our Vision</h3>
+
+					<p>
+						To create a world where skincare education,
+						self-care, and confidence are accessible to
+						everyone, while empowering students to lead,
+						connect, and make a meaningful impact in
+						their communities.
+					</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- Core Values -->
+	<section class="values-section" aria-labelledby="values-title">
+		<div class="page-container">
+			<div class="section-heading">
+				<p class="eyebrow">WHAT WE BELIEVE</p>
+
+				<h2 id="values-title">
+					The Values We Live By
+				</h2>
+			</div>
+
+			<ul class="values-grid">
+				{
+					values.map((value) => (
+						<li class="value-card">
+							<span class="card-number" aria-hidden="true">
+								{value.number}
+							</span>
+
+							<h3>{value.title}</h3>
+
+							<p>{value.description}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<PhotoShowcase
+		id="about-community-gallery"
+		eyebrow="OUR COMMUNITY IN ACTION"
+		title="A Look Inside Our Community"
+		description="Moments of connection, conversation, and student involvement."
+		photos={photoCollections.about}
+		background="soft"
+	/>
+
+	<!-- Get Involved CTA -->
+	<section class="get-involved" aria-labelledby="involved-title">
+		<div class="page-container">
+			<div class="cta-panel">
+				<p class="cta-eyebrow">BE PART OF SOMETHING BIGGER</p>
+
+				<h2 id="involved-title">
+					Find Your Community.
+				</h2>
+
+				<p>
+					Connect with students who share your interests
+					in skincare, wellness, leadership, and
+					making a difference.
+				</p>
+
+				<Button href="/join" variant="primary">
+					Find Your Community
+					<span aria-hidden="true">→</span>
+					</Button>
+			</div>
+		</div>
+	</section>
 </Layout>
+
+<style>
+	/*
+	================================================
+	SHARED PAGE STYLES
+	================================================
+	*/
+
+	.page-container {
+		width: min(
+			calc(100% - 2rem),
+			var(--max-content-width)
+		);
+		margin-inline: auto;
+	}
+
+	.eyebrow {
+		margin: 0 0 1.25rem;
+		color: var(--color-primary);
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		line-height: 1.5;
+	}
+
+	.section-heading {
+		max-width: 760px;
+		margin-bottom: 3rem;
+	}
+
+	.section-heading h2 {
+		margin: 0;
+		color: var(--color-heading);
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		line-height: 1.15;
+		letter-spacing: -0.025em;
+	}
+
+	/*
+	================================================
+	ABOUT HERO
+	================================================
+	*/
+
+	.about-hero {
+		padding-block: clamp(4rem, 8vw, 7rem);
+		background-color: var(--color-surface);
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		align-items: center;
+		gap: 3rem;
+	}
+
+	.hero-content {
+		max-width: 740px;
+	}
+
+	h1 {
+		margin: 0 0 2rem;
+		color: var(--color-heading);
+		font-size: clamp(2.5rem, 5vw, 4.75rem);
+		font-weight: 800;
+		line-height: 1.1;
+		letter-spacing: -0.035em;
+	}
+
+	.hero-description {
+		margin: 0 0 1.25rem;
+		color: var(--color-text);
+		font-size: clamp(1rem, 1.3vw, 1.1rem);
+		line-height: 1.85;
+	}
+
+	.hero-action {
+		margin-top: 2rem;
+	}
+
+	/*
+	================================================
+	FOUNDING INFORMATION PANEL
+	================================================
+	*/
+
+	.origin-panel {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 2rem;
+
+		min-width: 0;
+		min-height: 350px;
+		padding: clamp(2rem, 4vw, 3rem);
+
+		background-color: var(--color-primary);
+		color: var(--color-white);
+		border-radius: 12px;
+	}
+
+	.origin-eyebrow {
+		margin: 0%;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+	}
+
+	.origin-year {
+		margin: 0;
+		font-size: clamp(4rem, 8vw, 7rem);
+		font-weight: 800;
+		line-height: 1;
+		letter-spacing: -0.05em;
+	}
+
+	.origin-details {
+		padding-top: 1.5rem;
+		border-top: 1px solid rgb(255 255 255 / 0.5);
+	}
+
+	.origin-school {
+		margin: 0 0 0.35rem;
+		font-size: 1.25rem;
+		font-weight: 700;
+	}
+
+	.origin-date {
+		margin: 0;
+		font-size: 0.95rem;
+	}
+
+	/*
+	================================================
+	MISSION AND VISION
+	================================================
+	*/
+
+	.purpose-section {
+		padding-block: clamp(4rem, 8vw, 7rem);
+		background-color: var(--color-white);
+	}
+
+	.purpose-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.purpose-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+
+		padding: clamp(1.5rem, 3vw, 2.5rem);
+
+		background-color: var(--color-surface);
+		border-top: 4px solid var(--color-primary);
+		border-radius: 12px
+	}
+
+	.card-number {
+		color: var(--color-primary);
+		font-size: 0.9rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+	}
+
+	.purpose-card h3 {
+		margin: 0;
+		font-size: clamp(1.4rem, 2vw, 1.8rem);
+		line-height: 1.3;
+	}
+
+	.purpose-card p {
+		margin: 0;
+		line-height: 1.85;
+	}
+
+	/*
+	================================================
+	CORE VALUES
+	================================================
+	*/
+
+	.values-section {
+		padding-block: clamp(4rem, 8vw, 7rem);
+		background-color: var(--color-surface);
+	}
+
+	.values-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.value-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		padding: clamp(1.5rem, 3vw, 2.5rem);
+
+		background-color: var(--color-white);
+		border: 1px solid #E5E5E5;
+		border-radius: 12px;
+	}
+
+	.value-card h3 {
+		margin: 0;
+		font-size: 1.5rem;
+		line-height: 1.3;
+	}
+
+	.value-card p {
+		margin: 0;
+		line-height: 1.8;
+	}
+
+	/*
+	================================================
+	GET INVOLVED CTA
+	================================================
+	*/
+
+	.get-involved {
+		padding-block: clamp(4rem, 7vw, 6rem);
+		background-color: var(--color-white);
+	}
+
+	.cta-panel {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+
+		padding: clamp(2.5rem, 6vw, 5rem);
+
+		background: linear-gradient(
+			135deg,
+			#4B171C,
+			#23191C 60%,
+			#111111
+		);
+
+		border-radius: 16px;
+		text-align: center;
+	}
+
+	.cta-eyebrow {
+		margin: 0;
+		color: #FFCECE;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+	}
+
+	.cta-panel h2 {
+		margin: 0;
+		color: var(--color-white);
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		line-height: 1.15;
+	}
+
+	.cta-panel p:not(.cta-eyebrow) {
+		max-width: 650px;
+		margin: 0;
+		color: #E8E8E8;
+		font-size: 1.05rem;
+		line-height: 1.8;
+	}
+
+	/* ========================================
+	   COMMUNITY PHOTOGRAPH SECTION
+	   ======================================== */
+	.community-portrait-section {
+		padding-block: clamp(4rem, 8vw, 7rem);
+		background: var(--color-white);
+	}
+	.community-portrait-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: center;
+	}
+	.community-portrait-copy h2 {
+		margin: 0 0 1.5rem;
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		line-height: 1.15;
+		color: var(--color-heading);
+	}
+	.community-portrait-copy > p:not(.eyebrow) {
+		margin: 0 0 1.75rem;
+		line-height: 1.85;
+	}
+	@media (min-width: 900px) {
+		.community-portrait-grid {
+			grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		}
+	}
+
+	/*
+	================================================
+	RESPONSIVE DESIGN
+	================================================
+	*/
+
+	@media (min-width: 768px) {
+		.purpose-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.values-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 900px) {
+		.hero-grid {
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+			gap: clamp(3rem, 5vw, 6rem);
+		}
+	}
+</style>

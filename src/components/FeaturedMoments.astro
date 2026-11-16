@@ -1,0 +1,212 @@
+---
+import EventCard from "./EventCard.astro";
+import Button from "./Button.astro";
+
+import { events } from "../data/events";
+
+// Only display events that are both:
+// 1. Approved for publication.
+// 2. Selected as homepage features.
+//
+// Order selected events by date, newest first.
+// Display at most three featured events.
+const featuredEvents = events
+  .filter(
+    (event) =>
+      event.published && event.featured === true
+  )
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3);
+---
+
+<section
+  class="featured-moments"
+  aria-labelledby="featured-title"
+>
+  <div class="featured-container">
+
+    <!-- ========================================
+         SECTION HEADING
+         ======================================== -->
+
+    <div class="featured-heading">
+
+      <p class="featured-eye">
+        OUR COMMUNITY IN ACTION
+      </p>
+
+      <h2 id="featured-title">
+        Featured Moments
+      </h2>
+
+      <p class="featured-intro">
+        From skincare education and beauty-industry
+        conversations to community service, explore the
+        experiences that bring Clear & Glowing together.
+      </p>
+
+    </div>
+
+
+    <!-- ========================================
+         FEATURED EVENT CARDS
+         ======================================== -->
+
+    {
+      featuredEvents.length > 0 ? (
+        <div class="featured-grid">
+
+          {
+            featuredEvents.map((event) => (
+              <EventCard
+                event={event}
+                headingLevel="h3"
+              />
+            ))
+          }
+
+        </div>
+      ) : (
+        <div class="empty-state">
+
+          <p>
+            We're preparing highlights from our community.
+            Check back for event photographs and stories.
+          </p>
+
+        </div>
+      )
+    }
+
+
+    <!-- ========================================
+         VIEW ALL EVENTS
+         ======================================== -->
+
+    <div class="featured-action">
+
+      <Button
+        href="/events"
+        variant="primary"
+      >
+        See Our Events
+        <span aria-hidden="true">→</span>
+      </Button>
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  /* ========================================
+     FEATURED MOMENTS SECTION
+     ======================================== */
+
+  .featured-moments {
+    width: 100%;
+    padding-block: clamp(4rem, 8vw, 7rem);
+
+    background-color: var(--color-white);
+  }
+
+  .featured-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+
+    margin-inline: auto;
+  }
+
+
+  /* ========================================
+     SECTION HEADING
+     ======================================== */
+
+  .featured-heading {
+    max-width: 760px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .featured-eye {
+    margin: 0 0 1.25rem;
+
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+  }
+
+  .featured-heading h2 {
+    margin: 0;
+
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .featured-intro {
+    margin: 1.5rem auto 0;
+
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     FEATURED EVENTS GRID
+     ======================================== */
+
+  .featured-grid {
+    display: grid;
+
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, 300px), 1fr)
+    );
+
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+
+  /* ========================================
+     EMPTY STATE
+     ======================================== */
+
+  .empty-state {
+    max-width: 600px;
+    margin-inline: auto;
+    padding: 2rem;
+
+    background-color: var(--color-surface);
+    border-radius: 12px;
+
+    text-align: center;
+  }
+
+  .empty-state p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     VIEW ALL EVENTS BUTTON
+     ======================================== */
+
+  .featured-action {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 3rem;
+  }
+</style>

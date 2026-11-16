@@ -1,0 +1,50 @@
+---
+interface Props {
+  variant?: "header" | "footer" | "monogram" | "combined";
+  alt?: string;
+  loading?: "eager" | "lazy";
+  class?: string;
+}
+
+const {
+  variant = "header",
+  alt = "Clear & Glowing",
+  loading = "eager",
+  class: className,
+} = Astro.props;
+
+const logoAssets = {
+  header: {
+    src: "/images/brand/cg-wordmark-red.svg",
+    width: 702,
+    height: 363,
+  },
+  footer: {
+    src: "/images/brand/cg-wordmark-white.svg",
+    width: 702,
+    height: 363,
+  },
+  monogram: {
+    src: "/images/brand/cg-monogram-red.svg",
+    width: 689,
+    height: 691,
+  },
+  combined: {
+    src: "/images/brand/cg-combined-red.svg",
+    width: 701,
+    height: 489,
+  },
+} as const;
+
+const logo = logoAssets[variant];
+---
+
+<img
+  src={logo.src}
+  alt={alt}
+  width={logo.width}
+  height={logo.height}
+  loading={loading}
+  decoding="async"
+  class={className}
+/>

@@ -8,62 +8,109 @@ interface Props {
 
 const {
   event,
-  headingLevel = "h2",
+  headingLevel = "h3",
 } = Astro.props;
 
-const Heading = headingLevel;
+// Use the requested heading level while
+// preserving the page's heading hierarchy.
+const HeadingTag = headingLevel;
 
-// Format ISO dates consistently, regardless of user timezone.
-const formattedDate = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-  timeZone: "UTC",
-}).format(new Date(`${event.date}T00:00:00Z`));
+// The date is stored as YYYY-MM-DD.
+// Parse using UTC to avoid timezone-related
+// shifts that could display the previous day.
+const parsedDate = new Date(
+  `${event.date}T12:00:00Z`
+);
+
+const formattedDate = Number.isNaN(
+  parsedDate.getTime()
+)
+  ? event.date
+  : new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(parsedDate);
+
+// Empty alt text is appropriate only when
+// the image is decorative. Meaningful event
+// photos should have descriptive imageAlt data.
+const imageAlt = event.imageAlt?.trim() ?? "";
 ---
 
-<article class="event-card">
+<article
+  class="event-card"
+  aria-labelledby={`event-title-${event.id}`}
+>
 
-  <!-- Event Image -->
+  <!-- ========================================
+       EVENT IMAGE
+       ======================================== -->
+
   <div class="event-image">
+
     {
       event.image ? (
-        <img src={event.image}
-          alt={event.imageAlt ?? ""}
-          width="800"
-          height="500"
+        <img
+          src={event.image}
+          alt={imageAlt}
           loading="lazy"
-          decoding="async" />
+          decoding="async"
+        />
       ) : (
-        <div class="image-placeholder" aria-hidden="true">
-          <span>Event Photo Coming Soon</span>
+        <div
+          class="image-placeholder"
+          aria-hidden="true"
+        >
+          <span class="placeholder-eyebrow">
+            CLEAR & GLOWING
+          </span>
+
+          <span class="placeholder-title">
+            COMMUNITY
+            <span>IN ACTION.</span>
+          </span>
         </div>
       )
     }
+
   </div>
 
-  <!-- Event Information -->
+
+  <!-- ========================================
+       EVENT CONTENT
+       ======================================== -->
+
   <div class="event-content">
 
-    <!-- Category and Date -->
     <div class="event-meta">
+
       <span class="event-category">
         {event.category}
       </span>
 
-      <time datetime={event.date} class="event-date">
+      <time
+        class="event-date"
+        datetime={event.date}
+      >
         {formattedDate}
       </time>
+
     </div>
 
-    <!-- Event Title -->
-    <Heading class="event-title">
-      {event.title}
-    </Heading>
 
-    <!-- Location -->
+    <!-- Dynamic h2/h3 heading -->
+
+    <HeadingTag id={`event-title-${event.id}`}>
+      {event.title}
+    </HeadingTag>
+
+
     <p class="event-location">
-      <svg width="18"
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
         height="18"
         viewBox="0 0 24 24"
         fill="none"
@@ -71,119 +118,153 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        aria-hidden="true">
-        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-          <circle cx="12" cy="10" r="2.5" />
-        </svg>
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"
+        />
+        <circle cx="12" cy="10" r="3" />
+      </svg>
 
-        <span>{event.location}</span>
+      <span>{event.location}</span>
     </p>
 
-    <!-- Description -->
+
     <p class="event-description">
       {event.description}
     </p>
 
   </div>
+
 </article>
 
+
 <style>
-  /*
-	================================================
-	EVENT CARD
-	================================================
-	*/
+  /* ========================================
+     EVENT CARD
+     ======================================== */
 
   .event-card {
     display: flex;
     flex-direction: column;
-
+    min-width: 0;
     height: 100%;
-    overflow: hidden;
 
     background-color: var(--color-white);
+
     border: 1px solid #E5E5E5;
     border-radius: 12px;
+
+    overflow: hidden;
   }
 
-  /*
-	================================================
-	EVENT IMAGE
-	================================================
-	*/
+
+  /* ========================================
+     EVENT IMAGE
+     ======================================== */
 
   .event-image {
     width: 100%;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
+    aspect-ratio: 4 / 3;
 
-    background-color: var(--color-surface);
+    background-color: var(--color-primary);
+    overflow: hidden;
   }
 
   .event-image img {
     display: block;
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+    object-position: center;
   }
+
+
+  /* ========================================
+     IMAGE PLACEHOLDER
+     ======================================== */
 
   .image-placeholder {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
 
     width: 100%;
     height: 100%;
-    padding: 1.5rem;
+
+    padding: 1.75rem;
 
     background: linear-gradient(
-      135deg
-      #F5F5F5,
-      #EAEAEA
+      145deg,
+      #BB0000 0%,
+      #850000 55%,
+      #4B171C 100%
     );
 
-    color: #595959;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-align: center;
+    color: var(--color-white);
   }
 
-  /*
-	================================================
-	EVENT CONTENT
-	================================================
-	*/
+  .placeholder-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .placeholder-title {
+    font-size: clamp(1.5rem, 2.5vw, 2.3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+  }
+
+  .placeholder-title span {
+    display: block;
+  }
+
+
+  /* ========================================
+     EVENT INFORMATION
+     ======================================== */
 
   .event-content {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    gap: 0.85rem;
+    align-items: flex-start;
 
-    padding: 1.5rem;
+    flex: 1;
+    gap: 1rem;
+
+    padding: 1.75rem;
   }
 
-  /*
-	================================================
-	CATEGORY AND DATE
-	================================================
-	*/
+
+  /* ========================================
+     CATEGORY AND DATE
+     ======================================== */
 
   .event-meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.5rem 1rem;
+
+    width: 100%;
+    gap: 0.75rem;
   }
 
   .event-category {
     display: inline-block;
-    
-    padding: 0.35rem 0.75rem;
 
-    background-color: #F9E5E5;
-    color: #850000;
+    padding: 0.4rem 0.75rem;
+
+    background-color: #F3E5E5;
+    color: #800000;
+
     border-radius: 100px;
 
     font-size: 0.75rem;
@@ -192,34 +273,33 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
   }
 
   .event-date {
-    color: #595959;
-    font-size: 0.8rem;
+    color: #555555;
+    font-size: 0.85rem;
     font-weight: 600;
-    white-space: nowrap;
+    line-height: 1.5;
   }
 
-  /*
-	================================================
-	EVENT TITLE
-	================================================
-	*/
 
-  .event-title {
+  /* ========================================
+     EVENT TITLE
+     ======================================== */
+
+  .event-content h2,
+  .event-content h3 {
     margin: 0;
 
     color: var(--color-heading);
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 1.3;
 
-    overflow-wrap: break-word;
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
   }
 
-  /*
-	================================================
-	EVENT LOCATION
-	================================================
-	*/
+
+  /* ========================================
+     LOCATION
+     ======================================== */
 
   .event-location {
     display: flex;
@@ -228,27 +308,43 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
 
     margin: 0;
 
-    color: #595959;
+    color: #555555;
     font-size: 0.9rem;
-    line-height: 1.5;
+    font-weight: 600;
+    line-height: 1.6;
   }
 
   .event-location svg {
     flex-shrink: 0;
-    margin-top: 0.1rem;
+    margin-top: 0.15rem;
+    color: var(--color-primary);
   }
 
-  /*
-	================================================
-	EVENT DESCRIPTION
-	================================================
-	*/
+
+  /* ========================================
+     DESCRIPTION
+     ======================================== */
 
   .event-description {
     margin: 0;
 
     color: var(--color-text);
-    font-size: 0.925rem;
-    line-height: 1.7;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (max-width: 600px) {
+    .event-content {
+      padding: 1.5rem;
+    }
+
+    .image-placeholder {
+      padding: 1.5rem;
+    }
   }
 </style>

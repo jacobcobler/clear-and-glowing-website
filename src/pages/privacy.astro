@@ -1,0 +1,959 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { links } from "../data/links";
+
+// PRIVACY POLICY CONFIGURATION
+//
+// Keep this true until the organization has
+// verified its actual data practices and approved
+// the policy for publication.
+const isDraft = true;
+
+// Add a founder-approved organizational privacy
+// contact address before launching the website.
+// Do not use an unapproved personal email.
+const privacyContactEmail: string | null = null;
+
+const lastUpdated = "November 13, 2026";
+
+const sections = [
+  { id: "introduction", label: "Introduction" },
+  { id: "information", label: "Information We Collect" },
+  { id: "uses", label: "How Information Is Used" },
+  { id: "third-parties", label: "Third-Party Services" },
+  { id: "cookies", label: "Cookies & Analytics" },
+  { id: "retention", label: "Retention & Security" },
+  { id: "choices", label: "Your Choices & Rights" },
+  { id: "children", label: "Children's Privacy" },
+  { id: "changes", label: "Policy Changes" },
+  { id: "contact", label: "Privacy Questions" },
+];
+---
+
+<Layout
+  title="Privacy Policy"
+  description="Read Clear & Glowing's privacy policy, including information about newsletter signup, university chapter applications, external services, and website data practices."
+>
+
+  <!-- ========================================
+       PRIVACY HERO
+       ======================================== -->
+
+  <section
+    class="privacy-hero"
+    aria-labelledby="privacy-title"
+  >
+    <div class="page-container">
+
+      <p class="eyebrow">
+        LEGAL INFORMATION
+      </p>
+
+      <h1 id="privacy-title">
+        Privacy <span>Policy.</span>
+      </h1>
+
+      <p class="hero-description">
+        Clear & Glowing values transparency and
+        wants visitors to understand how personal
+        information may be collected and handled
+        when they interact with our website,
+        applications, and external services.
+      </p>
+
+      <p class="update-date">
+        Last updated: <time datetime="2026-11-13">
+          {lastUpdated}
+        </time>
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       POLICY CONTENT
+       ======================================== -->
+
+  <section class="policy-section">
+    <div class="page-container policy-layout">
+
+      <!-- Table of Contents -->
+
+      <aside
+        class="policy-navigation"
+        aria-label="Privacy policy sections"
+      >
+        <div class="navigation-panel">
+
+          <h2>On This Page</h2>
+
+          <nav aria-label="Privacy policy contents">
+            <ol>
+              {
+                sections.map((section) => (
+                  <li>
+                    <a href={`#${section.id}`}>
+                      {section.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ol>
+          </nav>
+
+        </div>
+      </aside>
+
+
+      <!-- Main Policy Text -->
+
+      <div class="policy-content">
+
+        {
+          isDraft && (
+            <div
+              class="draft-notice"
+              role="note"
+              aria-label="Draft policy notice"
+            >
+              <strong>
+                Draft — Pending Final Review
+              </strong>
+
+              <p>
+                This policy is being prepared for the
+                Clear & Glowing website. Details about
+                hosting, technical data, cookies,
+                analytics, retention, and privacy
+                contact information must be confirmed
+                before public launch.
+              </p>
+            </div>
+          )
+        }
+
+
+        <!-- 01 INTRODUCTION -->
+
+        <section
+          id="introduction"
+          class="policy-block"
+          aria-labelledby="introduction-title"
+        >
+          <h2 id="introduction-title">
+            1. Introduction
+          </h2>
+
+          <p>
+            This Privacy Policy describes the
+            information practices associated with
+            the Clear & Glowing website and the
+            external services visitors may access
+            through it.
+          </p>
+
+          <p>
+            Clear & Glowing is a student-founded
+            organization focused on skincare
+            education, wellness, confidence,
+            community service, and opportunities
+            in the beauty industry.
+          </p>
+
+          <p>
+            Some activities, including newsletter
+            signup, university chapter applications,
+            and merchandise shopping, take place
+            through third-party websites rather than
+            directly through this website.
+          </p>
+        </section>
+
+
+        <!-- 02 INFORMATION WE COLLECT -->
+
+        <section
+          id="information"
+          class="policy-block"
+          aria-labelledby="information-title"
+        >
+          <h2 id="information-title">
+            2. Information We Collect
+          </h2>
+
+          <h3>Newsletter Signup</h3>
+
+          <p>
+            Visitors can sign up for Clear & Glowing
+            updates using our
+            <a href={links.newsletter}>
+              newsletter Google Form
+            </a>.
+          </p>
+
+          <p>
+            The information collected depends on
+            the fields and settings of that form.
+            It may include an email address and
+            other information the visitor chooses
+            to provide.
+          </p>
+
+          <h3>University Chapter Applications</h3>
+
+          <p>
+            Students interested in starting a
+            chapter can submit our
+            <a href={links.chapterApplication}>
+              official university chapter application
+            </a>.
+          </p>
+
+          <p>
+            The application may request identifying
+            and contact information, university
+            affiliation, and information relevant
+            to the applicant's interest in
+            establishing a chapter.
+          </p>
+
+          <h3>Direct Communications</h3>
+
+          <p>
+            If a visitor communicates with the
+            organization using an approved contact
+            method, the communication may contain
+            their name, contact details, and
+            information included in the message.
+          </p>
+
+          <p>
+            The website's direct contact method
+            is still being finalized.
+          </p>
+
+          <h3>Technical Information</h3>
+
+          <p>
+            Depending on the website's hosting and
+            security configuration, technical
+            information such as IP addresses,
+            browser information, request details,
+            and access logs may be processed
+            when visitors use the website.
+          </p>
+
+          <p>
+            The specific technical information
+            processed by our hosting provider
+            will be confirmed before launch.
+          </p>
+
+        </section>
+
+
+        <!-- 03 HOW WE USE INFORMATION -->
+
+        <section
+          id="uses"
+          class="policy-block"
+          aria-labelledby="uses-title"
+        >
+          <h2 id="uses-title">
+            3. How Information Is Used
+          </h2>
+
+          <p>
+            Information submitted through
+            Clear & Glowing's official forms
+            may be used for purposes related
+            to the activity for which it
+            was provided.
+          </p>
+
+          <ul>
+            <li>
+              Sending organizational news and
+              updates to newsletter subscribers.
+            </li>
+
+            <li>
+              Reviewing university chapter
+              applications and following up
+              with applicants.
+            </li>
+
+            <li>
+              Responding to inquiries sent
+              through an approved contact method.
+            </li>
+
+            <li>
+              Coordinating relevant educational,
+              community, and organizational
+              activities.
+            </li>
+
+            <li>
+              Maintaining the operation and
+              security of the website, where
+              applicable.
+            </li>
+          </ul>
+
+          <p>
+            Information practices and access
+            permissions for each form should
+            be verified against its actual
+            configuration before launch.
+          </p>
+
+        </section>
+
+
+        <!-- 04 THIRD-PARTY SERVICES -->
+
+        <section
+          id="third-parties"
+          class="policy-block"
+          aria-labelledby="third-parties-title"
+        >
+          <h2 id="third-parties-title">
+            4. Third-Party Services
+          </h2>
+
+          <p>
+            Clear & Glowing uses links to
+            external services for certain
+            activities.
+          </p>
+
+          <h3>Google Forms</h3>
+
+          <p>
+            Newsletter signup and chapter
+            applications are handled using
+            Google Forms.
+          </p>
+
+          <p>
+            When visitors follow those links,
+            they interact with Google's
+            services and applicable privacy
+            practices.
+          </p>
+
+          <h3>Merchandise Storefront</h3>
+
+          <p>
+            Merchandise shopping is handled
+            through an
+            <a href={links.merchandise}>
+              external merchandise storefront
+            </a>.
+          </p>
+
+          <p>
+            Product browsing, checkout,
+            payment processing, shipping,
+            and returns are handled through
+            that storefront and its
+            relevant service providers.
+          </p>
+
+          <h3>Other External Websites</h3>
+
+          <p>
+            Our website may link to other
+            organizations, resources,
+            or external platforms.
+          </p>
+
+          <p>
+            Visitors should review the
+            privacy information provided
+            by those services before
+            submitting personal information.
+          </p>
+
+          <p>
+            Any additional providers used
+            for hosting, analytics, contact
+            forms, or other functionality
+            must be identified and reviewed
+            before this policy is finalized.
+          </p>
+
+        </section>
+
+
+        <!-- 05 COOKIES AND ANALYTICS -->
+
+        <section
+          id="cookies"
+          class="policy-block"
+          aria-labelledby="cookies-title"
+        >
+          <h2 id="cookies-title">
+            5. Cookies & Analytics
+          </h2>
+
+          <p>
+            Cookies and similar technologies
+            can be used by websites and
+            service providers for functions
+            such as maintaining preferences,
+            supporting security, and
+            measuring website activity.
+          </p>
+
+          <p>
+            Clear & Glowing's final cookie
+            and analytics disclosures will
+            depend on the services actually
+            enabled on the published website.
+          </p>
+
+          <p>
+            Before launch, the organization
+            will need to confirm whether
+            any analytics, embedded content,
+            third-party scripts, or
+            nonessential cookies are used.
+          </p>
+
+          <p>
+            Where required, applicable
+            notice and choice mechanisms
+            must be implemented before
+            those technologies are enabled.
+          </p>
+
+        </section>
+
+
+        <!-- 06 RETENTION AND SECURITY -->
+
+        <section
+          id="retention"
+          class="policy-block"
+          aria-labelledby="retention-title"
+        >
+          <h2 id="retention-title">
+            6. Data Retention & Security
+          </h2>
+
+          <p>
+            Personal information should
+            be retained only for appropriate
+            organizational purposes and
+            protected using suitable
+            administrative and technical
+            safeguards.
+          </p>
+
+          <p>
+            Clear & Glowing's specific
+            retention periods, access
+            controls, and deletion
+            procedures for newsletter
+            records, chapter applications,
+            and correspondence must be
+            confirmed before publication.
+          </p>
+
+          <p>
+            No method of storing or
+            transmitting information
+            electronically can guarantee
+            absolute security.
+          </p>
+
+        </section>
+
+
+        <!-- 07 YOUR CHOICES AND RIGHTS -->
+
+        <section
+          id="choices"
+          class="policy-block"
+          aria-labelledby="choices-title"
+        >
+          <h2 id="choices-title">
+            7. Your Choices & Rights
+          </h2>
+
+          <p>
+            Visitors can choose whether
+            to provide information through
+            the newsletter and chapter
+            application forms.
+          </p>
+
+          <p>
+            Depending on applicable law
+            and the circumstances,
+            individuals may have rights
+            to request access to,
+            correction of, or deletion
+            of personal information.
+          </p>
+
+          <p>
+            Processes for managing newsletter
+            preferences and responding to
+            privacy requests must be
+            confirmed before launch.
+          </p>
+
+          <p>
+            Privacy-related requests
+            should be directed to the
+            organizational contact
+            method identified in the
+            Contact section below once
+            that method is activated.
+          </p>
+
+        </section>
+
+
+        <!-- 08 CHILDREN'S PRIVACY -->
+
+        <section
+          id="children"
+          class="policy-block"
+          aria-labelledby="children-title"
+        >
+          <h2 id="children-title">
+            8. Children's Privacy
+          </h2>
+
+          <p>
+            Clear & Glowing's website is
+            primarily designed for
+            university students, community
+            members, professionals, and
+            other interested visitors.
+          </p>
+
+          <p>
+            It is not intended as a
+            service directed to children
+            under the age of 13.
+          </p>
+
+          <p>
+            Additional practices relating
+            to minors and student
+            participation must be reviewed
+            before publication if any
+            relevant programs or
+            collection methods are added.
+          </p>
+
+        </section>
+
+
+        <!-- 09 POLICY CHANGES -->
+
+        <section
+          id="changes"
+          class="policy-block"
+          aria-labelledby="changes-title"
+        >
+          <h2 id="changes-title">
+            9. Changes to This Policy
+          </h2>
+
+          <p>
+            This Privacy Policy may be
+            updated when website features,
+            organizational practices,
+            or applicable requirements
+            change.
+          </p>
+
+          <p>
+            The date at the top of this
+            page identifies the most
+            recent revision of the
+            published policy.
+          </p>
+
+          <p>
+            Visitors are encouraged
+            to review this page
+            periodically.
+          </p>
+
+        </section>
+
+
+        <!-- 10 PRIVACY CONTACT -->
+
+        <section
+          id="contact"
+          class="policy-block"
+          aria-labelledby="contact-title"
+        >
+          <h2 id="contact-title">
+            10. Privacy Questions
+          </h2>
+
+          <p>
+            For questions or requests
+            concerning this Privacy
+            Policy, please use the
+            approved organizational
+            privacy contact method.
+          </p>
+
+          {
+            privacyContactEmail ? (
+              <p>
+                Email:
+                {" "}
+                <a
+                  href={`mailto:${privacyContactEmail}`}
+                >
+                  {privacyContactEmail}
+                </a>
+              </p>
+            ) : (
+              <p class="contact-pending">
+                A dedicated privacy contact
+                address has not yet been
+                confirmed. This contact
+                information must be added
+                before the website launches.
+              </p>
+            )
+          }
+
+        </section>
+
+
+        <!-- RELATED LEGAL PAGES -->
+
+        <nav
+          class="legal-links"
+          aria-label="Related legal information"
+        >
+          <h2>Related Information</h2>
+
+          <ul>
+            <li>
+              <a href="/terms">
+                Terms of Use
+              </a>
+            </li>
+
+            <li>
+              <a href="/accessibility">
+                Accessibility Statement
+              </a>
+            </li>
+
+            <li>
+              <a href="/contact">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* ========================================
+     SHARED CONTAINER
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  /* ========================================
+     HERO
+     ======================================== */
+
+  .privacy-hero {
+    padding-block: clamp(4rem, 7vw, 6rem);
+    background-color: var(--color-surface);
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .privacy-hero h1 {
+    margin: 0 0 1.75rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .privacy-hero h1 span {
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    max-width: 760px;
+    margin: 0 0 1.5rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+  .update-date {
+    margin: 0;
+    color: #555555;
+    font-size: 0.9rem;
+  }
+
+  /* ========================================
+     POLICY LAYOUT
+     ======================================== */
+
+  .policy-section {
+    padding-block: clamp(3rem, 7vw, 6rem);
+    background-color: var(--color-white);
+  }
+
+  .policy-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+
+  /* ========================================
+     TABLE OF CONTENTS
+     ======================================== */
+
+  .navigation-panel {
+    padding: 1.75rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .navigation-panel h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: 1.15rem;
+  }
+
+  .navigation-panel ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+
+  .navigation-panel li {
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .navigation-panel a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .navigation-panel a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* ========================================
+     POLICY BODY
+     ======================================== */
+
+  .policy-content {
+    min-width: 0;
+    max-width: 850px;
+  }
+
+  .policy-block {
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #E5E5E5;
+    scroll-margin-top: 7rem;
+  }
+
+  .policy-block h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 750;
+    line-height: 1.3;
+  }
+
+  .policy-block h3 {
+    margin: 1.75rem 0 0.75rem;
+    color: var(--color-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .policy-block p,
+  .policy-block li {
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .policy-block p {
+    margin: 0 0 1.25rem;
+  }
+
+  .policy-block ul {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .policy-block li {
+    padding-left: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .policy-content a {
+    color: #990000;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .policy-content a:hover {
+    color: #660000;
+  }
+
+  .policy-content a:focus-visible,
+  .navigation-panel a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* ========================================
+     DRAFT NOTICE
+     ======================================== */
+
+  .draft-notice {
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+    background-color: #F5F5F5;
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .draft-notice strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-heading);
+    font-size: 1rem;
+  }
+
+  .draft-notice p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.75;
+  }
+
+  .contact-pending {
+    padding: 1rem;
+    background-color: var(--color-surface);
+    border-radius: 8px;
+  }
+
+  /* ========================================
+     RELATED LEGAL PAGES
+     ======================================== */
+
+  .legal-links {
+    padding: 2rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .legal-links h2 {
+    margin: 0 0 1.25rem;
+    color: var(--color-heading);
+    font-size: 1.4rem;
+  }
+
+  .legal-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 900px) {
+    .policy-layout {
+      grid-template-columns:
+        minmax(220px, 0.35fr)
+        minmax(0, 1fr);
+    }
+
+    .navigation-panel {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .navigation-panel {
+      padding: 1.5rem;
+    }
+
+    .policy-block {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .legal-links {
+      padding: 1.5rem;
+    }
+
+    .legal-links ul {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+</style>

@@ -1,11 +1,830 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import PartnerCard from "../components/PartnerCard.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { partners } from "../data/partners";
+import { links } from "../data/links";
+
+// Only display partners approved for publication.
+const approvedPartners = partners.filter(
+  (partner) => partner.approved
+);
+
+const collaborationTypes = [
+  {
+    number: "01",
+    title: "Product Donations & Support",
+    description:
+      "Contribute products or personal-care resources for educational experiences, community care initiatives, and outreach projects.",
+  },
+  {
+    number: "02",
+    title: "Guest Speakers & Skincare Educators",
+    description:
+      "Share knowledge and professional perspectives through conversations with dermatologists, skincare educators, and beauty-industry experts.",
+  },
+  {
+    number: "03",
+    title: "Educational Events & Career Panels",
+    description:
+      "Collaborate on events that introduce students to skincare education, professional experiences, and career paths in the beauty industry.",
+  },
+  {
+    number: "04",
+    title: "Volunteering & Community Outreach",
+    description:
+      "Help support service projects, hygiene-kit initiatives, and outreach efforts that respond to community needs.",
+  },
+  {
+    number: "05",
+    title: "Mentorship & Professional Development",
+    description:
+      "Support students as they explore different career paths, build professional skills, and connect with experienced industry professionals.",
+  },
+  {
+    number: "06",
+    title: "Event Sponsorship & Future Philanthropy",
+    description:
+      "Explore ways to support educational programming, campus experiences, and future community-focused initiatives.",
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Partners"
+  description="Explore ways to collaborate with Clear & Glowing through skincare education, guest speakers, beauty-industry events, mentorship, and community outreach."
+>
+
+  <!-- ========================================
+       PARTNERS HERO
+       ======================================== -->
+
+  <section
+    class="partners-hero"
+    aria-labelledby="partners-title"
+  >
+    <div class="page-container hero-grid">
+
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          PARTNER WITH CLEAR & GLOWING
+        </p>
+
+        <h1 id="partners-title">
+          Better Together.
+          <span>Greater Impact.</span>
+        </h1>
+
+        <p class="hero-description">
+          We believe the strongest communities
+          are built through collaboration.
+        </p>
+
+        <p class="hero-description">
+          Clear & Glowing welcomes beauty brands,
+          dermatologists, wellness professionals,
+          businesses, and community organizations
+          that share our commitment to education,
+          confidence, access, and service.
+        </p>
+
+        <div class="hero-actions">
+
+          <Button
+            href="#collaboration"
+            variant="primary"
+          >
+            Explore Ways to Collaborate
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button
+            href="/contact"
+            variant="outline"
+          >
+            Get in Touch
+          </Button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Branded placeholder; replace with an
+           approved authentic photograph later. -->
+
+      <div class="hero-visual">
+
+        <div class="hero-visual-content">
+
+          <p class="visual-eyebrow">
+            CONNECTION CREATES IMPACT
+          </p>
+
+          <p class="visual-headline">
+            <span>Partnerships</span>
+            <span>That Create</span>
+            <span>Impact.</span>
+          </p>
+
+          <div class="visual-footer">
+
+            <p>
+              Education. Confidence. Community.
+            </p>
+
+            <p>
+              Bringing people and organizations
+              together around a shared purpose.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       WAYS TO COLLABORATE
+       ======================================== -->
+
+  <section
+    class="collaboration-section"
+    id="collaboration"
+    aria-labelledby="collaboration-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          OPPORTUNITIES TO COLLABORATE
+        </p>
+
+        <h2 id="collaboration-title">
+          Ways to Make an Impact Together.
+        </h2>
+
+        <p>
+          From educational experiences to
+          community service, there are
+          many ways that organizations
+          and professionals can contribute
+          to the Clear & Glowing mission.
+        </p>
+
+      </div>
+
+      <div class="collaboration-grid">
+
+        {
+          collaborationTypes.map((type) => (
+            <article class="collaboration-card">
+
+              <span
+                class="card-number"
+                aria-hidden="true"
+              >
+                {type.number}
+              </span>
+
+              <h3>{type.title}</h3>
+
+              <p>{type.description}</p>
+
+            </article>
+          ))
+        }
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       APPROVED PARTNERS DIRECTORY
+
+       This section is hidden when there are no
+       approved partners in partners.ts.
+       ======================================== -->
+
+  {
+    approvedPartners.length > 0 && (
+      <section
+        class="partners-directory"
+        aria-labelledby="partners-directory-title"
+      >
+        <div class="page-container">
+
+          <div class="section-heading">
+
+            <p class="eyebrow">
+              OUR COLLABORATORS
+            </p>
+
+            <h2 id="partners-directory-title">
+              Meaningful Partnerships.
+              Shared Purpose.
+            </h2>
+
+            <p>
+              We're grateful for the
+              organizations and professionals
+              who have contributed to
+              Clear & Glowing's educational
+              and community experiences.
+            </p>
+
+          </div>
+
+          <div class="partner-grid">
+
+            {
+              approvedPartners.map((partner) => (
+                <PartnerCard
+                  partner={partner}
+                  headingLevel="h3"
+                />
+              ))
+            }
+
+          </div>
+
+        </div>
+      </section>
+    )
+  }
+
+
+  <!-- ========================================
+       COLLABORATION WITH PURPOSE
+       ======================================== -->
+
+  <section
+    class="purpose-section"
+    aria-labelledby="purpose-title"
+  >
+    <div class="page-container purpose-grid">
+
+      <div class="purpose-content">
+
+        <p class="eyebrow">
+          COLLABORATION WITH PURPOSE
+        </p>
+
+        <h2 id="purpose-title">
+          Working Together
+          <span>For Something Bigger.</span>
+        </h2>
+
+        <p>
+          Skincare and beauty can create
+          opportunities for education,
+          confidence-building,
+          and meaningful connection.
+        </p>
+
+        <p>
+          By bringing together students,
+          professionals, brands, and
+          community organizations,
+          we hope to make educational
+          resources more accessible,
+          introduce students to new
+          possibilities, and expand
+          community-focused initiatives.
+        </p>
+
+        <p>
+          We value collaborations that
+          contribute to a welcoming
+          environment and support
+          the needs of the communities
+          we serve.
+        </p>
+
+        <div class="purpose-action">
+
+          <Button
+            href="/foundation"
+            variant="outline"
+          >
+            Explore Our Community Impact
+            <span aria-hidden="true">→</span>
+          </Button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Purpose Visual -->
+
+      <div class="purpose-visual">
+
+        <div class="purpose-visual-content">
+
+          <p class="purpose-visual-eyebrow">
+            A SHARED MISSION
+          </p>
+
+          <div class="purpose-message">
+
+            <p>
+              Educate.
+              <span>Connect.</span>
+              Empower.
+            </p>
+
+          </div>
+
+          <div class="purpose-visual-footer">
+
+            <p>
+              Meaningful change starts
+              with people working together.
+            </p>
+
+            <p>
+              Clear & Glowing
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       PARTNERSHIP CTA
+       ======================================== -->
+
+  <section
+    class="partner-cta"
+    aria-labelledby="partner-cta-title"
+  >
+    <div class="page-container">
+
+      <div class="cta-content">
+
+        <p class="cta-eyebrow">
+          LET'S WORK TOGETHER
+        </p>
+
+        <h2 id="partner-cta-title">
+          Let's Make an Impact Together.
+        </h2>
+
+        <p>
+          Interested in supporting educational
+          experiences, connecting with students,
+          or collaborating on community
+          initiatives?
+        </p>
+
+        <p>
+          We'd love to explore how your
+          organization or expertise
+          could contribute to the
+          Clear & Glowing mission.
+        </p>
+
+        <div class="cta-actions">
+
+          <Button
+            href="/contact"
+            variant="primary"
+          >
+            Let's Collaborate
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button
+            href={links.newsletter}
+            variant="outline-light"
+          >
+            Stay Connected
+          </Button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
 </Layout>
+
+
+<style>
+  /* ========================================
+     SHARED PAGE STYLES
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    max-width: 800px;
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .section-heading > p:last-child {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     PARTNERS HERO
+     ======================================== */
+
+  .partners-hero {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .hero-content {
+    max-width: 750px;
+  }
+
+  .hero-content h1 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-content h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+
+  /* ========================================
+     HERO VISUAL
+     ======================================== */
+
+  .hero-visual,
+  .purpose-visual {
+    display: flex;
+    min-width: 0;
+    min-height: 440px;
+
+    background: linear-gradient(
+      145deg,
+      #BB0000 0%,
+      #850000 55%,
+      #4B171C 100%
+    );
+
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .hero-visual-content,
+  .purpose-visual-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+
+    width: 100%;
+    padding: clamp(2rem, 4vw, 3rem);
+    color: var(--color-white);
+  }
+
+  .visual-eyebrow,
+  .purpose-visual-eyebrow {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .visual-headline,
+  .purpose-message p {
+    margin: 0;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  /* Keep the longest word on one line in the narrower hero card. */
+  .visual-headline {
+    font-size: clamp(1.85rem, 3.2vw, 3.15rem);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .purpose-message p {
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    overflow-wrap: anywhere;
+  }
+
+  .visual-headline span,
+  .purpose-message span {
+    display: block;
+  }
+
+  .visual-footer,
+  .purpose-visual-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 0.5);
+  }
+
+  .visual-footer p:first-child,
+  .purpose-visual-footer p:first-child {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .visual-footer p:last-child,
+  .purpose-visual-footer p:last-child {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     WAYS TO COLLABORATE
+     ======================================== */
+
+  .collaboration-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  #collaboration {
+    scroll-margin-top: 6rem;
+  }
+
+  .collaboration-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .collaboration-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+
+    background-color: var(--color-surface);
+    border-top: 4px solid var(--color-primary);
+    border-radius: 12px;
+  }
+
+  .card-number {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .collaboration-card h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    line-height: 1.3;
+  }
+
+  .collaboration-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     APPROVED PARTNERS DIRECTORY
+     ======================================== */
+
+  .partners-directory {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+
+  /* ========================================
+     SHARED PURPOSE
+     ======================================== */
+
+  .purpose-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .purpose-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .purpose-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .purpose-content h2 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .purpose-content > p:not(.eyebrow) {
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+  .purpose-action {
+    margin-top: 2.5rem;
+  }
+
+
+  /* ========================================
+     FINAL PARTNERSHIP CTA
+     ======================================== */
+
+  .partner-cta {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: #23191C;
+  }
+
+  .cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 850px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cta-eyebrow {
+    margin: 0 0 1.25rem;
+    color: #FFCECE;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .cta-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .cta-content > p:not(.cta-eyebrow) {
+    max-width: 650px;
+    margin: 0 0 1.25rem;
+    color: #E8E8E8;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 640px) {
+    .collaboration-grid,
+    .partner-grid {
+      grid-template-columns: repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid,
+    .purpose-grid {
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+    }
+  }
+
+  @media (min-width: 1050px) {
+    .collaboration-grid,
+    .partner-grid {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-visual,
+    .purpose-visual {
+      min-height: 350px;
+    }
+
+    .visual-headline {
+      font-size: clamp(1.85rem, 7.5vw, 2.75rem);
+    }
+
+    .purpose-message p {
+      font-size: clamp(2.5rem, 9vw, 4rem);
+    }
+  }
+</style>

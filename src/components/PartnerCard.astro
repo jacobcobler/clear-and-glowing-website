@@ -8,70 +8,109 @@ interface Props {
 
 const {
   partner,
-  headingLevel = "h2",
+  headingLevel = "h3",
 } = Astro.props;
 
 const Heading = headingLevel;
 ---
 
-{partner.approved && (
-  <article class="partner-card">
+{
+  partner.approved && (
+    <article class="partner-card">
 
-    <!-- Partner Logo -->
-    {partner.logo && (
+
       <div class="partner-logo">
-        <img src={partner.logo}
-          alt=""
-          width="400"
-          height="200"
-          loading="lazy"
-          decoding="async" />
+
+        {
+          partner.logo ? (
+            <img
+              src={partner.logo}
+              alt=""
+              width="400"
+              height="200"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div
+              class="logo-placeholder"
+              aria-hidden="true"
+            >
+              <span class="placeholder-eyebrow">
+                CLEAR & GLOWING
+              </span>
+
+              <span class="placeholder-text">
+                COLLABORATION
+              </span>
+            </div>
+          )
+        }
+
       </div>
-    )}
 
-    <!-- Partner Information -->
-    <div class="partner-content">
 
-      <!-- Relationship -->
-      <div class="partner-meta">
-        <span class="partner-relationship">
-          {partner.relationship}
-        </span>
+
+      <div class="partner-content">
+
+
+        <div class="partner-meta">
+
+          <span class="partner-relationship">
+            {partner.relationship}
+          </span>
+
+        </div>
+
+
+
+        <Heading class="partner-name">
+          {partner.name}
+        </Heading>
+
+
+
+        <p class="partner-description">
+          {partner.description}
+        </p>
+
+
+
+        {
+          partner.website && (
+            <a
+              href={partner.website}
+              class="partner-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${partner.name} website (opens in a new tab)`}
+            >
+              Visit {partner.name} Website
+
+              <span aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          )
+        }
+
       </div>
 
-      <!-- Partner Name -->
-      <Heading class="partner-name">
-        {partner.name}
-      </Heading>
+    </article>
+  )
+}
 
-      <!-- Description -->
-      <p class="partner-description">
-        {partner.description}
-      </p>
-
-      <!-- Optional Website -->
-      {partner.website && (
-        <a href={partner.website} class="partner-link">
-          Visit {partner.name} Website
-          <span aria-hidden="true">↗︎</span>
-        </a>
-      )}
-
-    </div>
-  </article>
-)}
 
 <style>
-  /*
-	================================================
-	PARTNER CARD
-	================================================
-	*/
+  /* ========================================
+     PARTNER CARD
+     ======================================== */
 
   .partner-card {
     display: flex;
     flex-direction: column;
 
+    min-width: 0;
     height: 100%;
     overflow: hidden;
 
@@ -79,7 +118,9 @@ const Heading = headingLevel;
     border: 1px solid #E5E5E5;
     border-radius: 12px;
 
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    transition:
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .partner-card:hover {
@@ -87,11 +128,10 @@ const Heading = headingLevel;
     box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
   }
 
-  /*
-	================================================
-	PARTNER LOGO
-	================================================
-	*/
+
+  /* ========================================
+     PARTNER LOGO
+     ======================================== */
 
   .partner-logo {
     display: flex;
@@ -107,6 +147,7 @@ const Heading = headingLevel;
 
   .partner-logo img {
     display: block;
+
     width: 100%;
     max-width: 240px;
     max-height: 110px;
@@ -115,11 +156,45 @@ const Heading = headingLevel;
     object-fit: contain;
   }
 
-  /*
-	================================================
-	PARTNER CONTENT
-	================================================
-	*/
+
+  /* ========================================
+     LOGO PLACEHOLDER
+     ======================================== */
+
+  .logo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    width: 100%;
+    min-height: 110px;
+
+    text-align: center;
+  }
+
+  .placeholder-eyebrow {
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+  }
+
+  .placeholder-text {
+    color: var(--color-heading);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    overflow-wrap: anywhere;
+  }
+
+
+  /* ========================================
+     PARTNER CONTENT
+     ======================================== */
 
   .partner-content {
     display: flex;
@@ -130,11 +205,10 @@ const Heading = headingLevel;
     padding: 1.5rem;
   }
 
-  /*
-	================================================
-	PARTNER RELATIONSHIP
-	================================================
-	*/
+
+  /* ========================================
+     PARTNER RELATIONSHIP
+     ======================================== */
 
   .partner-meta {
     display: flex;
@@ -157,11 +231,10 @@ const Heading = headingLevel;
     line-height: 1.5;
   }
 
-  /*
-	================================================
-	PARTNER NAME
-	================================================
-	*/
+
+  /* ========================================
+     PARTNER NAME
+     ======================================== */
 
   .partner-name {
     margin: 0;
@@ -171,14 +244,13 @@ const Heading = headingLevel;
     font-weight: 700;
     line-height: 1.3;
 
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
   }
 
-  /*
-	================================================
-	PARTNER DESCRIPTION
-	================================================
-	*/
+
+  /* ========================================
+     PARTNER DESCRIPTION
+     ======================================== */
 
   .partner-description {
     margin: 0;
@@ -188,11 +260,10 @@ const Heading = headingLevel;
     line-height: 1.7;
   }
 
-  /*
-	================================================
-	PARTNER WEBSITIE LINK
-	================================================
-	*/
+
+  /* ========================================
+     PARTNER WEBSITE LINK
+     ======================================== */
 
   .partner-link {
     display: inline-flex;
@@ -203,16 +274,18 @@ const Heading = headingLevel;
     margin-top: auto;
     padding-block: 0.75rem;
 
-    color: var(--color-primary);
+    color: #990000;
     font-size: 0.875rem;
     font-weight: 700;
+    line-height: 1.5;
 
     text-decoration: underline;
     text-underline-offset: 0.25em;
+    overflow-wrap: anywhere;
   }
 
   .partner-link:hover {
-    color: #850000;
+    color: #660000;
   }
 
   .partner-link:focus-visible {
@@ -221,11 +294,10 @@ const Heading = headingLevel;
     border-radius: 2px;
   }
 
-  /*
-	================================================
-	REDUCED MOTION
-	================================================
-	*/
+
+  /* ========================================
+     REDUCED MOTION
+     ======================================== */
 
   @media (prefers-reduced-motion: reduce) {
     .partner-card {

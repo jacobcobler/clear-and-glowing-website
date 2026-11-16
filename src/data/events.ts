@@ -13,7 +13,13 @@ export interface ClubEvent {
         | "Brand Collaborations";
     image?: string;
     imageAlt?: string;
+
+    // Controls whether the event appears publicly.
     published: boolean;
+
+    // Controls whether a published event appears
+    // in Featured Moments on the homepage.
+    featured?: boolean;
 }
 
 export const events: ClubEvent[] = [
@@ -25,7 +31,9 @@ export const events: ClubEvent[] = [
         description:
             "An event connecting students with people and career paths in the beauty industry.",
         category: "Beauty & Careers",
+
         published: false,
+        featured: true,
     },
     {
         id: "wolstein-summit-2026",
@@ -35,6 +43,8 @@ export const events: ClubEvent[] = [
         description:
             "Clear & Glowing shared its mission with the Ohio State entrepreneurship community.",
         category: "Community",
+
         published: false,
+        featured: true,
     },
 ];

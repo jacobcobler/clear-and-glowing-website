@@ -1,0 +1,1093 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { links } from "../data/links";
+
+// TERMS OF USE CONFIGURATION
+//
+// Keep this true until the organization has
+// reviewed and approved these terms.
+const isDraft = true;
+
+// Only add a verified organizational email address.
+const contactEmail: string | null = null;
+
+// This is the draft revision date, not a claim
+// that the terms have been legally approved.
+const lastUpdated = "November 13, 2026";
+
+const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "website-use", label: "Using Our Website" },
+  { id: "educational-content", label: "Educational Content" },
+  { id: "chapters", label: "Chapters & Applications" },
+  { id: "external-services", label: "External Services" },
+  { id: "merchandise", label: "Merchandise" },
+  { id: "donations", label: "Donations" },
+  { id: "intellectual-property", label: "Content & Intellectual Property" },
+  { id: "availability", label: "Website Availability" },
+  { id: "changes-contact", label: "Changes & Contact" },
+];
+---
+
+<Layout
+  title="Terms of Use"
+  description="Read the Clear & Glowing website Terms of Use, including educational information, university chapter applications, merchandise, external services, and donations."
+>
+
+  <!-- ========================================
+       TERMS HERO
+       ======================================== -->
+
+  <section
+    class="terms-hero"
+    aria-labelledby="terms-title"
+  >
+    <div class="page-container">
+
+      <p class="eyebrow">
+        LEGAL INFORMATION
+      </p>
+
+      <h1 id="terms-title">
+        Terms <span>of Use.</span>
+      </h1>
+
+      <p class="hero-description">
+        These Terms of Use explain the purpose
+        of the Clear & Glowing website, the
+        services and information it provides,
+        and important considerations when
+        interacting with our content and
+        external platforms.
+      </p>
+
+      <p class="update-date">
+        {isDraft ? "Draft updated:" : "Last updated:"}
+        <time datetime="2026-11-13">
+          {lastUpdated}
+        </time>
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       TERMS CONTENT
+       ======================================== -->
+
+  <section class="terms-section">
+
+    <div class="page-container terms-layout">
+
+      <!-- TABLE OF CONTENTS -->
+
+      <aside class="terms-navigation">
+        <div class="navigation-panel">
+
+          <h2>On This Page</h2>
+
+          <nav aria-label="Terms of Use contents">
+            <ol>
+              {
+                sections.map((section) => (
+                  <li>
+                    <a href={`#${section.id}`}>
+                      {section.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ol>
+          </nav>
+
+        </div>
+      </aside>
+
+
+      <!-- TERMS BODY -->
+
+      <div class="terms-content">
+
+        {
+          isDraft && (
+            <div
+              class="draft-notice"
+              role="note"
+              aria-label="Draft terms notice"
+            >
+              <strong>
+                Draft — Pending Final Review
+              </strong>
+
+              <p>
+                These Terms of Use are being prepared
+                for the Clear & Glowing website.
+                Organizational identity, contact
+                information, website practices,
+                and final legal language must be
+                reviewed and approved before
+                public launch.
+              </p>
+            </div>
+          )
+        }
+
+
+        <!-- 01 OVERVIEW -->
+
+        <section
+          id="overview"
+          class="terms-block"
+          aria-labelledby="overview-title"
+        >
+          <h2 id="overview-title">
+            1. Overview
+          </h2>
+
+          <p>
+            Welcome to the Clear & Glowing website.
+          </p>
+
+          <p>
+            Clear & Glowing is a student-founded
+            organization focused on skincare education,
+            wellness, confidence, community service,
+            and opportunities within the beauty
+            and skincare industry.
+          </p>
+
+          <p>
+            This website provides information about
+            our mission, activities, university
+            chapters, community initiatives,
+            and ways to get involved.
+          </p>
+
+          <p>
+            These Terms describe the intended
+            use of the website and important
+            information about its content
+            and linked services.
+          </p>
+
+          <p>
+            Additional terms may apply to
+            activities conducted through
+            third-party platforms or
+            individual university chapters.
+          </p>
+        </section>
+
+
+        <!-- 02 USING OUR WEBSITE -->
+
+        <section
+          id="website-use"
+          class="terms-block"
+          aria-labelledby="website-use-title"
+        >
+          <h2 id="website-use-title">
+            2. Using Our Website
+          </h2>
+
+          <p>
+            Visitors are expected to use this
+            website in a lawful and respectful
+            manner.
+          </p>
+
+          <p>
+            Please do not attempt to:
+          </p>
+
+          <ul>
+            <li>
+              Interfere with the website's
+              operation or security.
+            </li>
+
+            <li>
+              Access restricted systems
+              or information without
+              authorization.
+            </li>
+
+            <li>
+              Use the website to distribute
+              harmful code, fraudulent
+              materials, or misleading
+              information.
+            </li>
+
+            <li>
+              Impersonate Clear & Glowing,
+              its representatives, or
+              its university chapters.
+            </li>
+
+            <li>
+              Misrepresent an affiliation
+              or partnership with the
+              organization.
+            </li>
+          </ul>
+
+          <p>
+            Participation in events,
+            chapter activities, and other
+            organizational programs may
+            be subject to additional
+            requirements communicated
+            through the relevant organizers.
+          </p>
+        </section>
+
+
+        <!-- 03 EDUCATIONAL CONTENT -->
+
+        <section
+          id="educational-content"
+          class="terms-block"
+          aria-labelledby="educational-title"
+        >
+          <h2 id="educational-title">
+            3. Educational Content
+          </h2>
+
+          <p>
+            Clear & Glowing provides
+            information about skincare,
+            wellness, confidence, and
+            related topics for educational
+            and community purposes.
+          </p>
+
+          <p>
+            Our content is intended
+            to encourage informed
+            conversations and learning.
+          </p>
+
+          <div class="important-note">
+            <strong>
+              Important Health Information
+            </strong>
+
+            <p>
+              Website content is not a
+              substitute for professional
+              medical advice, diagnosis,
+              or treatment.
+            </p>
+
+            <p>
+              Questions about individual
+              health concerns, skincare
+              conditions, or treatment
+              decisions should be directed
+              to an appropriately qualified
+              healthcare professional.
+            </p>
+          </div>
+
+          <p>
+            Information presented through
+            guest speakers, educational
+            events, and external resources
+            may reflect the perspectives
+            of the individuals or
+            organizations providing it.
+          </p>
+
+          <p>
+            Visitors should evaluate
+            information carefully and
+            seek professional guidance
+            when appropriate.
+          </p>
+        </section>
+
+
+        <!-- 04 CHAPTERS AND APPLICATIONS -->
+
+        <section
+          id="chapters"
+          class="terms-block"
+          aria-labelledby="chapters-title"
+        >
+          <h2 id="chapters-title">
+            4. University Chapters & Applications
+          </h2>
+
+          <p>
+            Clear & Glowing supports a
+            developing network of
+            student-led university chapters.
+          </p>
+
+          <p>
+            Students interested in starting
+            a chapter can learn about
+            the process on our
+            <a href="/start-a-chapter">
+              Start a Chapter page
+            </a>.
+          </p>
+
+          <p>
+            Applications are submitted
+            through the
+            <a href={links.chapterApplication}>
+              official university
+              chapter application
+            </a>,
+            which is hosted using Google Forms.
+          </p>
+
+          <p>
+            Submitting an application
+            does not guarantee approval,
+            recognition as an official
+            chapter, or a particular
+            launch date.
+          </p>
+
+          <p>
+            Chapter development may also
+            involve university-specific
+            recognition procedures,
+            policies, and other
+            requirements.
+          </p>
+
+          <p>
+            Information about chapters,
+            events, and opportunities
+            may change as the organization
+            continues to develop.
+          </p>
+        </section>
+
+
+        <!-- 05 EXTERNAL SERVICES -->
+
+        <section
+          id="external-services"
+          class="terms-block"
+          aria-labelledby="external-services-title"
+        >
+          <h2 id="external-services-title">
+            5. External Websites & Services
+          </h2>
+
+          <p>
+            Our website includes links
+            to third-party services
+            that support different
+            organizational activities.
+          </p>
+
+          <h3>Google Forms</h3>
+
+          <p>
+            Newsletter registration
+            and university chapter
+            applications are currently
+            managed through Google Forms.
+          </p>
+
+          <p>
+            Visitors who follow those
+            links interact with an
+            external service and should
+            review the terms and
+            privacy practices that
+            apply to that service.
+          </p>
+
+          <h3>Other External Websites</h3>
+
+          <p>
+            This website may also link
+            to educational resources,
+            partner organizations,
+            merchandise providers,
+            or other external websites.
+          </p>
+
+          <p>
+            Those websites may have
+            different policies,
+            accessibility features,
+            and operating practices
+            from Clear & Glowing.
+          </p>
+
+          <p>
+            A link to an external
+            resource does not, by
+            itself, indicate that
+            Clear & Glowing operates
+            or controls that website.
+          </p>
+        </section>
+
+
+        <!-- 06 MERCHANDISE -->
+
+        <section
+          id="merchandise"
+          class="terms-block"
+          aria-labelledby="merchandise-title"
+        >
+          <h2 id="merchandise-title">
+            6. Merchandise & Purchases
+          </h2>
+
+          <p>
+            Visitors can explore
+            Clear & Glowing merchandise
+            through our
+            <a href="/merch">
+              merchandise page
+            </a>.
+          </p>
+
+          <p>
+            Merchandise purchases
+            are handled through an
+            <a href={links.merchandise}>
+              external storefront
+            </a>,
+            not through the
+            Clear & Glowing website.
+          </p>
+
+          <p>
+            Available products,
+            pricing, payment,
+            checkout, shipping,
+            returns, and related
+            purchase policies
+            are provided through
+            the merchandise service.
+          </p>
+
+          <p>
+            Visitors should review
+            the storefront's current
+            terms and policies
+            before purchasing.
+          </p>
+
+          <p>
+            Merchandise purchases
+            should not be understood
+            as charitable donations
+            unless an applicable
+            arrangement has been
+            expressly confirmed
+            and accurately disclosed.
+          </p>
+        </section>
+
+
+        <!-- 07 DONATIONS -->
+
+        <section
+          id="donations"
+          class="terms-block"
+          aria-labelledby="donations-title"
+        >
+          <h2 id="donations-title">
+            7. Donations & Charitable Activities
+          </h2>
+
+          <p>
+            Clear & Glowing is developing
+            opportunities to extend its
+            educational, community,
+            and charitable mission.
+          </p>
+
+          <p>
+            A secure donation process
+            is not yet available
+            through this website.
+          </p>
+
+          <p>
+            The
+            <a href="/donate">
+              Donate page
+            </a>
+            currently provides
+            information about
+            future plans.
+          </p>
+
+          <p>
+            Visitors should not attempt
+            to submit payments or
+            financial information
+            through unofficial
+            channels claiming to
+            represent Clear & Glowing.
+          </p>
+
+          <p>
+            No statement on this
+            website should be
+            interpreted as a
+            representation that
+            contributions are
+            tax-deductible.
+          </p>
+
+          <p>
+            Any future donation
+            functionality and
+            applicable disclosures
+            will require verification
+            before being made
+            available to visitors.
+          </p>
+        </section>
+
+
+        <!-- 08 INTELLECTUAL PROPERTY -->
+
+        <section
+          id="intellectual-property"
+          class="terms-block"
+          aria-labelledby="intellectual-property-title"
+        >
+          <h2 id="intellectual-property-title">
+            8. Website Content & Intellectual Property
+          </h2>
+
+          <p>
+            Content displayed on this
+            website may include text,
+            graphics, photographs,
+            logos, branding,
+            and other materials
+            protected by intellectual
+            property laws.
+          </p>
+
+          <p>
+            Some materials may belong
+            to Clear & Glowing,
+            while others may be
+            used with permission
+            from photographers,
+            contributors, partners,
+            or other rights holders.
+          </p>
+
+          <p>
+            Visitors should not assume
+            that materials on the
+            website are freely
+            available for reuse.
+          </p>
+
+          <p>
+            If you wish to reproduce
+            or use any content,
+            please obtain permission
+            from the appropriate
+            rights holder unless
+            your intended use
+            is otherwise permitted
+            by law.
+          </p>
+
+          <p>
+            University names,
+            logos, and trademarks
+            appearing on the website
+            may belong to their
+            respective institutions
+            or other rights holders.
+          </p>
+        </section>
+
+
+        <!-- 09 WEBSITE AVAILABILITY -->
+
+        <section
+          id="availability"
+          class="terms-block"
+          aria-labelledby="availability-title"
+        >
+          <h2 id="availability-title">
+            9. Website Availability & Accuracy
+          </h2>
+
+          <p>
+            Clear & Glowing aims to
+            provide useful, accurate,
+            and up-to-date information
+            about its organization,
+            activities, and opportunities.
+          </p>
+
+          <p>
+            However, event details,
+            university chapter
+            information, application
+            procedures, and available
+            services may change.
+          </p>
+
+          <p>
+            The website may also
+            experience maintenance,
+            technical interruptions,
+            or changes to its content
+            and functionality.
+          </p>
+
+          <p>
+            Visitors should verify
+            time-sensitive information,
+            such as event schedules
+            and application details,
+            using the relevant
+            official sources.
+          </p>
+
+          <p>
+            Specific legal provisions
+            concerning warranties,
+            liability, or dispute
+            resolution have not
+            been finalized for
+            this draft.
+          </p>
+        </section>
+
+
+        <!-- 10 CHANGES AND CONTACT -->
+
+        <section
+          id="changes-contact"
+          class="terms-block"
+          aria-labelledby="changes-contact-title"
+        >
+          <h2 id="changes-contact-title">
+            10. Changes to These Terms & Contact
+          </h2>
+
+          <p>
+            These Terms may be
+            updated to reflect
+            changes in the website,
+            organizational activities,
+            external services,
+            or applicable requirements.
+          </p>
+
+          <p>
+            The revision date
+            displayed at the top
+            of this page will be
+            updated when the
+            document changes.
+          </p>
+
+          <h3>Questions About These Terms</h3>
+
+          <p>
+            If you have questions
+            about these Terms of Use,
+            please use an approved
+            organizational contact
+            method.
+          </p>
+
+          {
+            contactEmail ? (
+              <p>
+                Email:
+                {" "}
+                <a href={`mailto:${contactEmail}`}>
+                  {contactEmail}
+                </a>
+              </p>
+            ) : (
+              <p class="contact-pending">
+                A verified organizational
+                contact address must
+                be added before these
+                Terms are published.
+              </p>
+            )
+          }
+
+        </section>
+
+
+        <!-- ========================================
+             RELATED INFORMATION
+             ======================================== -->
+
+        <nav
+          class="related-links"
+          aria-label="Related website policies"
+        >
+          <h2>Related Information</h2>
+
+          <ul>
+            <li>
+              <a href="/privacy">
+                Privacy Policy
+              </a>
+            </li>
+
+            <li>
+              <a href="/accessibility">
+                Accessibility Statement
+              </a>
+            </li>
+
+            <li>
+              <a href="/contact">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* ========================================
+     SHARED LAYOUT
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  /* ========================================
+     TERMS HERO
+     ======================================== */
+
+  .terms-hero {
+    padding-block: clamp(4rem, 7vw, 6rem);
+    background-color: var(--color-surface);
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .terms-hero h1 {
+    margin: 0 0 1.75rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .terms-hero h1 span {
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    max-width: 760px;
+    margin: 0 0 1.5rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+  .update-date {
+    margin: 0;
+    color: #555555;
+    font-size: 0.9rem;
+  }
+
+  /* ========================================
+     POLICY LAYOUT
+     ======================================== */
+
+  .terms-section {
+    padding-block: clamp(3rem, 7vw, 6rem);
+    background-color: var(--color-white);
+  }
+
+  .terms-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+
+  /* ========================================
+     TABLE OF CONTENTS
+     ======================================== */
+
+  .navigation-panel {
+    padding: 1.75rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .navigation-panel h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  .navigation-panel ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+
+  .navigation-panel li {
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .navigation-panel a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .navigation-panel a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* ========================================
+     TERMS BODY
+     ======================================== */
+
+  .terms-content {
+    min-width: 0;
+    max-width: 850px;
+  }
+
+  .terms-block {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #E5E5E5;
+    scroll-margin-top: 7rem;
+  }
+
+  .terms-block h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 750;
+    line-height: 1.3;
+  }
+
+  .terms-block h3 {
+    margin: 1.75rem 0 0.75rem;
+    color: var(--color-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .terms-block p,
+  .terms-block li {
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .terms-block p {
+    margin: 0 0 1.25rem;
+  }
+
+  .terms-block ul {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .terms-block li {
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+  }
+
+  /* ========================================
+     LINKS & ACCESSIBILITY
+     ======================================== */
+
+  .terms-content a {
+    color: #990000;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .terms-content a:hover {
+    color: #660000;
+  }
+
+  .terms-content a:focus-visible,
+  .navigation-panel a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* ========================================
+     DRAFT NOTICE
+     ======================================== */
+
+  .draft-notice {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .draft-notice strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-heading);
+    font-size: 1rem;
+  }
+
+  .draft-notice p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.75;
+  }
+
+  /* ========================================
+     MEDICAL INFORMATION NOTICE
+     ======================================== */
+
+  .important-note {
+    margin: 1.5rem 0 2rem;
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .important-note strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-heading);
+    font-size: 1rem;
+  }
+
+  .important-note p {
+    margin: 0 0 1rem;
+  }
+
+  .important-note p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ========================================
+     CONTACT STATUS
+     ======================================== */
+
+  .contact-pending {
+    padding: 1rem;
+    background-color: var(--color-surface);
+    border-radius: 8px;
+  }
+
+  /* ========================================
+     RELATED INFORMATION
+     ======================================== */
+
+  .related-links {
+    padding: 2rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .related-links h2 {
+    margin: 0 0 1.25rem;
+    color: var(--color-heading);
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .related-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 900px) {
+    .terms-layout {
+      grid-template-columns:
+        minmax(220px, 0.35fr)
+        minmax(0, 1fr);
+    }
+
+    .navigation-panel {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .navigation-panel {
+      padding: 1.5rem;
+    }
+
+    .terms-block {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .important-note,
+    .draft-notice {
+      padding: 1.25rem;
+    }
+
+    .related-links {
+      padding: 1.5rem;
+    }
+
+    .related-links ul {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

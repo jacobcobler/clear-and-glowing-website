@@ -1,7 +1,6 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { describe } from "astro:schema";
 
 interface Props {
   title?: string;
@@ -10,86 +9,196 @@ interface Props {
 
 const {
   title,
-  description = "Clear & Glowing is a student-founded community bringing together skincare education, wellness, confidence, and opportunity.",
+  description =
+    "Clear & Glowing is a student-founded community bringing together skincare education, wellness, confidence, and opportunity.",
 } = Astro.props;
 
-// Set a unique page title for SEO
+// Use a unique title for internal pages.
+// The homepage uses the default organization title.
 const pageTitle = title
-  ? "${title} | Clear & Glowing"
+  ? `${title} | Clear & Glowing`
   : "Clear & Glowing | Skincare Education, Confidence & Community";
 ---
 
 <!doctype html>
+
 <html lang="en">
+
   <head>
-    <!-- Basic Metadata -->
+
+    <!-- ========================================
+         BASIC METADATA
+         ======================================== -->
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="generator"
+      content={Astro.generator}
+    />
+
+
+    <!-- ========================================
+         SEARCH ENGINE OPTIMIZATION
+         ======================================== -->
+
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
 
-    <!-- Social Sharing -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Clear & Glowing" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta
+      name="description"
+      content={description}
+    />
 
-    <!-- Browser Theme -->
-    <meta name="theme-color" content="#BB0000" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- ========================================
+         SOCIAL SHARING
+         ======================================== -->
+
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:site_name"
+      content="Clear & Glowing"
+    />
+
+    <meta
+      property="og:title"
+      content={pageTitle}
+    />
+
+    <meta
+      property="og:description"
+      content={description}
+    />
+
+
+    <!-- Clear & Glowing browser and device icons -->
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- ========================================
+         BROWSER THEME
+         ======================================== -->
+
+    <meta
+      name="theme-color"
+      content="#BB0000"
+    />
+
+
+    <!-- ========================================
+         GOOGLE FONTS
+         ======================================== -->
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+
   </head>
+
+
   <body>
-    <!-- Keyboard Accessibility -->
-    <a class="skip-link" href="#main-content"> Skip to main content </a>
+
+    <!-- ========================================
+         SKIP NAVIGATION LINK
+         ======================================== -->
+
+    <a
+      class="skip-link"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
+
+
+    <!-- ========================================
+         SHARED SITE HEADER
+         ======================================== -->
 
     <Header />
 
-    <main id="main-content" tabindex="-1">
+
+    <!-- ========================================
+         MAIN PAGE CONTENT
+         ======================================== -->
+
+    <main
+      id="main-content"
+      tabindex="-1"
+    >
       <slot />
     </main>
 
+
+    <!-- ========================================
+         SHARED SITE FOOTER
+         ======================================== -->
+
     <Footer />
+
   </body>
+
 </html>
 
+
 <style is:global>
-	/*
-	================================================
-	BRAND VARIABLES
-	================================================
-	*/
+  /* ========================================
+     BRAND VARIABLES
+     ======================================== */
+
   :root {
-    /* Colors */
+    /* Brand colors */
+
     --color-primary: #BB0000;
     --color-white: #FFFFFF;
+
     --color-background: #FFFFFF;
     --color-surface: #F5F5F5;
+
     --color-text: #333333;
     --color-heading: #111111;
+
     --color-accent: #C5AA81;
 
+
     /* Typography */
-    --font-primary: "montserrat", Arial, sans-serif;
+
+    --font-primary:
+      "Montserrat",
+      Arial,
+      sans-serif;
+
 
     /* Layout */
+
     --max-content-width: 1200px;
   }
 
-  /*
-	================================================
-	GLOBAL RESET
-	================================================
-	*/
+
+  /* ========================================
+     GLOBAL RESET
+     ======================================== */
 
   *,
   *::before,
@@ -99,10 +208,15 @@ const pageTitle = title
 
   html {
     scroll-behavior: smooth;
+
+    /* Account for the sticky site header
+       when navigating to section anchors. */
+    scroll-padding-top: 6rem;
   }
 
   body {
     margin: 0;
+
     min-height: 100vh;
     min-height: 100svh;
 
@@ -110,6 +224,7 @@ const pageTitle = title
     flex-direction: column;
 
     font-family: var(--font-primary);
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.6;
@@ -118,13 +233,17 @@ const pageTitle = title
     background-color: var(--color-background);
   }
 
-  /*
-	================================================
-	TYPOGRAPHY
-	================================================
-	*/
 
-  h1, h2, h3, h4, h5, h6 {
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--color-heading);
     line-height: 1.2;
     overflow-wrap: break-word;
@@ -139,25 +258,27 @@ const pageTitle = title
     text-underline-offset: 0.2em;
   }
 
-  /*
-	================================================
-	MEDIA
-	================================================
-	*/
 
-  img, picture, video, svg {
+  /* ========================================
+     MEDIA
+     ======================================== */
+
+  img,
+  picture,
+  video,
+  svg {
     max-width: 100%;
   }
 
-  img, video {
+  img,
+  video {
     display: block;
   }
 
-  /*
-	================================================
-	LAYOUT
-	================================================
-	*/
+
+  /* ========================================
+     GLOBAL LAYOUT
+     ======================================== */
 
   main {
     width: 100%;
@@ -169,42 +290,53 @@ const pageTitle = title
       calc(100% - 2rem),
       var(--max-content-width)
     );
+
     margin-inline: auto;
   }
 
-  /*
-	================================================
-	FORM ELEMENTS
-	================================================
-	*/
 
-  button, input, textarea, select {
+  /* ========================================
+     FORM ELEMENTS
+     ======================================== */
+
+  button,
+  input,
+  textarea,
+  select {
     font: inherit;
   }
 
-  /*
-	================================================
-	ACCESSIBILITY
-	================================================
-	*/
+
+  /* ========================================
+     ACCESSIBILITY
+     ======================================== */
 
   :focus-visible {
     outline: 3px solid var(--color-primary);
     outline-offset: 3px;
   }
 
+
+  /* ========================================
+     SKIP LINK
+     ======================================== */
+
   .skip-link {
     position: absolute;
+
     top: -100px;
     left: 1rem;
     z-index: 1000;
 
     padding: 0.75rem 1rem;
+
     background-color: var(--color-primary);
     color: var(--color-white);
 
     font-weight: 600;
     text-decoration: none;
+
+    border-radius: 4px;
   }
 
   .skip-link:focus {
@@ -215,7 +347,11 @@ const pageTitle = title
     outline-color: var(--color-heading);
   }
 
-  /* Respect reduced motion preferences */
+
+  /* ========================================
+     REDUCED MOTION
+     ======================================== */
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -226,6 +362,7 @@ const pageTitle = title
     *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
+
       transition-duration: 0.01ms !important;
     }
   }

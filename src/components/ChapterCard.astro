@@ -8,132 +8,133 @@ interface Props {
 const { chapter } = Astro.props;
 
 const statusLabels: Record<Chapter["status"], string> = {
-  established: "Established",
-  launching: "Launching",
-  interest: "Interest",
+  established: "Established Chapter",
+  launching: "Launching Chapter",
+  interest: "Chapter Interest",
 };
+
+const statusLabel = statusLabels[chapter.status];
+
+const chapterLocation = [
+  chapter.city,
+  chapter.state,
+].filter(Boolean).join(", ");
 ---
 
-<article class="chapter-card">
+{
+  chapter.approved && (
+    <article class="chapter-card">
 
-  <!-- Chapter Image -->
-  <div class="chapter-image">
-    {
-      chapter.image ? (
-        <img src={chapter.image}
-          alt=""
-          width="640"
-          height="400"
-          loading="lazy"
-          decoding="async" />
-      ) : (
-        <div class="image-placeholder" aria-hidden="true">
-          <span>Chapter Photo Coming Soon</span>
-        </div>
-      )
-    }
-  </div>
 
-  <!-- Chapter Information -->
-  <div class="chapter-content">
+      <div class="chapter-visual">
 
-    <!-- Status and Founding Date -->
-    <div class="chapter-meta">
-      <span class="chapter-status" data-status={chapter.status}>
-        {statusLabels[chapter.status]}
-      </span>
+        {
+          chapter.image ? (
+            <img
+              src={chapter.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="image-placeholder" aria-hidden="true">
 
-      {
-        chapter.founded && (
-          <span class="chapter-founded">
-            {chapter.founded}
-          </span>
-        )
-      }
-    </div>
+              <span class="placeholder-eyebrow">
+                CLEAR & GLOWING
+              </span>
 
-    <!-- University -->
-    <h2 class="chapter-title">
-      {chapter.university}
-    </h2>
+              <span class="placeholder-title">
+                YOUR CAMPUS.
+                <span>YOUR GLOW.</span>
+              </span>
 
-    <!-- Location -->
-    <p class="chapter-location">
-      <svg width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        aria-hidden="true">
-        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-          <circle cx="12" cy="10" r="2.5" />
-        </svg>
+            </div>
+          )
+        }
 
-        <span>
-          { chapter.city }, { chapter.state } 
+      </div>
+
+
+
+      <div class="chapter-content">
+
+        <span class={`chapter-status status-${chapter.status}`}>
+          {statusLabel}
         </span>
-    </p>
 
-    <!-- Optional Instagram -->
-    {
-      chapter.instagramUrl && (
-        <a href={chapter.instagramUrl}
-          class="chapter-social"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Visit ${chapter.university} chapter Instagram`}>
-            Visit Chapter Instagram
-            <span aria-hidden="true">↗︎</span>
-          </a>
-      )
-    }
+        <h3>
+          {chapter.university}
+        </h3>
 
-  </div>
-</article>
+        <p class="chapter-location">
+          {chapterLocation}
+        </p>
+
+        {
+          chapter.founded && (
+            <p class="chapter-founded">
+              Established: {chapter.founded}
+            </p>
+          )
+        }
+
+        {
+          chapter.instagramUrl && (
+            <div class="chapter-actions">
+
+              <a
+                href={chapter.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${chapter.university} chapter on Instagram (opens in a new tab)`}
+              >
+                Visit Chapter Instagram
+                <span aria-hidden="true">↗</span>
+              </a>
+
+            </div>
+          )
+        }
+
+      </div>
+
+    </article>
+  )
+}
+
 
 <style>
-  /*
-	================================================
-	CHAPTER CARD
-	================================================
-	*/
+  /* ========================================
+     CHAPTER CARD
+     ======================================== */
 
   .chapter-card {
     display: flex;
     flex-direction: column;
-
+    min-width: 0;
     height: 100%;
-    overflow: hidden;
 
     background-color: var(--color-white);
     border: 1px solid #E5E5E5;
     border-radius: 12px;
-
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  }
-
-  .chapter-card:hover {
-    border-color: #BBBBBB;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
-  }
-
-  /*
-	================================================
-	CHAPTER IMAGE
-	================================================
-	*/
-
-  .chapter-image {
-    width: 100%;
-    aspect-ratio: 16 / 10;
     overflow: hidden;
-
-    background-color: var(--color-surface);
   }
 
-  .chapter-image img {
+
+  /* ========================================
+     IMAGE AREA
+     ======================================== */
+
+  .chapter-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+
+    background-color: var(--color-primary);
+    overflow: hidden;
+  }
+
+  .chapter-visual img {
     display: block;
     width: 100%;
     height: 100%;
@@ -142,160 +143,145 @@ const statusLabels: Record<Chapter["status"], string> = {
 
   .image-placeholder {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
 
     width: 100%;
     height: 100%;
-    padding: 1.5rem;
+    padding: 1.75rem;
 
-    color: #666666;
     background: linear-gradient(
-      135deg
-      #F5F5F5,
-      #EAEAEA
+      145deg,
+      #BB0000,
+      #850000 55%,
+      #4B171C
     );
 
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-align: center;
+    color: var(--color-white);
   }
 
-  /*
-	================================================
-	CARD CONTENT
-	================================================
-	*/
+  .placeholder-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .placeholder-title {
+    font-size: clamp(1.5rem, 2.5vw, 2.3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+  }
+
+  .placeholder-title span {
+    display: block;
+  }
+
+
+  /* ========================================
+     CHAPTER INFORMATION
+     ======================================== */
 
   .chapter-content {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+
     flex: 1;
-    gap: 0.75rem;
-
-    padding: 1.5rem;
-  }
-
-  /*
-	================================================
-	CHAPTER METADATA
-	================================================
-	*/
-
-  .chapter-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    padding: 1.75rem;
   }
 
   .chapter-status {
     display: inline-block;
-    padding: 0.3rem 0.75rem;
+    padding: 0.45rem 0.85rem;
 
+    background-color: #F3E5E5;
+    color: #800000;
     border-radius: 100px;
 
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.5;
+  }
 
-    background-color: #F5F5F5;
+  .status-launching {
+    background-color: #F9EED9;
+    color: #684500;
+  }
+
+  .status-interest {
+    background-color: #E8E8E8;
     color: #333333;
   }
 
-  .chapter-status[data-status="established"] {
-    background-color: #F9E5E5;
-    color: #850000;
-  }
-
-  .chapter-status[data-status="launching"] {
-    background-color: #FFF1D6;
-    color: #795000;
-  }
-
-  .chapter-status[data-status="interest"] {
-    background-color: #F0F0F0;
-    color: #333333;
-  }
-
-  .chapter-founded {
-    color: #666666;
-    font-size: 0.8rem;
-  }
-
-  /*
-	================================================
-	UNIVERSITY AND LOCATION
-	================================================
-	*/
-
-  .chapter-title {
-    margin: 0;
-
+  .chapter-content h3 {
+    margin: 0.5rem 0 0;
     color: var(--color-heading);
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    font-weight: 800;
     line-height: 1.3;
   }
 
   .chapter-location {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
     margin: 0;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
 
-    color: #595959;
+  .chapter-founded {
+    margin: 0;
+    color: #555555;
     font-size: 0.9rem;
+    line-height: 1.6;
   }
 
-  .chapter-location svg {
-    flex-shrink: 0;
+
+  /* ========================================
+     OPTIONAL INSTAGRAM LINK
+     ======================================== */
+
+  .chapter-actions {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 1.25rem;
   }
 
-  /*
-	================================================
-	CHAPTER SOCIAL LINK
-	================================================
-	*/
-
-  .chapter-social {
+  .chapter-actions a {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    align-items: flex-start;
 
-    margin-top: auto;
-    padding-block: 0.75rem;
-
-    color: var(--color-primary);
-    font-size: 0.875rem;
+    color: #990000;
+    font-size: 0.95rem;
     font-weight: 700;
+    line-height: 1.5;
 
     text-decoration: underline;
-    text-underline-offset: 0.25em;
+    text-underline-offset: 4px;
   }
 
-  .chapter-social:hover {
-    color: #850000;
+  .chapter-actions a:hover {
+    color: #660000;
   }
 
-  .chapter-social:focus-visible {
+  .chapter-actions a:focus-visible {
     outline: 3px solid var(--color-primary);
-    outline-offset: 3px;
-    border-radius: 2px;
+    outline-offset: 4px;
+    border-radius: 3px;
   }
 
-  /*
-	================================================
-	ACCESSIBILITY
-	================================================
-	*/
+  @media (max-width: 600px) {
+    .chapter-content {
+      padding: 1.5rem;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .chapter-card {
-      transition: none;
+    .image-placeholder {
+      padding: 1.5rem;
     }
   }
 </style>

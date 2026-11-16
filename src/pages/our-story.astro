@@ -1,11 +1,714 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import { links } from "../data/links";
+import PhotoShowcase from "../components/PhotoShowcase.astro";
+import { photos, photoCollections } from "../data/photos";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// A founder-specific portrait is not yet identified and approved.
+// Do not assume someone in a group photo is the founder.
+const founderPhoto = {
+  src: "",
+  alt: "",
+};
+
+const timeline = [
+  {
+    date: "Fall 2024",
+    title: "Where It All Began",
+    description:
+      "Clear & Glowing was founded at The Ohio State University by Sara-Sofia Saldarriaga.",
+  },
+  {
+    date: "2025",
+    title: "Building Our Community",
+    description:
+      "Campus community and educational programming grew alongside student-led outreach and partnerships.",
+  },
+  {
+    date: "2026",
+    title: "Expanding Our Reach",
+    description:
+      "University chapter expansion and nonprofit formation work progressed, creating new opportunities for students to connect and lead.",
+  },
+  {
+    date: "November 2026",
+    title: "Sharing Our Vision",
+    description:
+      "Clear & Glowing participated in the Wolstein Summit Student Entrepreneur Showcase at Ohio State.",
+  },
+  {
+    date: "What's Next",
+    title: "A Growing Movement",
+    description:
+      "More campus chapters, accessible educational programming, philanthropic collaborations, and national community-building.",
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Our Story"
+  description="Discover how Sara-Sofia Saldarriaga founded Clear & Glowing at The Ohio State University in Fall 2024 and began building a community centered on skincare education, confidence, and impact."
+>
+  <!-- ========================================
+       STORY HERO
+       ======================================== -->
+  <section class="story-hero" aria-labelledby="story-title">
+    <div class="page-container">
+      <div class="hero-content">
+        <p class="eyebrow">OUR STORY</p>
+
+        <h1 id="story-title">
+          It Started With a Story.
+          <span>It Became a Community.</span>
+        </h1>
+
+        <p class="hero-description">
+          What began as one student's personal experience
+          has grown into a community dedicated to skincare
+          education, confidence, connection, and
+          meaningful impact.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       MEET THE FOUNDER
+       ======================================== -->
+  <section
+    class="founder-section"
+    aria-labelledby="founder-title"
+  >
+    <div class="page-container founder-grid">
+
+      <!-- Founder Photograph -->
+      <div class="founder-media">
+        {
+          founderPhoto.src ? (
+            <img
+              src={founderPhoto.src}
+              alt={founderPhoto.alt}
+              width="800"
+              height="1000"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="image-placeholder">
+              <span>Founder Portrait Coming Soon</span>
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Founder Story -->
+      <div class="founder-content">
+        <p class="eyebrow">MEET OUR FOUNDER</p>
+
+        <h2 id="founder-title">
+          Sara-Sofia Saldarriaga
+        </h2>
+
+        <p class="founder-role">
+          Founder of Clear & Glowing
+        </p>
+
+        <h3>A Personal Experience. A Bigger Purpose.</h3>
+
+        <p>
+          Clear & Glowing began at The Ohio State University
+          in Fall 2024, inspired by Sara-Sofia's personal
+          experiences with acne and the impact that skin
+          concerns can have on confidence and mental health.
+        </p>
+
+        <p>
+          She wanted to create the kind of community she
+          wished she had: a welcoming space where students
+          could ask questions about skincare, learn from
+          experts, connect with others, and openly discuss
+          experiences that can otherwise feel isolating.
+        </p>
+
+        <p>
+          What started as a personal mission quickly
+          developed into a community built around
+          education, connection, and mutual support.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================
+       GROWING COMMUNITY
+       ======================================== -->
+  <section
+    class="growth-section"
+    aria-labelledby="growth-title"
+  >
+    <div class="page-container growth-grid">
+
+      <div class="growth-content">
+        <p class="eyebrow">MORE THAN SKINCARE</p>
+
+        <h2 id="growth-title">
+          From One Campus to Something Bigger.
+        </h2>
+
+        <p>
+          Students began showing up for educational
+          events, conversations, guest speakers, and
+          opportunities to connect with beauty-industry
+          professionals.
+        </p>
+
+        <p>
+          Alongside these experiences, Clear & Glowing
+          developed relationships with skincare brands
+          and expanded its community service initiatives,
+          including assembling hygiene kits for people
+          experiencing homelessness.
+        </p>
+
+        <p>
+          As more students became involved, it became
+          clear that the need for education, support,
+          and connection extended beyond one university.
+        </p>
+
+        <p>
+          The organization began developing chapters at
+          other campuses and taking steps to establish
+          the Clear & Glowing Foundation to support a
+          broader educational and charitable mission.
+        </p>
+      </div>
+
+      <!-- Community Photograph -->
+      <div class="growth-media">
+        {
+          photos.story.src ? (
+            <img
+              src={photos.story.src}
+              alt={photos.story.alt}
+              width={photos.story.width}
+              height={photos.story.height}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="image-placeholder">
+              <span>Community Photograph Coming Soon</span>
+            </div>
+          )
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Community photos are editorial moments, not dated milestone evidence. -->
+  <PhotoShowcase
+    id="story-community-gallery"
+    eyebrow="MOMENTS FROM OUR COMMUNITY"
+    title="The People and Moments That Bring Us Together"
+    description="A collection of community gatherings, educational conversations, and student activities."
+    photos={photoCollections.story}
+    background="white"
+  />
+
+  <!-- ========================================
+       ORGANIZATIONAL TIMELINE
+       ======================================== -->
+  <section
+    class="timeline-section"
+    aria-labelledby="timeline-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+        <p class="eyebrow">HOW WE GOT HERE</p>
+
+        <h2 id="timeline-title">
+          Our Journey
+        </h2>
+
+        <p>
+          From our founding at Ohio State to a growing
+          university-centered community.
+        </p>
+      </div>
+
+      <ol class="timeline">
+        {
+          timeline.map((milestone) => (
+            <li class="timeline-item">
+              <div class="timeline-marker" aria-hidden="true"></div>
+
+              <div class="timeline-content">
+                <p class="timeline-date">
+                  {milestone.date}
+                </p>
+
+                <h3>{milestone.title}</h3>
+
+                <p>{milestone.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+    </div>
+  </section>
+
+  <!-- ========================================
+       FOUNDER MESSAGE
+       Draft copy: founder approval required
+       before public launch.
+       ======================================== -->
+  <section
+    class="message-section"
+    aria-labelledby="message-title"
+  >
+    <div class="page-container">
+      <div class="message-panel">
+
+        <p class="message-eyebrow">
+          A MESSAGE FROM OUR FOUNDER
+        </p>
+
+        <h2 id="message-title">
+          Confidence Beyond Clear Skin.
+        </h2>
+
+        <blockquote>
+          <p>
+            My hope is that every person who encounters
+            Clear & Glowing feels seen, supported, and
+            reminded that confidence is about so much
+            more than having clear skin.
+          </p>
+
+          <p>
+            I want students to find community here,
+            develop as leaders, and use what they learn
+            to make a difference for someone else.
+          </p>
+
+          <footer>
+            <cite>— Sara-Sofia Saldarriaga</cite>
+          </footer>
+        </blockquote>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       GET INVOLVED
+       ======================================== -->
+  <section
+    class="story-cta"
+    aria-labelledby="story-cta-title"
+  >
+    <div class="page-container">
+      <div class="cta-content">
+
+        <p class="cta-eyebrow">
+          BE PART OF OUR NEXT CHAPTER
+        </p>
+
+        <h2 id="story-cta-title">
+          Your Story Belongs Here, Too.
+        </h2>
+
+        <p>
+          Whether you want to join the community or
+          bring Clear & Glowing to your university,
+          there is a place for you to make an impact.
+        </p>
+
+        <div class="cta-actions">
+          <Button href="/join" variant="primary">
+            Join Our Community
+          </Button>
+
+          <Button
+            href="/start-a-chapter"
+            variant="outline-light"
+          >
+            Start a Chapter
+          </Button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+  /* ========================================
+     SHARED PAGE STYLES
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    max-width: 760px;
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+  }
+
+  .section-heading p:last-child {
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  /* ========================================
+     STORY HERO
+     ======================================== */
+
+  .story-hero {
+    padding-block: clamp(5rem, 10vw, 9rem);
+    background-color: var(--color-surface);
+  }
+
+  .hero-content {
+    max-width: 920px;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    max-width: 680px;
+    margin: 2rem 0 0;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.85;
+  }
+
+  /* ========================================
+     FOUNDER SECTION
+     ======================================== */
+
+  .founder-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .founder-grid,
+  .growth-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .founder-media,
+  .growth-media {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--color-surface);
+  }
+
+  .founder-media img,
+  .growth-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+
+    background: linear-gradient(
+      135deg,
+      #F5F5F5,
+      #E9E1E1
+    );
+
+    color: #595959;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .founder-content h2,
+  .growth-content h2 {
+    margin: 0 0 0.75rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+  }
+
+  .founder-role {
+    margin: 0 0 2rem;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .founder-content h3 {
+    margin: 0 0 1.5rem;
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+
+  .founder-content > p:not(.eyebrow, .founder-role),
+  .growth-content > p:not(.eyebrow) {
+    margin: 0 0 1.25rem;
+    line-height: 1.85;
+  }
+
+  /* ========================================
+     GROWTH SECTION
+     ======================================== */
+
+  .growth-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .growth-content h2 {
+    margin-bottom: 2rem;
+  }
+
+  /* ========================================
+     TIMELINE SECTION
+     ======================================== */
+
+  .timeline-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .timeline {
+    max-width: 850px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    bottom: 0;
+    left: 11px;
+    width: 2px;
+    background-color: #DDDDDD;
+  }
+
+  .timeline-marker {
+    position: relative;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+    border: 5px solid var(--color-white);
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+
+  .timeline-date {
+    margin: 0 0 0.5rem;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .timeline-content h3 {
+    margin: 0 0 0.75rem;
+    color: var(--color-heading);
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .timeline-content p:last-child {
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  /* ========================================
+     FOUNDER MESSAGE
+     ======================================== */
+
+  .message-section {
+    padding-block: clamp(4rem, 7vw, 6rem);
+    background-color: var(--color-surface);
+  }
+
+  .message-panel {
+    max-width: 900px;
+    margin-inline: auto;
+    padding: clamp(2rem, 5vw, 4rem);
+    background-color: var(--color-white);
+    border-left: 5px solid var(--color-primary);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .message-eyebrow {
+    margin: 0 0 1.5rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .message-panel h2 {
+    margin: 0 0 2rem;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  blockquote p {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.85;
+    font-style: italic;
+  }
+
+  blockquote footer {
+    margin-top: 2rem;
+  }
+
+  blockquote cite {
+    color: var(--color-primary);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ========================================
+     FINAL CTA
+     ======================================== */
+
+  .story-cta {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: #23191C;
+  }
+
+  .cta-content {
+    max-width: 850px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cta-eyebrow {
+    margin: 0 0 1.25rem;
+    color: #FFCECE;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .cta-content h2 {
+    margin: 0;
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+  }
+
+  .cta-content > p:not(.cta-eyebrow) {
+    max-width: 650px;
+    margin: 1.5rem auto 0;
+    color: #E8E8E8;
+    line-height: 1.85;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 768px) {
+    .founder-grid {
+      grid-template-columns:
+        minmax(0, 0.85fr)
+        minmax(0, 1.15fr);
+    }
+
+    .growth-grid {
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .founder-media,
+    .growth-media {
+      max-width: 550px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .cta-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cta-actions :global(.button) {
+      width: 100%;
+    }
+  }
+</style>

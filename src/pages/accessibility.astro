@@ -1,0 +1,987 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// ACCESSIBILITY STATEMENT CONFIGURATION
+//
+// This statement is a draft until the site has
+// been tested and the organization approves it.
+const isDraft = true;
+
+// Set only after verifying an official
+// organizational email address.
+const accessibilityEmail: string | null = null;
+
+// This is the draft revision date.
+const lastUpdated = "November 13, 2026";
+
+const sections = [
+  { id: "commitment", label: "Our Commitment" },
+  { id: "standards", label: "Accessibility Standards" },
+  { id: "approach", label: "Our Approach" },
+  { id: "conformance", label: "Current Status" },
+  { id: "third-parties", label: "Third-Party Services" },
+  { id: "feedback", label: "Feedback & Assistance" },
+  { id: "updates", label: "Ongoing Improvements" },
+];
+
+const accessibilityGoals = [
+  {
+    title: "Keyboard Navigation",
+    description:
+      "Make menus, links, buttons, and other interactive elements operable using a keyboard.",
+  },
+  {
+    title: "Screen Reader Support",
+    description:
+      "Use semantic HTML, meaningful headings, accessible names, and appropriate alternative text.",
+  },
+  {
+    title: "Readable Content",
+    description:
+      "Use sufficient text contrast, clear language, scalable typography, and readable page layouts.",
+  },
+  {
+    title: "Responsive Design",
+    description:
+      "Support different screen sizes, magnification levels, and mobile devices without unnecessary loss of content.",
+  },
+  {
+    title: "Visible Focus Indicators",
+    description:
+      "Help keyboard users identify which link, button, or other element currently has focus.",
+  },
+  {
+    title: "Reduced Motion",
+    description:
+      "Respect reduced-motion preferences and avoid unnecessary animations that may interfere with accessibility.",
+  },
+];
+---
+
+<Layout
+  title="Accessibility Statement"
+  description="Learn about Clear & Glowing's website accessibility goals, WCAG 2.2 Level AA target, accessible design practices, and accessibility feedback process."
+>
+
+  <!-- ========================================
+       ACCESSIBILITY HERO
+       ======================================== -->
+
+  <section
+    class="accessibility-hero"
+    aria-labelledby="accessibility-title"
+  >
+    <div class="page-container">
+
+      <p class="eyebrow">
+        ACCESSIBILITY
+      </p>
+
+      <h1 id="accessibility-title">
+        Accessibility
+        <span>Statement.</span>
+      </h1>
+
+      <p class="hero-description">
+        At Clear & Glowing, we believe that
+        education, confidence, community,
+        and opportunity should be accessible
+        to everyone.
+      </p>
+
+      <p class="hero-description">
+        We are working to create a website
+        that is welcoming, inclusive, and
+        usable by people with a wide range
+        of abilities and accessibility needs.
+      </p>
+
+      <p class="update-date">
+        {isDraft ? "Draft updated:" : "Last updated:"}
+        <time datetime="2026-11-13">
+          {lastUpdated}
+        </time>
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       ACCESSIBILITY CONTENT
+       ======================================== -->
+
+  <section class="statement-section">
+
+    <div class="page-container statement-layout">
+
+      <!-- TABLE OF CONTENTS -->
+
+      <aside class="statement-navigation">
+        <div class="navigation-panel">
+
+          <h2>On This Page</h2>
+
+          <nav aria-label="Accessibility statement contents">
+            <ol>
+              {
+                sections.map((section) => (
+                  <li>
+                    <a href={`#${section.id}`}>
+                      {section.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ol>
+          </nav>
+
+        </div>
+      </aside>
+
+
+      <!-- MAIN STATEMENT CONTENT -->
+
+      <div class="statement-content">
+
+        {
+          isDraft && (
+            <div
+              class="draft-notice"
+              role="note"
+              aria-label="Draft accessibility statement"
+            >
+              <strong>
+                Draft — Accessibility Review Pending
+              </strong>
+
+              <p>
+                This website is still being developed
+                and has not yet undergone a completed
+                accessibility audit. The information
+                below describes our goals and planned
+                accessibility practices, rather than
+                a verified claim of compliance.
+              </p>
+            </div>
+          )
+        }
+
+
+        <!-- 01 OUR COMMITMENT -->
+
+        <section
+          id="commitment"
+          class="statement-block"
+          aria-labelledby="commitment-title"
+        >
+          <h2 id="commitment-title">
+            1. Our Commitment
+          </h2>
+
+          <p>
+            Clear & Glowing is committed to
+            building a welcoming and inclusive
+            community through skincare education,
+            wellness, confidence, service,
+            and student leadership.
+          </p>
+
+          <p>
+            We believe those values should
+            extend to the digital experience
+            we provide through our website.
+          </p>
+
+          <p>
+            Our goal is to make information
+            about our organization, events,
+            university chapters, educational
+            initiatives, and opportunities
+            as accessible as reasonably possible
+            to visitors with disabilities.
+          </p>
+
+          <p>
+            We recognize that accessibility
+            is an ongoing process involving
+            design, development, content,
+            evaluation, and improvement.
+          </p>
+        </section>
+
+
+        <!-- 02 ACCESSIBILITY STANDARDS -->
+
+        <section
+          id="standards"
+          class="statement-block"
+          aria-labelledby="standards-title"
+        >
+          <h2 id="standards-title">
+            2. Accessibility Standards
+          </h2>
+
+          <p>
+            Clear & Glowing's website is being
+            developed with the goal of meeting
+            the Web Content Accessibility
+            Guidelines (WCAG) 2.2, Level AA.
+          </p>
+
+          <p>
+            These guidelines are developed
+            by the World Wide Web Consortium
+            (W3C) to help make web content
+            more accessible to people
+            with disabilities.
+          </p>
+
+          <p>
+            The guidelines address needs
+            relating to vision, hearing,
+            mobility, cognition, and other
+            aspects of accessibility.
+          </p>
+
+          <p>
+            You can learn more about the
+            standard through the official
+            <a href="https://www.w3.org/TR/WCAG22/">
+              WCAG 2.2 specification
+            </a>.
+          </p>
+
+          <p>
+            WCAG 2.2 Level AA is our
+            development target. We are
+            not currently making a claim
+            that the website fully
+            conforms to this standard.
+          </p>
+        </section>
+
+
+        <!-- 03 ACCESSIBILITY APPROACH -->
+
+        <section
+          id="approach"
+          class="statement-block"
+          aria-labelledby="approach-title"
+        >
+          <h2 id="approach-title">
+            3. Our Accessibility Approach
+          </h2>
+
+          <p>
+            We are incorporating accessibility
+            considerations into the website's
+            structure, visual design,
+            navigation, and content.
+          </p>
+
+          <p>
+            Our areas of focus include:
+          </p>
+
+          <div class="goals-grid">
+            {
+              accessibilityGoals.map((goal) => (
+                <article class="goal-card">
+                  <h3>{goal.title}</h3>
+                  <p>{goal.description}</p>
+                </article>
+              ))
+            }
+          </div>
+
+          <p>
+            These are intended design and
+            development practices. Their
+            implementation and effectiveness
+            will be checked as part of
+            the website review.
+          </p>
+        </section>
+
+
+        <!-- 04 CONFORMANCE STATUS -->
+
+        <section
+          id="conformance"
+          class="statement-block"
+          aria-labelledby="conformance-title"
+        >
+          <h2 id="conformance-title">
+            4. Current Accessibility Status
+          </h2>
+
+          <p>
+            The Clear & Glowing website
+            is currently undergoing
+            development and review.
+          </p>
+
+          <p>
+            A complete evaluation against
+            WCAG 2.2 Level AA has not
+            yet been performed.
+          </p>
+
+          <p>
+            Accordingly, we cannot
+            currently confirm full
+            conformance or provide
+            a comprehensive list
+            of known accessibility
+            limitations.
+          </p>
+
+          <p>
+            Before publishing a final
+            statement, the website
+            should be evaluated using
+            automated checks and
+            manual testing.
+          </p>
+
+          <p>
+            The planned review includes
+            keyboard navigation, focus
+            order, screen reader behavior,
+            text resizing, color contrast,
+            responsive layouts, and
+            accessibility of interactive
+            elements.
+          </p>
+        </section>
+
+
+        <!-- 05 THIRD-PARTY SERVICES -->
+
+        <section
+          id="third-parties"
+          class="statement-block"
+          aria-labelledby="third-parties-title"
+        >
+          <h2 id="third-parties-title">
+            5. Third-Party Services
+          </h2>
+
+          <p>
+            Some Clear & Glowing activities
+            take place through websites
+            operated by third-party
+            service providers.
+          </p>
+
+          <p>
+            These include:
+          </p>
+
+          <ul>
+            <li>
+              Google Forms for newsletter
+              signup and university
+              chapter applications.
+            </li>
+
+            <li>
+              An external merchandise
+              storefront for product
+              browsing and purchases.
+            </li>
+
+            <li>
+              Other external educational
+              resources and organizational
+              websites linked from
+              our pages.
+            </li>
+          </ul>
+
+          <p>
+            The accessibility of these
+            external services may differ
+            from the accessibility of
+            our own website.
+          </p>
+
+          <p>
+            Clear & Glowing does not
+            control the design or
+            functionality of websites
+            operated by third parties.
+          </p>
+
+          <p>
+            We intend to consider
+            accessibility when reviewing
+            services connected to
+            our website.
+          </p>
+        </section>
+
+
+        <!-- 06 FEEDBACK AND ASSISTANCE -->
+
+        <section
+          id="feedback"
+          class="statement-block"
+          aria-labelledby="feedback-title"
+        >
+          <h2 id="feedback-title">
+            6. Accessibility Feedback & Assistance
+          </h2>
+
+          <p>
+            Accessibility feedback
+            can help us identify
+            barriers and improve
+            the website experience.
+          </p>
+
+          <p>
+            When reporting an
+            accessibility concern,
+            the following details
+            may be useful:
+          </p>
+
+          <ul>
+            <li>
+              The website page or
+              feature involved.
+            </li>
+
+            <li>
+              A brief description
+              of the difficulty
+              encountered.
+            </li>
+
+            <li>
+              The device, browser,
+              or assistive technology
+              used, if you wish
+              to share it.
+            </li>
+
+            <li>
+              The information or
+              action you were
+              trying to access.
+            </li>
+          </ul>
+
+          <p>
+            Please avoid including
+            sensitive personal or
+            medical information
+            unless it is necessary
+            for your request.
+          </p>
+
+          {
+            accessibilityEmail ? (
+              <div class="feedback-panel">
+
+                <h3>Contact Our Team</h3>
+
+                <p>
+                  For accessibility questions
+                  or website barriers, please
+                  contact us using the
+                  email address below.
+                </p>
+
+                <a
+                  class="feedback-email"
+                  href={`mailto:${accessibilityEmail}?subject=${encodeURIComponent("Website Accessibility Feedback")}`}
+                >
+                  {accessibilityEmail}
+                </a>
+
+              </div>
+            ) : (
+              <div class="feedback-panel">
+
+                <h3>Contact Method Being Finalized</h3>
+
+                <p>
+                  An official accessibility
+                  feedback address has
+                  not yet been confirmed.
+                </p>
+
+                <p>
+                  Direct accessibility
+                  reports cannot currently
+                  be submitted through
+                  this website.
+                </p>
+
+                <p>
+                  A working contact method
+                  must be added before
+                  public launch.
+                </p>
+
+              </div>
+            )
+          }
+
+        </section>
+
+
+        <!-- 07 ONGOING IMPROVEMENTS -->
+
+        <section
+          id="updates"
+          class="statement-block"
+          aria-labelledby="updates-title"
+        >
+          <h2 id="updates-title">
+            7. Ongoing Accessibility Improvements
+          </h2>
+
+          <p>
+            Clear & Glowing intends
+            to consider accessibility
+            as the website expands.
+          </p>
+
+          <p>
+            Future updates may introduce
+            new university chapter
+            information, event details,
+            photographs, educational
+            materials, and interactive
+            features.
+          </p>
+
+          <p>
+            These additions should
+            be evaluated for accessibility
+            before and after publication.
+          </p>
+
+          <p>
+            We also plan to revisit
+            this statement as our
+            accessibility testing
+            and website development
+            progress.
+          </p>
+        </section>
+
+
+        <!-- ========================================
+             RELATED POLICIES
+             ======================================== -->
+
+        <nav
+          class="related-links"
+          aria-label="Related website information"
+        >
+          <h2>Related Information</h2>
+
+          <ul>
+            <li>
+              <a href="/privacy">
+                Privacy Policy
+              </a>
+            </li>
+
+            <li>
+              <a href="/terms">
+                Terms of Use
+              </a>
+            </li>
+
+            <li>
+              <a href="/contact">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+
+        </nav>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* ========================================
+     SHARED CONTAINER
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+
+  /* ========================================
+     ACCESSIBILITY HERO
+     ======================================== */
+
+  .accessibility-hero {
+    padding-block: clamp(4rem, 7vw, 6rem);
+    background-color: var(--color-surface);
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .accessibility-hero h1 {
+    margin: 0 0 1.75rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .accessibility-hero h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    max-width: 760px;
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+  .update-date {
+    margin: 1.5rem 0 0;
+    color: #555555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+
+  /* ========================================
+     STATEMENT LAYOUT
+     ======================================== */
+
+  .statement-section {
+    padding-block: clamp(3rem, 7vw, 6rem);
+    background-color: var(--color-white);
+  }
+
+  .statement-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+
+
+  /* ========================================
+     TABLE OF CONTENTS
+     ======================================== */
+
+  .navigation-panel {
+    padding: 1.75rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .navigation-panel h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  .navigation-panel ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+
+  .navigation-panel li {
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .navigation-panel a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .navigation-panel a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+
+  /* ========================================
+     STATEMENT BODY
+     ======================================== */
+
+  .statement-content {
+    min-width: 0;
+    max-width: 850px;
+  }
+
+  .statement-block {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #E5E5E5;
+    scroll-margin-top: 7rem;
+  }
+
+  .statement-block h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 750;
+    line-height: 1.3;
+  }
+
+  .statement-block h3 {
+    margin: 1.75rem 0 0.75rem;
+    color: var(--color-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .statement-block p,
+  .statement-block li {
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .statement-block p {
+    margin: 0 0 1.25rem;
+  }
+
+  .statement-block ul {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .statement-block li {
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+  }
+
+
+  /* ========================================
+     ACCESSIBILITY GOALS
+     ======================================== */
+
+  .goals-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .goal-card {
+    min-width: 0;
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .goal-card h3 {
+    margin: 0 0 0.75rem;
+    color: var(--color-heading);
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .goal-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.75;
+  }
+
+
+  /* ========================================
+     DRAFT NOTICE
+     ======================================== */
+
+  .draft-notice {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .draft-notice strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-heading);
+    font-size: 1rem;
+  }
+
+  .draft-notice p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.75;
+  }
+
+
+  /* ========================================
+     FEEDBACK CONTACT PANEL
+     ======================================== */
+
+  .feedback-panel {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .feedback-panel h3 {
+    margin: 0 0 1rem;
+    color: var(--color-heading);
+    font-size: 1.2rem;
+  }
+
+  .feedback-panel p {
+    margin: 0 0 1rem;
+  }
+
+  .feedback-panel p:last-child {
+    margin-bottom: 0;
+  }
+
+  .feedback-email {
+    display: inline-block;
+    max-width: 100%;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+
+  /* ========================================
+     LINKS AND KEYBOARD FOCUS
+     ======================================== */
+
+  .statement-content a {
+    color: #990000;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .statement-content a:hover {
+    color: #660000;
+  }
+
+  .statement-content a:focus-visible,
+  .navigation-panel a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+
+  /* ========================================
+     RELATED INFORMATION
+     ======================================== */
+
+  .related-links {
+    padding: 2rem;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .related-links h2 {
+    margin: 0 0 1.25rem;
+    color: var(--color-heading);
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .related-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 700px) {
+    .goals-grid {
+      grid-template-columns: repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (min-width: 900px) {
+    .statement-layout {
+      grid-template-columns:
+        minmax(220px, 0.35fr)
+        minmax(0, 1fr);
+    }
+
+    .navigation-panel {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .navigation-panel {
+      padding: 1.5rem;
+    }
+
+    .statement-block {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .draft-notice,
+    .feedback-panel {
+      padding: 1.25rem;
+    }
+
+    .related-links {
+      padding: 1.5rem;
+    }
+
+    .related-links ul {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

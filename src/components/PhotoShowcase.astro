@@ -1,0 +1,123 @@
+---
+import type { SitePhoto } from "../data/photos";
+
+interface Props {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  photos: readonly SitePhoto[];
+  background?: "white" | "soft";
+}
+
+const {
+  id,
+  eyebrow = "OUR COMMUNITY IN ACTION",
+  title,
+  description,
+  photos,
+  background = "soft",
+} = Astro.props;
+
+const headingId = `${id}-heading`;
+---
+
+{photos.length > 0 && (
+  <section
+    id={id}
+    class:list={["photo-showcase", { "photo-showcase--soft": background === "soft" }]}
+    aria-labelledby={headingId}
+  >
+    <div class="photo-showcase-container">
+      <div class="photo-showcase-heading">
+        <p class="photo-showcase-eyebrow">{eyebrow}</p>
+        <h2 id={headingId}>{title}</h2>
+        {description && <p class="photo-showcase-intro">{description}</p>}
+      </div>
+
+      <div class="photo-showcase-grid">
+        {photos.map((photo) => (
+          <figure class="photo-showcase-item">
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              width={photo.width}
+              height={photo.height}
+              loading="lazy"
+              decoding="async"
+            />
+            {photo.label && <figcaption>{photo.label}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .photo-showcase {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background: var(--color-white);
+  }
+  .photo-showcase--soft { background: var(--color-surface); }
+  .photo-showcase-container {
+    width: min(calc(100% - 2rem), var(--max-content-width));
+    margin-inline: auto;
+  }
+  .photo-showcase-heading {
+    max-width: 760px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+  .photo-showcase-eyebrow {
+    margin: 0 0 1rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+  .photo-showcase-heading h2 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .photo-showcase-intro {
+    margin: 1.25rem auto 0;
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+  .photo-showcase-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+  .photo-showcase-item {
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+  }
+  .photo-showcase-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    object-fit: cover;
+  }
+  .photo-showcase-item figcaption {
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+  @media (min-width: 600px) {
+    .photo-showcase-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (min-width: 1000px) {
+    .photo-showcase-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+</style>

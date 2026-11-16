@@ -1,9 +1,9 @@
 ---
-import Button from "./Button.astro"
+import Button from "./Button.astro";
+import BrandLogo from "./BrandLogo.astro";
 import { links } from "../data/links";
 
 const newsletterUrl = links.newsletter;
-const chapterApplicationUrl = links.chapterApplication;
 
 const currentYear = new Date().getFullYear();
 
@@ -23,7 +23,7 @@ const footerSelections = [
     links: [
       {
         label: "Start a Chapter",
-        href: chapterApplicationUrl,
+        href: "/start-a-chapter",
       },
       { label: "Opportunities", href: "/opportunities" },
       { label: "Join Us", href: "/join" },
@@ -50,8 +50,8 @@ const footerSelections = [
     <!-- Brand and Newsletter -->
     <div class="footer-intro">
       <div class="footer-brand">
-        <a href="/" class="footer-logo">
-        Clear & Glowing
+        <a href="/" class="footer-logo" aria-label="Clear & Glowing home">
+          <BrandLogo variant="footer" alt="" loading="lazy" />
         </a>
 
         <p>
@@ -97,7 +97,7 @@ const footerSelections = [
     <div class="footer-bottom">
       <p class="disclaimer">
         Clear & Glowing provides educational and community
-        programming; content is not substitute for
+        programming; content is not a substitute for
         professional medical advice.
       </p>
 
@@ -146,11 +146,17 @@ const footerSelections = [
 	*/
 
   .footer-logo {
-    color: var(--color-white);
-    font-size: clamp(1.5, 3vw, 2rem);
-    font-weight: 800;
-    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
+  }
+
+  .footer-logo :global(img) {
+    display: block;
+    width: auto;
+    height: 78px;
+    max-width: 100%;
+    object-fit: contain;
   }
 
   .footer-brand p {

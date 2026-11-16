@@ -1,0 +1,403 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+
+import { links } from "../data/links";
+---
+
+<Layout
+  title="Donate — Coming Soon"
+  description="Support Clear & Glowing's mission of skincare education, community outreach, and student-led initiatives. Donations are coming soon. Sign up for updates."
+>
+
+  <!-- ========================================
+       DONATION PAGE HERO
+       ======================================== -->
+
+  <section
+    class="donate-hero"
+    aria-labelledby="donate-title"
+  >
+    <div class="page-container">
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          SUPPORT OUR MISSION
+        </p>
+
+        <h1 id="donate-title">
+          Your Support Can
+          <span>Make a Difference.</span>
+        </h1>
+
+        <p class="hero-description">
+          At Clear & Glowing, we believe that
+          education, confidence, and access to
+          personal-care resources can create
+          meaningful change in our communities.
+        </p>
+
+        <p class="hero-description">
+          As we work to expand our educational
+          programs, community outreach, and
+          student-led initiatives, we look
+          forward to creating new opportunities
+          for supporters to get involved.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       DONATIONS COMING SOON
+       ======================================== -->
+
+  <section
+    class="coming-soon-section"
+    aria-labelledby="coming-soon-title"
+  >
+    <div class="page-container">
+      <div class="coming-soon-panel">
+
+        <div class="heart-icon" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l8.9-8.9a5.5 5.5 0 0 0-.1-7.5Z"
+            />
+          </svg>
+        </div>
+
+        <p class="status-label">
+          AN EXCITING NEXT STEP
+        </p>
+
+        <h2 id="coming-soon-title">
+          Donations Coming Soon.
+        </h2>
+
+        <p class="coming-soon-description">
+          We are preparing a secure way for supporters
+          to contribute to Clear & Glowing's educational
+          programs, community outreach, and student-led
+          initiatives.
+        </p>
+
+        <p class="coming-soon-description">
+          Thank you for believing in our mission.
+          We look forward to sharing more soon.
+        </p>
+
+        <div class="donation-actions">
+
+          <Button
+            href={links.newsletter}
+            variant="primary"
+          >
+            Get Updates
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button
+            href="/foundation"
+            variant="outline"
+          >
+            Explore Our Impact
+          </Button>
+
+        </div>
+
+        <p class="availability-note">
+          Donations are not being accepted through
+          this website at this time.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       EXPLORE OUR IMPACT
+       ======================================== -->
+
+  <section
+    class="impact-section"
+    aria-labelledby="impact-title"
+  >
+    <div class="page-container">
+
+      <div class="impact-content">
+
+        <p class="impact-eyebrow">
+          THE WORK BEHIND OUR MISSION
+        </p>
+
+        <h2 id="impact-title">
+          Making an Impact Starts
+          With Community.
+        </h2>
+
+        <p>
+          From skincare education and wellness
+          conversations to hygiene-kit outreach,
+          our mission is rooted in helping people
+          feel supported, informed, and connected.
+        </p>
+
+        <p>
+          Discover the initiatives and future goals
+          guiding our community-focused work.
+        </p>
+
+        <div class="impact-action">
+
+          <Button
+            href="/foundation"
+            variant="outline-light"
+          >
+            Learn About Our Foundation
+            <span aria-hidden="true">→</span>
+          </Button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* ========================================
+     SHARED STYLES
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+
+  /* ========================================
+     DONATION HERO
+     ======================================== */
+
+  .donate-hero {
+    padding-block: clamp(5rem, 9vw, 8rem);
+    background-color: var(--color-surface);
+  }
+
+  .hero-content {
+    max-width: 900px;
+  }
+
+  .hero-content h1 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-content h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    max-width: 760px;
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     DONATIONS COMING SOON
+     ======================================== */
+
+  .coming-soon-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  .coming-soon-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 900px;
+    margin-inline: auto;
+    padding: clamp(2rem, 6vw, 5rem);
+
+    background-color: var(--color-surface);
+    border: 1px solid #E5E5E5;
+    border-radius: 16px;
+
+    text-align: center;
+  }
+
+  /* Heart Icon */
+
+  .heart-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 88px;
+    height: 88px;
+    margin-bottom: 2rem;
+
+    background-color: #F9EAEA;
+    color: var(--color-primary);
+    border-radius: 50%;
+  }
+
+  .status-label {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .coming-soon-panel h2 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .coming-soon-description {
+    max-width: 670px;
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  /* Buttons */
+
+  .donation-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .availability-note {
+    max-width: 500px;
+    margin: 2rem 0 0;
+    color: #555555;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     IMPACT CTA
+     ======================================== */
+
+  .impact-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: #23191C;
+  }
+
+  .impact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 850px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .impact-eyebrow {
+    margin: 0 0 1.25rem;
+    color: #FFCECE;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .impact-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .impact-content > p:not(.impact-eyebrow) {
+    max-width: 650px;
+    margin: 0 0 1.25rem;
+    color: #E8E8E8;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .impact-action {
+    margin-top: 2rem;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (max-width: 600px) {
+    .coming-soon-panel {
+      padding: 2.5rem 1.5rem;
+    }
+
+    .donation-actions {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .heart-icon {
+      width: 72px;
+      height: 72px;
+    }
+
+    .heart-icon svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+</style>

@@ -1,11 +1,1087 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import EventCard from "../components/EventCard.astro";
+import PhotoShowcase from "../components/PhotoShowcase.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { events } from "../data/events";
+import { links } from "../data/links";
+import { photos, photoCollections } from "../data/photos";
+
+// Only publish events that have been verified
+// and explicitly approved in events.ts.
+const publishedEvents = events.filter(
+  (event) => event.published
+);
+
+// Get today's date in the organization's
+// Eastern Time zone in YYYY-MM-DD format.
+const dateParts = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).formatToParts(new Date());
+
+const dateValues = Object.fromEntries(
+  dateParts.map(({ type, value }) => [type, value])
+);
+
+const today =
+  `${dateValues.year}-${dateValues.month}-${dateValues.day}`;
+
+// Sort events by their stored YYYY-MM-DD dates.
+const upcomingEvents = publishedEvents
+  .filter((event) => event.date >= today)
+  .sort((a, b) => a.date.localeCompare(b.date));
+
+const pastEvents = publishedEvents
+  .filter((event) => event.date < today)
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+const hasEvents = publishedEvents.length > 0;
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Events"
+  description="Explore Clear & Glowing events, including skincare education, wellness conversations, beauty-industry experiences, and community initiatives."
+>
+
+  <!-- ========================================
+       EVENTS HERO
+       ======================================== -->
+
+  <section
+    class="events-hero"
+    aria-labelledby="events-title"
+  >
+    <div class="page-container hero-grid">
+
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          CLEAR & GLOWING EVENTS
+        </p>
+
+        <h1 id="events-title">
+          Where Community
+          <span>Comes to Life.</span>
+        </h1>
+
+        <p class="hero-description">
+          From skincare conversations to career
+          panels and community service,
+          Clear & Glowing events are designed
+          to help students learn, connect,
+          and leave feeling empowered.
+        </p>
+
+        <p class="hero-description">
+          Our experiences bring together
+          students, professionals, and
+          community members through education,
+          wellness, confidence, and service.
+        </p>
+
+        <div class="hero-actions">
+
+          <Button
+            href="#event-directory"
+            variant="primary"
+          >
+            Explore Our Events
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button
+            href={links.newsletter}
+            variant="outline"
+          >
+            Get Event Updates
+          </Button>
+
+        </div>
+
+      </div>
+
+
+      <!-- General community education photo, not a named event thumbnail. -->
+      <div class="hero-visual">
+        <img
+          class="hero-visual-photo"
+          src={photos.eventsHero.src}
+          alt=""
+          width={photos.eventsHero.width}
+          height={photos.eventsHero.height}
+          loading="lazy"
+          decoding="async"
+        />
+
+        <div class="hero-visual-content">
+
+          <p class="visual-eyebrow">
+            LEARN. CONNECT. GLOW.
+          </p>
+
+          <p class="visual-headline">
+            <span>COME</span>
+            <span>TOGETHER.</span>
+            <span>GROW</span>
+            <span>TOGETHER.</span>
+          </p>
+
+          <div class="visual-footer">
+
+            <p>
+              MORE THAN SKINCARE.
+            </p>
+
+            <p>
+              Meaningful experiences
+              and real connections.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       EVENTS DIRECTORY
+       ======================================== -->
+
+  <section
+    class="directory-section"
+    id="event-directory"
+    aria-labelledby="directory-title"
+  >
+    <div class="page-container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          OUR EVENTS
+        </p>
+
+        <h2 id="directory-title">
+          Explore the Experiences.
+        </h2>
+
+        <p>
+          Discover events centered on
+          skincare education, wellness,
+          beauty-industry careers,
+          community, and service.
+        </p>
+
+      </div>
+
+
+      {
+        hasEvents ? (
+          <div class="events-content">
+
+            
+
+            <div
+              class="event-filters"
+              role="group"
+              aria-label="Filter events"
+            >
+
+              <button
+                type="button"
+                class="filter-button is-active"
+                data-event-filter="all"
+                aria-pressed="true"
+              >
+                All Events
+              </button>
+
+              <button
+                type="button"
+                class="filter-button"
+                data-event-filter="upcoming"
+                aria-pressed="false"
+              >
+                Upcoming
+              </button>
+
+              <button
+                type="button"
+                class="filter-button"
+                data-event-filter="past"
+                aria-pressed="false"
+              >
+                Past
+              </button>
+
+            </div>
+
+            <p
+              class="sr-only"
+              id="event-filter-status"
+              role="status"
+              aria-live="polite"
+            >
+              Showing all published events.
+            </p>
+
+
+            
+
+            <section
+              class="event-group"
+              id="upcoming-events"
+              data-event-group="upcoming"
+              aria-labelledby="upcoming-title"
+            >
+
+              <h2 id="upcoming-title">
+                Upcoming Events
+              </h2>
+
+              {
+                upcomingEvents.length > 0 ? (
+                  <div class="event-grid">
+
+                    {
+                      upcomingEvents.map((event) => (
+                        <EventCard
+                          event={event}
+                          headingLevel="h3"
+                        />
+                      ))
+                    }
+
+                  </div>
+                ) : (
+                  <div class="empty-state">
+
+                    <h3>
+                      New Events Coming Soon.
+                    </h3>
+
+                    <p>
+                      There are no confirmed
+                      upcoming events listed
+                      at this time. Join our
+                      newsletter to hear
+                      about future experiences.
+                    </p>
+
+                    <div class="empty-action">
+
+                      <Button
+                        href={links.newsletter}
+                        variant="outline"
+                      >
+                        Get Event Updates
+                      </Button>
+
+                    </div>
+
+                  </div>
+                )
+              }
+
+            </section>
+
+
+            
+
+            <section
+              class="event-group"
+              id="past-events"
+              data-event-group="past"
+              aria-labelledby="past-title"
+            >
+
+              <h2 id="past-title">
+                Past Events
+              </h2>
+
+              {
+                pastEvents.length > 0 ? (
+                  <div class="event-grid">
+
+                    {
+                      pastEvents.map((event) => (
+                        <EventCard
+                          event={event}
+                          headingLevel="h3"
+                        />
+                      ))
+                    }
+
+                  </div>
+                ) : (
+                  <div class="empty-state">
+
+                    <h3>
+                      Past Event Highlights Coming Soon.
+                    </h3>
+
+                    <p>
+                      We're preparing information
+                      about previous Clear & Glowing
+                      experiences for publication.
+                    </p>
+
+                  </div>
+                )
+              }
+
+            </section>
+
+          </div>
+        ) : (
+          <div class="empty-state directory-empty">
+
+            <h3>
+              Event Updates Coming Soon.
+            </h3>
+
+            <p>
+              We're preparing our event directory
+              with confirmed details and approved
+              highlights from our community.
+            </p>
+
+            <p>
+              Join our newsletter to stay
+              informed about future events
+              and opportunities to get involved.
+            </p>
+
+            <div class="empty-action">
+
+              <Button
+                href={links.newsletter}
+                variant="primary"
+              >
+                Join Our Newsletter
+                <span aria-hidden="true">→</span>
+              </Button>
+
+            </div>
+
+          </div>
+        )
+      }
+
+    </div>
+  </section>
+
+
+  <!-- ========================================
+       WHAT TO EXPECT
+       ======================================== -->
+
+  <section
+    class="experience-section"
+    aria-labelledby="experience-title"
+  >
+    <div class="page-container experience-grid">
+
+      <div class="experience-content">
+
+        <p class="eyebrow">
+          MORE THAN AN EVENT
+        </p>
+
+        <h2 id="experience-title">
+          Real Conversations.
+          <span>Meaningful Connections.</span>
+        </h2>
+
+        <p>
+          Our events are opportunities
+          to explore new ideas, meet
+          people with shared interests,
+          and learn from different
+          perspectives.
+        </p>
+
+        <p>
+          Whether it's an educational
+          conversation, a professional
+          panel, a wellness experience,
+          or a community service
+          initiative, we aim to create
+          spaces where students can
+          participate and grow.
+        </p>
+
+        <div class="experience-action">
+
+          <Button
+            href="/about"
+            variant="outline"
+          >
+            Learn About Our Mission
+            <span aria-hidden="true">→</span>
+          </Button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Branded visual -->
+
+      <div class="experience-visual">
+
+        <!-- Generic educational-programming photo, not assigned to a specific event. -->
+        <img
+          class="experience-photo"
+          src={photos.education.src}
+          alt={photos.education.alt}
+          width={photos.education.width}
+          height={photos.education.height}
+          loading="lazy"
+          decoding="async"
+        />
+
+        <div class="experience-visual-content">
+
+          <p class="experience-visual-eyebrow">
+            EVERY EXPERIENCE MATTERS
+          </p>
+
+          <p class="experience-visual-headline">
+            LEARN.
+            <span>CONNECT.</span>
+            GLOW.
+          </p>
+
+          <div class="experience-visual-footer">
+
+            <p>
+              Bringing our community
+              together through education,
+              confidence, and service.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Additional general community photographs; never assigned to unpublished event cards. -->
+  <PhotoShowcase
+    id="community-event-photos"
+    eyebrow="COMMUNITY IN ACTION"
+    title="A Look Inside Our Experiences."
+    description="Snapshots of educational conversations, workshops, and time spent connecting with one another."
+    photos={photoCollections.events}
+    background="white"
+  />
+
+  <!-- ========================================
+       FINAL CTA
+       ======================================== -->
+
+  <section
+    class="events-cta"
+    aria-labelledby="events-cta-title"
+  >
+    <div class="page-container">
+
+      <div class="cta-content">
+
+        <p class="cta-eyebrow">
+          STAY CONNECTED
+        </p>
+
+        <h2 id="events-cta-title">
+          Don't Miss What's Next.
+        </h2>
+
+        <p>
+          Stay informed about Clear & Glowing
+          events, chapter launches,
+          educational experiences,
+          and opportunities to get involved.
+        </p>
+
+        <div class="cta-actions">
+
+          <Button
+            href={links.newsletter}
+            variant="primary"
+          >
+            Join Our Newsletter
+            <span aria-hidden="true">→</span>
+          </Button>
+
+          <Button
+            href="/join"
+            variant="outline-light"
+          >
+            Explore Ways to Join
+          </Button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
 </Layout>
+
+
+<style>
+  /* ========================================
+     SHARED PAGE STYLES
+     ======================================== */
+
+  .page-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    max-width: 800px;
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0 0 1.5rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .section-heading p:last-child {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     HERO
+     ======================================== */
+
+  .events-hero {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .hero-content h1 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-content h1 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-description {
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+
+  /* ========================================
+     HERO VISUAL
+     ======================================== */
+
+  .hero-visual,
+  .experience-visual {
+    display: flex;
+    min-width: 0;
+    min-height: 440px;
+    background: linear-gradient(
+      145deg,
+      #BB0000 0%,
+      #850000 55%,
+      #4B171C 100%
+    );
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Display the approved album photograph while keeping the text legible. */
+  .experience-visual {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .experience-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -2;
+  }
+
+  .experience-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgb(17 17 17 / 0.88), rgb(17 17 17 / 0.7));
+    pointer-events: none;
+  }
+
+  .hero-visual-content,
+  .experience-visual-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    padding: clamp(2rem, 4vw, 3rem);
+    color: var(--color-white);
+  }
+
+  .visual-eyebrow,
+  .experience-visual-eyebrow {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .visual-headline,
+  .experience-visual-headline {
+    margin: 0;
+    font-size: clamp(2.75rem, 4.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+  }
+
+  .visual-headline span,
+  .experience-visual-headline span {
+    display: block;
+  }
+
+  .visual-footer,
+  .experience-visual-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 0.5);
+  }
+
+  .visual-footer p:first-child {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .visual-footer p:last-child,
+  .experience-visual-footer p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     EVENTS DIRECTORY
+     ======================================== */
+
+  .directory-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-white);
+  }
+
+  #event-directory {
+    scroll-margin-top: 6rem;
+  }
+
+  .events-content {
+    display: grid;
+    gap: 3.5rem;
+  }
+
+  .event-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .filter-button {
+    appearance: none;
+    padding: 0.85rem 1.4rem;
+    background-color: var(--color-surface);
+    color: var(--color-heading);
+    border: 2px solid #D8D8D8;
+    border-radius: 100px;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+
+  .filter-button:hover {
+    border-color: var(--color-primary);
+  }
+
+  .filter-button.is-active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  .filter-button:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .event-group {
+    min-width: 0;
+  }
+
+  .event-group[hidden] {
+    display: none;
+  }
+
+  .event-group h2 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .event-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .empty-state {
+    max-width: 800px;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background-color: var(--color-surface);
+    border-radius: 12px;
+  }
+
+  .empty-state h3 {
+    margin: 0 0 1rem;
+    color: var(--color-heading);
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .empty-state p {
+    margin: 0 0 1rem;
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+  .empty-state p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .empty-action {
+    margin-top: 2rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+
+  /* ========================================
+     EXPERIENCE SECTION
+     ======================================== */
+
+  .experience-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .experience-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .experience-content h2 span {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .experience-content > p:not(.eyebrow) {
+    margin: 0 0 1.25rem;
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+
+  .experience-action {
+    margin-top: 2.5rem;
+  }
+
+
+  /* ========================================
+     FINAL CTA
+     ======================================== */
+
+  .events-cta {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: #23191C;
+  }
+
+  .cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 850px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cta-eyebrow {
+    margin: 0 0 1.25rem;
+    color: #FFCECE;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .cta-content h2 {
+    margin: 0 0 2rem;
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .cta-content > p:not(.cta-eyebrow) {
+    max-width: 650px;
+    margin: 0;
+    color: #E8E8E8;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 700px) {
+    .event-grid {
+      grid-template-columns: repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid,
+    .experience-grid {
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .event-grid {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-visual,
+    .experience-visual {
+      min-height: 350px;
+    }
+
+    .visual-headline,
+    .experience-visual-headline {
+      font-size: clamp(2.5rem, 9vw, 4rem);
+    }
+  }
+
+
+  /* Keep the Events hero slogan on intentional, unbroken lines. */
+  .hero-visual .visual-headline {
+    font-size: clamp(2.25rem, 3.25vw, 3.25rem);
+    line-height: 1.06;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .hero-visual .visual-headline span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .hero-visual .visual-headline {
+      font-size: clamp(1.65rem, 7vw, 2.7rem);
+    }
+  }
+
+  /* Additional generic community photograph in the hero. */
+  .hero-visual { position: relative; isolation: isolate; }
+  .hero-visual-photo {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-visual::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    background: linear-gradient(145deg, rgb(50 0 0 / .88), rgb(22 12 14 / .80));
+    pointer-events: none;
+  }
+
+</style>
+
+<script>
+  // Functional filters for the static Astro page.
+  const filterButtons =
+    document.querySelectorAll<HTMLButtonElement>(
+      "[data-event-filter]"
+    );
+
+  const eventGroups =
+    document.querySelectorAll<HTMLElement>(
+      "[data-event-group]"
+    );
+
+  const filterStatus =
+    document.getElementById("event-filter-status");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedFilter =
+        button.dataset.eventFilter ?? "all";
+
+      filterButtons.forEach((filterButton) => {
+        const isSelected =
+          filterButton.dataset.eventFilter ===
+          selectedFilter;
+
+        filterButton.setAttribute(
+          "aria-pressed",
+          String(isSelected)
+        );
+
+        filterButton.classList.toggle(
+          "is-active",
+          isSelected
+        );
+      });
+
+      eventGroups.forEach((group) => {
+        const shouldShow =
+          selectedFilter === "all" ||
+          group.dataset.eventGroup === selectedFilter;
+
+        group.hidden = !shouldShow;
+      });
+
+      if (filterStatus) {
+        const label =
+          selectedFilter === "all"
+            ? "all"
+            : selectedFilter;
+
+        filterStatus.textContent =
+          `Showing ${label} published events.`;
+      }
+    });
+  });
+</script>

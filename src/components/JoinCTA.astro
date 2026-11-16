@@ -1,0 +1,282 @@
+---
+import Button from "./Button.astro";
+import { links } from "../data/links";
+---
+
+<section
+  class="join-section"
+  aria-labelledby="join-title"
+>
+  <div class="join-container">
+
+    <!-- ========================================
+         JOIN COMMUNITY CONTENT
+         ======================================== -->
+
+    <div class="join-content">
+
+      <!-- Section Eyebrow -->
+
+      <p class="join-eyebrow">
+        JOIN THE COMMUNITY
+      </p>
+
+
+      <!-- Section Heading -->
+
+      <h2 id="join-title">
+        Your Glow Has a Place Here.
+      </h2>
+
+
+      <!-- Description -->
+
+      <p class="join-description">
+        Whether you are a skincare enthusiast, future
+        chapter founder, aspiring beauty professional,
+        or simply looking for a community that cares,
+        there is a place for you at Clear & Glowing.
+      </p>
+
+
+      <!-- ========================================
+           PRIMARY CALLS TO ACTION
+           ======================================== -->
+
+      <div class="join-actions">
+
+        <Button
+          href={links.newsletter}
+          variant="primary"
+        >
+          Join Our Newsletter
+        </Button>
+
+
+        <Button
+          href="/start-a-chapter"
+          variant="outline-light"
+        >
+          Bring Us to Your Campus
+        </Button>
+
+      </div>
+
+
+      <!-- ========================================
+           MERCHANDISE LINK
+           ======================================== -->
+
+      <p class="merch-action">
+
+        <a href={links.merchandise}>
+          Shop the Merch
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+        </a>
+
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<style>
+  /* ========================================
+     JOIN SECTION
+     ======================================== */
+
+  .join-section {
+    width: 100%;
+
+    padding-block: clamp(4rem, 8vw, 7rem);
+
+    background-color: var(--color-white);
+  }
+
+
+  /* ========================================
+     SECTION CONTAINER
+     ======================================== */
+
+  .join-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+
+    margin-inline: auto;
+  }
+
+
+  /* ========================================
+     JOIN CONTENT PANEL
+     ======================================== */
+
+  .join-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    padding:
+      clamp(3rem, 6vw, 6rem)
+      clamp(1.5rem, 5vw, 4rem);
+
+    background: linear-gradient(
+      135deg,
+      #4B171C 0%,
+      #23191C 55%,
+      #111111 100%
+    );
+
+    border-radius: 16px;
+
+    text-align: center;
+  }
+
+
+  /* ========================================
+     SECTION EYEBROW
+     ======================================== */
+
+  .join-eyebrow {
+    margin: 0 0 1.25rem;
+
+    color: #FFCECE;
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+  }
+
+
+  /* ========================================
+     SECTION HEADING
+     ======================================== */
+
+  .join-content h2 {
+    max-width: 800px;
+    margin: 0;
+
+    color: var(--color-white);
+
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+
+  /* ========================================
+     DESCRIPTION
+     ======================================== */
+
+  .join-description {
+    max-width: 700px;
+    margin: 1.75rem 0 0;
+
+    color: #E8E8E8;
+
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+  }
+
+
+  /* ========================================
+     CTA BUTTONS
+     ======================================== */
+
+  .join-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+
+  /* ========================================
+     MERCHANDISE LINK
+     ======================================== */
+
+  .merch-action {
+    margin: 1.75rem 0 0;
+  }
+
+  .merch-action a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.5rem;
+    padding: 0.5rem;
+
+    color: var(--color-white);
+
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+
+    transition: color 0.2s ease;
+  }
+
+  .merch-action a:hover {
+    color: #FFCECE;
+  }
+
+  .merch-action a:focus-visible {
+    outline: 3px solid var(--color-white);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+
+  /* ========================================
+     MOBILE RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (max-width: 600px) {
+    .join-content {
+      padding: 3rem 1.5rem;
+    }
+
+    .join-actions {
+      flex-direction: column;
+      align-items: stretch;
+
+      width: 100%;
+    }
+
+    .join-actions :global(.button) {
+      width: 100%;
+    }
+
+    .merch-action {
+      margin-top: 1.5rem;
+    }
+  }
+
+
+  /* ========================================
+     REDUCED MOTION
+     ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .merch-action a {
+      transition: none;
+    }
+  }
+</style>

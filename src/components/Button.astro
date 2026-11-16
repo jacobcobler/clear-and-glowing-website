@@ -1,6 +1,6 @@
 ---
 interface Props {
-  href: string;
+  href?: string;
   variant?: "primary" | "outline" | "outline-light";
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
@@ -23,34 +23,52 @@ const buttonClass = [
   "button",
   `button--${variant}`,
   fullWidth ? "button--full" : "",
-].filter(Boolean).join(" ");
+]
+  .filter(Boolean)
+  .join(" ");
+
+const isLink = typeof href === "string" && href.length > 0;
 ---
 
 {
-  href ? (
-    <a href={href}
-    class={buttonClass}
-    target={target ?? null}
-    rel={target === "_blank" ? "noopender noreferrer" : null}
-    aria-label={ariaLabel ?? null}>
-      <slot />
-    </a>
+  isLink ? (
+    disabled ? (
+      <span
+        class={buttonClass}
+        aria-disabled="true"
+        aria-label={ariaLabel}
+      >
+        <slot />
+      </span>
+    ) : (
+      <a
+        href={href}
+        class={buttonClass}
+        target={target}
+        rel={
+          target === "_blank"
+            ? "noopener noreferrer"
+            : undefined
+        }
+        aria-label={ariaLabel}
+      >
+        <slot />
+      </a>
+    )
   ) : (
-    <button type={type}
-    class={buttonClass}
-    disabled={disabled}
-    aria-label={ariaLabel ?? null}>
+    <button
+      type={type}
+      class={buttonClass}
+      disabled={disabled}
+      aria-label={ariaLabel}
+    >
       <slot />
     </button>
   )
 }
 
 <style>
-  /*
-	================================================
-	BASE BUTTON
-	================================================
-	*/
+  /* BASE BUTTON */
 
   .button {
     display: inline-flex;
@@ -68,34 +86,32 @@ const buttonClass = [
     font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.4;
+
     text-align: center;
     text-decoration: none;
 
     cursor: pointer;
 
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
   }
 
-  /*
-	================================================
-	PRIMARY BUTTON
-	================================================
-	*/
+  /* PRIMARY BUTTON */
 
   .button--primary {
     background-color: var(--color-primary);
     color: var(--color-white);
   }
 
-  .button--primary:hover {
+  .button--primary:hover:not(:disabled):not(
+    [aria-disabled="true"]
+  ) {
     background-color: #900000;
   }
 
-  /*
-	================================================
-	OUTLINE BUTTON
-	================================================
-	*/
+  /* OUTLINE BUTTON */
 
   .button--outline {
     background-color: var(--color-white);
@@ -103,16 +119,13 @@ const buttonClass = [
     border-color: var(--color-primary);
   }
 
-  .button--outline:hover {
+  .button--outline:hover:not(:disabled):not(
+    [aria-disabled="true"]
+  ) {
     background-color: var(--color-surface);
   }
 
-  /*
-	================================================
-	LIGHT OUTLINE BUTTON
-  For dark backgrounds and hero images
-	================================================
-	*/
+  /* LIGHT OUTLINE BUTTON */
 
   .button--outline-light {
     background-color: transparent;
@@ -120,25 +133,19 @@ const buttonClass = [
     border-color: var(--color-white);
   }
 
-  .button--outline-light:hover {
+  .button--outline-light:hover:not(:disabled):not(
+    [aria-disabled="true"]
+  ) {
     background-color: rgb(255 255 255 / 0.15);
   }
 
-  /*
-	================================================
-	FULL WIDTH
-	================================================
-	*/
+  /* FULL WIDTH */
 
   .button--full {
     width: 100%;
   }
 
-  /*
-	================================================
-	ACCESSIBILITY
-	================================================
-	*/
+  /* ACCESSIBILITY */
 
   .button:focus-visible {
     outline: 3px solid var(--color-heading);
@@ -146,16 +153,18 @@ const buttonClass = [
     box-shadow: 0 0 0 6px var(--color-white);
   }
 
-  .button:disabled {
+  .button--outline-light:focus-visible {
+    outline-color: var(--color-white);
+    box-shadow: 0 0 0 6px #23191C;
+  }
+
+  .button:disabled,
+  .button[aria-disabled="true"] {
     opacity: 0.55;
     cursor: not-allowed;
   }
 
-  /*
-	================================================
-	REDUCED MOTION
-	================================================
-	*/
+  /* REDUCED MOTION */
 
   @media (prefers-reduced-motion: reduce) {
     .button {

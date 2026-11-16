@@ -1,0 +1,246 @@
+---
+const pillars = [
+  {
+    number: "01",
+    title: "Skincare Education",
+    description:
+      "Making evidence-informed skincare knowledge easier to understand through conversations with dermatologists, beauty professionals, and industry experts.",
+  },
+  {
+    number: "02",
+    title: "Community & Confidence",
+    description:
+      "Creating welcoming spaces to share experiences, challenge beauty pressures, and build confidence beyond appearance.",
+  },
+  {
+    number: "03",
+    title: "Philanthropy & Service",
+    description:
+      "Turning care into action through hygiene-kit initiatives, community outreach, and student-led service.",
+  },
+  {
+    number: "04",
+    title: "Beauty Industry Access",
+    description:
+      "Connecting students with speakers, mentorship, networking, and a closer look at careers across beauty and wellness.",
+  },
+];
+---
+
+<section
+  class="pillars"
+  aria-labelledby="pillars-title"
+>
+  <div class="pillars-container">
+
+    <!-- ========================================
+         SECTION HEADING
+         ======================================== -->
+
+    <div class="pillars-heading">
+
+      <p class="pillars-eyebrow">
+        WHAT DRIVES US
+      </p>
+
+      <h2 id="pillars-title">
+        Our Four Pillars
+      </h2>
+
+      <p class="pillars-intro">
+        Discover the values and experiences that
+        bring the Clear & Glowing community together.
+      </p>
+
+    </div>
+
+
+    <!-- ========================================
+         PILLAR CARDS
+         ======================================== -->
+
+    <ol class="pillars-grid">
+
+      {
+        pillars.map((pillar) => (
+          <li class="pillar-card">
+
+            <span
+              class="pillar-number"
+              aria-hidden="true"
+            >
+              {pillar.number}
+            </span>
+
+            <h3 class="pillar-title">
+              {pillar.title}
+            </h3>
+
+            <p class="pillar-description">
+              {pillar.description}
+            </p>
+
+          </li>
+        ))
+      }
+
+    </ol>
+
+  </div>
+</section>
+
+
+<style>
+  /* ========================================
+     PILLARS SECTION
+     ======================================== */
+
+  .pillars {
+    width: 100%;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background-color: var(--color-surface);
+  }
+
+  .pillars-container {
+    width: min(
+      calc(100% - 2rem),
+      var(--max-content-width)
+    );
+
+    margin-inline: auto;
+  }
+
+
+  /* ========================================
+     SECTION HEADING
+     ======================================== */
+
+  .pillars-heading {
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .pillars-eyebrow {
+    margin: 0 0 1.25rem;
+
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+  }
+
+  .pillars-heading h2 {
+    margin: 0;
+
+    color: var(--color-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .pillars-intro {
+    margin: 1.5rem auto 0;
+
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     PILLARS GRID
+     ======================================== */
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 1.5rem;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+
+  /* ========================================
+     PILLAR CARD
+     ======================================== */
+
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    height: 100%;
+    gap: 1rem;
+
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+
+    background-color: var(--color-white);
+
+    border: 1px solid #E5E5E5;
+    border-top: 4px solid var(--color-primary);
+    border-radius: 12px;
+  }
+
+
+  /* ========================================
+     PILLAR NUMBER
+     ======================================== */
+
+  .pillar-number {
+    color: var(--color-primary);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+  }
+
+
+  /* ========================================
+     PILLAR TITLE
+     ======================================== */
+
+  .pillar-title {
+    margin: 0;
+
+    color: var(--color-heading);
+
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+
+  /* ========================================
+     PILLAR DESCRIPTION
+     ======================================== */
+
+  .pillar-description {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+
+  @media (min-width: 700px) {
+    .pillars-grid {
+      grid-template-columns: repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    }
+  }
+</style>

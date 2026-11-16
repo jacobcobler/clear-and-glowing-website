@@ -1,0 +1,48 @@
+---
+import type { SitePhoto } from "../data/photos";
+
+interface Props {
+  photo: SitePhoto;
+  shape?: "wide" | "landscape" | "portrait" | "square";
+  priority?: boolean;
+}
+
+const { photo, shape = "landscape", priority = false } = Astro.props;
+---
+
+<figure class={`content-photo content-photo--${shape}`}>
+  <img
+    src={photo.src}
+    alt={photo.alt}
+    width={photo.width}
+    height={photo.height}
+    loading={priority ? "eager" : "lazy"}
+    fetchpriority={priority ? "high" : undefined}
+    decoding="async"
+  />
+</figure>
+
+<style>
+  .content-photo {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--color-surface);
+  }
+
+  .content-photo--wide { aspect-ratio: 16 / 9; }
+  .content-photo--landscape { aspect-ratio: 3 / 2; }
+  .content-photo--portrait { aspect-ratio: 3 / 4; }
+  .content-photo--square { aspect-ratio: 1 / 1; }
+
+  .content-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
