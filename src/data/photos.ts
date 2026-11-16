@@ -105,7 +105,7 @@ export const albumAssets: AlbumAsset[] = [
 // Selected image placements; the remaining album photos are still in albumAssets.
 export const photos = {
   hero: {
-    src: "/images/home-hero-community.webp",
+    src: "./images/home-hero-community.webp",
     alt: "A group of people smiling together outdoors on a grassy area",
     width: 1800,
     height: 1201,
